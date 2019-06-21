@@ -46,6 +46,61 @@
 
 /********* You can start writing your CSS below this line: **********/
 
+#board {
+    width: 177px;
+    height: 210px;
+    background-image: url('img/board.png');
+    position: relative;
+}
+
+.square {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    background-color: red;
+}
+
+.die {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    background-image: url('img/dice.png');
+}
+.die_red_1 { background-position: 0px 0px;   }
+.die_red_2 { background-position: 30px 0px;   }
+.die_red_3 { background-position: 60px 0px;   }
+.die_red_4 { background-position: 90px 0px;   }
+.die_red_5 { background-position: 120px 0px;   }
+.die_red_6 { background-position: 150px 0px;   }
+
+.die_yellow_1 { background-position: 0px 30px;   }
+.die_yellow_2 { background-position: 30px 30px;   }
+.die_yellow_3 { background-position: 60px 30px;   }
+.die_yellow_4 { background-position: 90px 30px;   }
+.die_yellow_5 { background-position: 120px 30px;   }
+.die_yellow_6 { background-position: 150px 30px;   }
+
+.die_green_1 { background-position: 0px 60px;   }
+.die_green_2 { background-position: 30px 60px;   }
+.die_green_3 { background-position: 60px 60px;   }
+.die_green_4 { background-position: 90px 60px;   }
+.die_green_5 { background-position: 120px 60px;   }
+.die_green_6 { background-position: 150px 60px;   }
+
+.die_blue_1 { background-position: 0px 90px;   }
+.die_blue_2 { background-position: 30px 90px;   }
+.die_blue_3 { background-position: 60px 90px;   }
+.die_blue_4 { background-position: 90px 90px;   }
+.die_blue_5 { background-position: 120px 90px;   }
+.die_blue_6 { background-position: 150px 90px;   }
+
+.die_purple_1 { background-position: 0px 120px;   }
+.die_purple_2 { background-position: 30px 120px;   }
+.die_purple_3 { background-position: 60px 120px;   }
+.die_purple_4 { background-position: 90px 120px;   }
+.die_purple_5 { background-position: 120px 120px;   }
+.die_purple_6 { background-position: 150px 120px;   }
+
 
 /*
     Example of CSS sprites (a black token and a white token, 20x20px each, embedded in the same "tokens.png" 40x20px image):

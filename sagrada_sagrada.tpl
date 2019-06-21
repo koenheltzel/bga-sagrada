@@ -3,7 +3,7 @@
 <!-- 
 --------
 -- BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
--- Sagrada implementation : © <Your name here> <Your email address here>
+-- Sagrada implementation : © Koen Heltzel koenheltzel@gmail.coms
 -- 
 -- This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
 -- See http://en.boardgamearena.com/#!doc/Studio for more information.
@@ -26,7 +26,14 @@
 -->
 
 
-This is your game interface. You can edit this HTML in your ".tpl" file.
+<div id="board">
+    <!-- BEGIN square -->
+    <div id="square_{X}_{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
+    <!-- END square -->
+
+    <div id="dice">
+    </div>
+</div>
 
 
 <script type="text/javascript">
@@ -38,6 +45,8 @@ This is your game interface. You can edit this HTML in your ".tpl" file.
 var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${id}"></div>';
 
 */
+
+var jstpl_die='<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
 
 </script>  
 

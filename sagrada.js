@@ -54,6 +54,17 @@ function (dojo, declare) {
                 var player = gamedatas.players[player_id];
                          
                 // TODO: Setting up players boards if needed
+
+                let colors = ['red','yellow','green','blue','purple'];
+                for (let x = 1; x <= 5; x++) {
+                    for (let y = 1; y <= 4; y++) {
+                        let color = colors[Math.floor(Math.random()*colors.length)];
+                        let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+                        console.log(x, y, color, value, [player_id]);
+                        this.addDieToBoard( x, y, color, value, [player_id] );
+                    }
+                }
+
             }
             
             // TODO: Set up your game interface here, according to "gamedatas"
@@ -172,6 +183,18 @@ function (dojo, declare) {
             _ make a call to the game server
         
         */
+
+        addDieToBoard: function( x, y, color, value, player )
+        {
+            dojo.place( this.format_block( 'jstpl_die', {
+                x_y: x+'_'+y,
+                color: color,
+                value: value,
+            } ) , 'dice' );
+
+            this.placeOnObject( 'die_'+x+'_'+y, 'overall_player_board_'+player );
+            this.slideToObject( 'die_'+x+'_'+y, 'square_'+x+'_'+y ).play();
+        },
         
         /* Example:
         
