@@ -55,16 +55,16 @@ function (dojo, declare) {
                          
                 // TODO: Setting up players boards if needed
 
-                let colors = ['red','yellow','green','blue','purple'];
-                for (let x = 1; x <= 5; x++) {
-                    for (let y = 1; y <= 4; y++) {
-                        let color = colors[Math.floor(Math.random()*colors.length)];
-                        let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-                        console.log(x, y, color, value, [player_id]);
-                        this.addDieToBoard( x, y, color, value, [player_id] );
-                    }
-                }
+            }
 
+            let colors = ['red','yellow','green','blue','purple'];
+            for (let x = 1; x <= 5; x++) {
+                for (let y = 1; y <= 4; y++) {
+                    let color = colors[Math.floor(Math.random()*colors.length)];
+                    let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+                    console.log(x, y, color, value, [player_id]);
+                    this.addDieToBoard( x, y, color, value, [player_id] );
+                }
             }
             
             // TODO: Set up your game interface here, according to "gamedatas"
