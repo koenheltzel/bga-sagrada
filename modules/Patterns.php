@@ -7,6 +7,7 @@ class Patterns {
     public $patterns;
 
     public function __construct() {
+        print "<PRE>" . print_r(__FILE__, true) . "</PRE>";
         $this->patterns = [
             new Pattern(
                 "Sun's Glory",
