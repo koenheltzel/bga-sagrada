@@ -46,7 +46,7 @@ class Sagrada extends Table
         ));
 
         $patterns = new Patterns();
-        print "<PRE>" . print_r($patterns, true) . "</PRE>";
+//        print "<PRE>" . print_r($patterns, true) . "</PRE>";
     }
 
     protected function getGameName() {
