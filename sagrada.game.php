@@ -19,14 +19,21 @@
 use Sagrada\Patterns;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
+//require_once '_bga_ide_helper.php';
+
+
+//print "<PRE>asdf" . print_r(file_get_contents('game/utility/StaticDefinitions.inc.php'), true) . "qwer</PRE>";exit;
+//print "<PRE>" . print_r(glob("game/module/*", GLOB_BRACE), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(glob("game/{,*/,*/*/,*/*/*/}*.php", GLOB_BRACE), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(glob("/{,*/,*/*/,*/*/*/}*.php", GLOB_BRACE), true) . "</PRE>";exit;
 
 // Load all modules:
 foreach (glob(dirname(__FILE__) . "/modules/*.php") as $filename) {
     require_once($filename);
 }
 
-class Sagrada extends Table
-{
+class Sagrada extends Table {
+
     function __construct() {
         // Your global variables labels:
         //  Here, you can assign labels to global variables you are using for this game.
@@ -36,17 +43,21 @@ class Sagrada extends Table
         // Note: afterwards, you can get/set the global variables with getGameStateValue/setGameStateInitialValue/setGameStateValue
         parent::__construct();
 
-        self::initGameStateLabels(array(
+        self::initGameStateLabels([
             //    "my_first_global_variable" => 10,
             //    "my_second_global_variable" => 11,
             //      ...
             //    "my_first_game_variant" => 100,
             //    "my_second_game_variant" => 101,
             //      ...
-        ));
+        ]);
 
-        $patterns = new Patterns();
-//        print "<PRE>" . print_r($patterns, true) . "</PRE>";
+//        $patterns = new Patterns();
+
+//        $results = self::DbQuery('SELECT * FROM sag_patterns');
+//        print "<PRE>" . print_r($results->fetch_all(), true) . "</PRE>";
+
+//        exit;
     }
 
     protected function getGameName() {
@@ -61,7 +72,7 @@ class Sagrada extends Table
         In this method, you must setup the game according to the game rules, so that
         the game is ready to be played.
     */
-    protected function setupNewGame($players, $options = array()) {
+    protected function setupNewGame($players, $options = []) {
         // Set the colors of the players with HTML color code
         // The default below is red/green/blue/orange/brown
         // The number of colors defined here must correspond to the maximum number of players allowed for the gams
@@ -71,7 +82,7 @@ class Sagrada extends Table
         // Create players
         // Note: if you added some extra field on "player" table in the database (dbmodel.sql), you can initialize it there.
         $sql = "INSERT INTO player (player_id, player_color, player_canal, player_name, player_avatar) VALUES ";
-        $values = array();
+        $values = [];
         foreach ($players as $player_id => $player) {
             $color = array_shift($default_colors);
             $values[] = "('" . $player_id . "','$color','" . $player['player_canal'] . "','" . addslashes($player['player_name']) . "','" . addslashes($player['player_avatar']) . "')";
@@ -110,7 +121,7 @@ class Sagrada extends Table
         _ when a player refreshes the game page (F5)
     */
     protected function getAllDatas() {
-        $result = array();
+        $result = [];
 
         $current_player_id = self::getCurrentPlayerId();    // !! We must only return informations visible by this player !!
 
