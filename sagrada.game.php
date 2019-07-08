@@ -19,20 +19,16 @@
 use Sagrada\Patterns;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
-//require_once '_bga_ide_helper.php';
-
-
-//print "<PRE>asdf" . print_r(file_get_contents('game/utility/StaticDefinitions.inc.php'), true) . "qwer</PRE>";exit;
-//print "<PRE>" . print_r(glob("game/module/*", GLOB_BRACE), true) . "</PRE>";exit;
-//print "<PRE>" . print_r(glob("game/{,*/,*/*/,*/*/*/}*.php", GLOB_BRACE), true) . "</PRE>";exit;
-//print "<PRE>" . print_r(glob("/{,*/,*/*/,*/*/*/}*.php", GLOB_BRACE), true) . "</PRE>";exit;
+if (0) require_once '_bga_ide_helper.php';
 
 // Load all modules:
-foreach (glob(dirname(__FILE__) . "/modules/*.php") as $filename) {
-    require_once($filename);
+foreach (['Board', 'BoardSpace', 'Colors', 'Die_', 'Pattern', 'Patterns'] as $class) {
+    require_once(dirname(__FILE__) . "/modules/{$class}.php");
 }
 
 class Sagrada extends Table {
+
+    const PATTERNS_PER_PLAYER = 4;
 
     function __construct() {
         // Your global variables labels:
@@ -52,12 +48,49 @@ class Sagrada extends Table {
             //      ...
         ]);
 
+
+        $players = (static::db("SELECT * FROM player ORDER BY player_no"))->fetch_all(MYSQLI_ASSOC);
+        $playerCount = count($players);
+        $patternCount = count($players) * static::PATTERNS_PER_PLAYER;
+        $pairCount = $patternCount / 2;
+        print "<PRE>" . print_r($players, true) . "</PRE>";
+
+        // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
+        $pairs = static::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
+        $pairIds = implode(',', array_map(function($pair) { return $pair[0] ;}, $pairs));
+
+        // Select the patterns, ordered by the random selected pairs (and within the pair, sort random).
+        $sql = "SELECT * FROM sag_patterns WHERE pair IN ({$pairIds}) ORDER BY FIELD(pair, {$pairIds}), RAND() LIMIT {$patternCount}";
+        $patterns = static::db($sql)->fetch_all(MYSQLI_ASSOC);
+
+        // Assign 4 random
+        foreach ($players AS $i => $player) {
+            $patternIds = array_map(function($pattern) { return $pattern['pattern_id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
+            $patternIdsString = implode(',', $patternIds);
+            $sql = "UPDATE player SET sag_patterns = '{$patternIdsString}' WHERE player_no = {$player['player_no']}";
+            print "<PRE>" . print_r($sql, true) . "</PRE>";
+            static::db($sql);
+        }
+
+
 //        $patterns = new Patterns();
 
 //        $results = self::DbQuery('SELECT * FROM sag_patterns');
 //        print "<PRE>" . print_r($results->fetch_all(), true) . "</PRE>";
 
 //        exit;
+    }
+
+    /**
+     * This is the generic method to access the database.
+     * It can execute any type of SELECT/UPDATE/DELETE/REPLACE query on the database.
+     * You should use it for UPDATE/DELETE/REPLACE query. For SELECT queries, the specialized methods below are much better.
+     *
+     * @param $sql
+     * @return mysqli_result
+     */
+    public static function db($sql) {
+        return self::DbQuery($sql);
     }
 
     protected function getGameName() {
