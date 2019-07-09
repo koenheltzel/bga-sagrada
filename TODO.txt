@@ -3,3 +3,7 @@
 Randomly select 3 (normal) or 2 (solo) public objectives and store in game state.
 Solo games: Before game start let player select difficulty level between 1 and 5 (this will be the amount of available tools).
 Randomly select 3 (normal) of x (solor) tools.
+
+Questions to Floodgate:
+- This topic https://boardgamegeek.com/thread/1896501/best-2-players suggests to decrease the dice pool when playing with fewer than 4 people, to guarantee an even distribution of dice colors. Should this pursued for the BGA version?
+"There is a variant on BGG that removes one set of four dice of each color if you are playing with 3 players, two sets if playing with two players. This ensures that the bag will be empty at the end of the game and all the colors will be equally distributed. I would never play without this rule."
