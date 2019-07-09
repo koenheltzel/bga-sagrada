@@ -1,5 +1,11 @@
 {OVERALL_GAME_HEADER}
 
+<style>
+    html {
+        background-image:none;
+    }
+</style>
+
 <!-- 
 --------
 -- BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>

@@ -1,0 +1,5 @@
+
+
+Randomly select 3 (normal) or 2 (solo) public objectives and store in game state.
+Solo games: Before game start let player select difficulty level between 1 and 5 (this will be the amount of available tools).
+Randomly select 3 (normal) of x (solor) tools.

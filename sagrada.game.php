@@ -16,19 +16,21 @@
  *
  */
 
-use Sagrada\Patterns;
+use Sagrada\Colors;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
 
 // Load all modules:
-foreach (['Board', 'BoardSpace', 'Colors', 'Die_', 'Pattern', 'Patterns'] as $class) {
+foreach (['Board', 'BoardSpace', 'Color', 'Colors', 'Die_', 'Pattern', 'Patterns'] as $class) {
     require_once(dirname(__FILE__) . "/modules/{$class}.php");
 }
 
 class Sagrada extends Table {
 
     const PATTERNS_PER_PLAYER = 4;
+    const GAMESTATE_DICEBAG = "dicebag_";
+    const GAMESTATE_PUBLICOBJECTIVES = "publicobjectives";
 
     function __construct() {
         // Your global variables labels:
@@ -40,45 +42,17 @@ class Sagrada extends Table {
         parent::__construct();
 
         self::initGameStateLabels([
-            //    "my_first_global_variable" => 10,
-            //    "my_second_global_variable" => 11,
+                static::GAMESTATE_DICEBAG . "R" => 10,
+                static::GAMESTATE_DICEBAG . "G" => 11,
+                static::GAMESTATE_DICEBAG . "B" => 12,
+                static::GAMESTATE_DICEBAG . "Y" => 13,
+                static::GAMESTATE_DICEBAG . "P" => 14,
+                static::GAMESTATE_PUBLICOBJECTIVES => 15,
             //      ...
             //    "my_first_game_variant" => 100,
             //    "my_second_game_variant" => 101,
             //      ...
         ]);
-
-
-        $players = (static::db("SELECT * FROM player ORDER BY player_no"))->fetch_all(MYSQLI_ASSOC);
-        $playerCount = count($players);
-        $patternCount = count($players) * static::PATTERNS_PER_PLAYER;
-        $pairCount = $patternCount / 2;
-        print "<PRE>" . print_r($players, true) . "</PRE>";
-
-        // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
-        $pairs = static::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
-        $pairIds = implode(',', array_map(function($pair) { return $pair[0] ;}, $pairs));
-
-        // Select the patterns, ordered by the random selected pairs (and within the pair, sort random).
-        $sql = "SELECT * FROM sag_patterns WHERE pair IN ({$pairIds}) ORDER BY FIELD(pair, {$pairIds}), RAND() LIMIT {$patternCount}";
-        $patterns = static::db($sql)->fetch_all(MYSQLI_ASSOC);
-
-        // Assign 4 random
-        foreach ($players AS $i => $player) {
-            $patternIds = array_map(function($pattern) { return $pattern['pattern_id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
-            $patternIdsString = implode(',', $patternIds);
-            $sql = "UPDATE player SET sag_patterns = '{$patternIdsString}' WHERE player_no = {$player['player_no']}";
-            print "<PRE>" . print_r($sql, true) . "</PRE>";
-            static::db($sql);
-        }
-
-
-//        $patterns = new Patterns();
-
-//        $results = self::DbQuery('SELECT * FROM sag_patterns');
-//        print "<PRE>" . print_r($results->fetch_all(), true) . "</PRE>";
-
-//        exit;
     }
 
     /**
@@ -137,11 +111,57 @@ class Sagrada extends Table {
 
         // TODO: setup the initial game situation here
 
+        $this->sagradaSetupNewGame();
+
 
         // Activate first player (which is in general a good idea :) )
         $this->activeNextPlayer();
 
         /************ End of the game initialization *****/
+    }
+
+    private function sagradaSetupNewGame() {
+        // Fill the dice bag.
+        foreach (Colors::get()->colors as $color) {
+            self::setGameStateInitialValue(static::GAMESTATE_DICEBAG . $color->char, 18);
+        }
+
+        $players = static::db("SELECT * FROM player ORDER BY player_no")->fetch_all(MYSQLI_ASSOC);
+        $playerCount = count($players);
+        $patternCount = count($players) * static::PATTERNS_PER_PLAYER;
+        $pairCount = $patternCount / 2;
+
+        // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
+        $pairs = static::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
+        $pairIds = implode(',', array_map(function($pair) { return $pair[0] ;}, $pairs));
+        // Select the patterns, ordered by the random selected pairs above (and within the pair, sort random).
+        $sql = "SELECT * FROM sag_patterns WHERE pair IN ({$pairIds}) ORDER BY FIELD(pair, {$pairIds}), RAND() LIMIT {$patternCount}";
+        $patterns = static::db($sql)->fetch_all(MYSQLI_ASSOC);
+
+        // Select private objective colors.
+        $randomColors = null;
+        $randomColors = array_merge([], Colors::get()->colors);
+        shuffle($randomColors);
+        $randomColorChars = array_map(function($randomColor) { return $randomColor->char;}, $randomColors);
+
+        foreach ($players AS $i => $player) {
+            // Assign 2 random pattern pairs (= 4 patterns) to the player.
+            $patternIds = array_map(function($pattern) { return $pattern['pattern_id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
+            $patternIdsString = implode(',', $patternIds);
+
+            // Assign private objective(s) to the player.
+            $privateObjectiveCount = count($players) == 1 ? 2 : 1; // Normally 1 private objective is assigned, but in a solo game 2.
+            $privateObjectiveIdsString = implode(',', array_slice($randomColorChars, $i * $privateObjectiveCount, $privateObjectiveCount));
+
+            $sql = "
+                UPDATE player
+                SET sag_patterns          = '{$patternIdsString}'
+                  , sag_privateobjectives = '{$privateObjectiveIdsString}'
+                WHERE player_no = {$player['player_no']}
+            ";
+            print "<PRE>" . print_r($sql, true) . "</PRE>";
+            static::db($sql);
+        }
     }
 
     /*
@@ -164,6 +184,12 @@ class Sagrada extends Table {
         $result['players'] = self::getCollectionFromDb($sql);
 
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
+
+
+
+        $this->sagradaSetupNewGame();
+
+
 
         return $result;
     }

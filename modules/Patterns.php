@@ -4,6 +4,9 @@ namespace Sagrada;
 
 class Patterns {
 
+    /**
+     * @var Pattern[]
+     */
     public $patterns;
 
     public function __construct() {
