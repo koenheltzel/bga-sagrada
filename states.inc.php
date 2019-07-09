@@ -64,12 +64,77 @@ $machinestates = array(
     // Note: ID=2 => your first state
 
     2 => array(
-    		"name" => "playerTurn",
-    		"description" => clienttranslate('${actplayer} must play a card or pass'),
-    		"descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
-    		"type" => "activeplayer",
-    		"possibleactions" => array( "playCard", "pass" ),
-    		"transitions" => array( "playCard" => 2, "pass" => 2 )
+        "name" => "soloSelectDifficulty",
+        "description" => clienttranslate('${actplayer} must select a difficulty level'),
+        "descriptionmyturn" => clienttranslate('${you} must select a difficulty level'),
+        "type" => "activeplayer",
+        "action" => "stSoloSelectDifficulty",
+        "possibleactions" => array( "soloSelectDifficulty" ),
+        "transitions" => array( "soloDifficultySelected" => 3 )
+    ),
+
+    3 => array(
+        "name" => "selectPattern",
+        "description" => clienttranslate('${actplayer} must select a window pattern'),
+        "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
+        "type" => "multipleactiveplayer",
+        "action" => "stSelectPattern",
+        "possibleactions" => array( "selectPattern" ),
+        "transitions" => array( "patternSelected" => 4 )
+    ),
+
+    10 => array(
+        "name" => "playerTurn",
+        "description" => clienttranslate('${actplayer} must play a card or pass'),
+        "descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
+        "type" => "activeplayer",
+        "possibleactions" => array( "draftDie", "useTool", "pass" ),
+        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50 )
+    ),
+
+    20 => array(
+        "name" => "draftDie",
+        "description" => clienttranslate('${actplayer} must draft a die'),
+        "descriptionmyturn" => clienttranslate('${you} must draft a die'),
+        "type" => "activeplayer",
+        "possibleactions" => array( "draftDie", "back" ),
+        "transitions" => array( "placeDie" => 21, "back" => 10 )
+    ),
+
+    21 => array(
+        "name" => "placeDie",
+        "description" => clienttranslate('${actplayer} must place the die'),
+        "descriptionmyturn" => clienttranslate('${you} must place the die'),
+        "type" => "activeplayer",
+        "possibleactions" => array( "playerTurn", "back" ),
+        "transitions" => array( "playerTurn" => 10, "back" => 10 )
+    ),
+
+    30 => array(
+        "name" => "useTool",
+        "description" => clienttranslate('${actplayer} must select a tool'),
+        "descriptionmyturn" => clienttranslate('${you} must select a tool'),
+        "type" => "activeplayer",
+        "possibleactions" => array( "selectTool", "back" ),
+        "transitions" => array("selectTool" => 12, "back" => 10 )
+    ),
+
+    31 => array(
+        "name" => "soloPayTool",
+        "description" => clienttranslate('${actplayer} must select a die from the draft pool to pay for the tool'),
+        "descriptionmyturn" => clienttranslate('${you} must select a die from the draft pool to pay for the tool'),
+        "type" => "activeplayer",
+        "possibleactions" => array( "soloPayTool", "back" ),
+        "transitions" => array( "useTool" => 12, "back" => 10 )
+    ),
+
+    50 => array(
+        "name" => "nextPlayer",
+        "description" => '',
+        "type" => "game",
+        "action" => "stNextPlayer",
+        "updateGameProgression" => true,
+        "transitions" => array( "endGame" => 99, "nextPlayer" => 10 )
     ),
     
 /*
@@ -80,7 +145,7 @@ $machinestates = array(
         "description" => '',
         "type" => "game",
         "action" => "stNextPlayer",
-        "updateGameProgression" => true,   
+        "updateGameProgression" => true,
         "transitions" => array( "endGame" => 99, "nextPlayer" => 10 )
     ),
     
