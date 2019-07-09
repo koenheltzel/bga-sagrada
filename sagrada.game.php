@@ -131,6 +131,12 @@ class Sagrada extends Table {
         $patternCount = count($players) * static::PATTERNS_PER_PLAYER;
         $pairCount = $patternCount / 2;
 
+        $publicObjectivesCount = count($players) > 1 ? 3 : 2; // Normally 3 public objectives are assigned, but in a solo game 2.
+        $publicObjectives = static::db("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
+        $publicObjectivesIds = array_map(function($publicObjective) { return $publicObjective['id'] ;}, $publicObjectives );
+        $publicObjectivesIdsString = implode(',', $publicObjectivesIds);
+        self::setGameStateInitialValue(static::GAMESTATE_PUBLICOBJECTIVES, $publicObjectivesIdsString);
+
         // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
         $pairs = static::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
         $pairIds = implode(',', array_map(function($pair) { return $pair[0] ;}, $pairs));
@@ -162,6 +168,8 @@ class Sagrada extends Table {
             print "<PRE>" . print_r($sql, true) . "</PRE>";
             static::db($sql);
         }
+
+        print str_repeat("<br/>", 100);
     }
 
     /*

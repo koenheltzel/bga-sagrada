@@ -4,6 +4,9 @@
     html {
         background-image:none;
     }
+    body {
+        font-size: 12px !important;
+    }
 </style>
 
 <!-- 
