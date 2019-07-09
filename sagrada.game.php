@@ -140,7 +140,7 @@ class Sagrada extends Table {
 
         // Select private objective colors.
         $randomColors = null;
-        $randomColors = array_merge([], Colors::get()->colors);
+        $randomColors = Colors::get()->colors;
         shuffle($randomColors);
         $randomColorChars = array_map(function($randomColor) { return $randomColor->char;}, $randomColors);
 
