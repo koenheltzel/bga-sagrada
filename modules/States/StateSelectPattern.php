@@ -1,5 +1,7 @@
 <?php
 
+namespace Sagrada\States;
+
 trait StateSelectPattern {
     function argSelectPattern()
     {
@@ -12,6 +14,8 @@ trait StateSelectPattern {
         $result = [];
         $result['patterns'] = explode(',', $playerSagData['sag_patterns']);
         $result['privateobjectives'] = explode(',', $playerSagData['sag_privateobjectives']);
+
+//        print "<PRE>" . print_r($result, true) . "</PRE>";
 
         return $result;
     }

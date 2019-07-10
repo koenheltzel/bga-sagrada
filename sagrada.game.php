@@ -16,18 +16,27 @@
  *
  */
 
+$sagradaNamespaceAutoload = function($class) {
+    $classParts = explode('\\', $class);
+    if ($classParts[0] == 'Sagrada') {
+        array_shift($classParts);
+        $file = dirname(__FILE__) . "/modules/" . implode(DIRECTORY_SEPARATOR, $classParts) . ".php";
+        if (file_exists($file)) {
+            require_once($file);
+        }
+    }
+
+};
+spl_autoload_register($sagradaNamespaceAutoload, true, true);
+
 use Sagrada\Colors;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
 
-// Load all modules:
-foreach (['Board', 'BoardSpace', 'Color', 'Colors', 'Die_', 'Pattern', 'Patterns', 'StateSelectPattern'] as $class) {
-    require_once(dirname(__FILE__) . "/modules/{$class}.php");
-}
 
 class Sagrada extends Table {
-    use StateSelectPattern;
+    use Sagrada\States\StateSelectPattern;
 
     const PATTERNS_PER_PLAYER = 4;
     const GAMESTATE_DICEBAG = "dicebag_";
@@ -168,8 +177,6 @@ class Sagrada extends Table {
             ";
             static::db($sql);
         }
-
-        print str_repeat("<br/>", 100);
     }
 
     /*

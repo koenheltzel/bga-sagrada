@@ -32,7 +32,10 @@
         return "sagrada";
     }    
   	function build_page( $viewArgs )
-  	{		
+  	{
+
+        print str_repeat("<br/>", 100);
+
   	    // Get players & players number
         $players = $this->game->loadPlayersBasicInfos();
         $players_nbr = count( $players );
