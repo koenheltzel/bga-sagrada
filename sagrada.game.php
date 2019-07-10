@@ -22,11 +22,12 @@ require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
 
 // Load all modules:
-foreach (['Board', 'BoardSpace', 'Color', 'Colors', 'Die_', 'Pattern', 'Patterns'] as $class) {
+foreach (['Board', 'BoardSpace', 'Color', 'Colors', 'Die_', 'Pattern', 'Patterns', 'StateSelectPattern'] as $class) {
     require_once(dirname(__FILE__) . "/modules/{$class}.php");
 }
 
 class Sagrada extends Table {
+    use StateSelectPattern;
 
     const PATTERNS_PER_PLAYER = 4;
     const GAMESTATE_DICEBAG = "dicebag_";
@@ -297,20 +298,7 @@ class Sagrada extends Table {
     }
     */
 
-    function argSelectPattern()
-    {
-        $current_player_id = self::getCurrentPlayerId();
-        $sql = "
-            SELECT sag_patterns, sag_privateobjectives
-            FROM player
-            WHERE player_id = {$current_player_id}";
-        $playerSagData = self::db($sql)->fetch_assoc();
-        $result = [];
-        $result['patterns'] = explode(',', $playerSagData['sag_patterns']);
-        $result['privateobjectives'] = explode(',', $playerSagData['sag_privateobjectives']);
 
-        return $result;
-    }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////// Game state actions

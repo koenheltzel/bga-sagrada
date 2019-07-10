@@ -86,7 +86,7 @@ function (dojo, declare) {
         onEnteringState: function( stateName, args )
         {
             console.log( 'Entering state: '+stateName );
-            
+
             switch( stateName ) {
                 case 'selectPattern':
                     console.log('SUP', stateName, args);
