@@ -115,7 +115,7 @@ class Sagrada extends Table {
 
 
         // Activate first player (which is in general a good idea :) )
-        $this->activeNextPlayer();
+        $this->gamestate->nextState( "selectPattern" );
 
         /************ End of the game initialization *****/
     }
@@ -165,7 +165,6 @@ class Sagrada extends Table {
                   , sag_privateobjectives = '{$privateObjectiveIdsString}'
                 WHERE player_no = {$player['player_no']}
             ";
-            print "<PRE>" . print_r($sql, true) . "</PRE>";
             static::db($sql);
         }
 
@@ -191,13 +190,20 @@ class Sagrada extends Table {
         $sql = "SELECT player_id id, player_score score FROM player ";
         $result['players'] = self::getCollectionFromDb($sql);
 
+//        $sql = "
+//            SELECT sag_patterns, sag_privateobjectives, sag_tokens
+//            FROM player
+//            WHERE player_id = {$current_player_id}";
+//        $playerSagData = self::db($sql)->fetch_assoc();
+//        $result['patterns'] = explode(',', $playerSagData['sag_patterns']);
+//        $result['privateobjectives'] = explode(',', $playerSagData['sag_privateobjectives']);
+//        $result['tokens'] = $playerSagData['sag_tokens'];
+
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
 
 
 
-        $this->sagradaSetupNewGame();
-
-
+//        $this->sagradaSetupNewGame();
 
         return $result;
     }
@@ -277,19 +283,34 @@ class Sagrada extends Table {
     /*
     
     Example for game state "MyGameState":
-    
+
     function argMyGameState()
     {
         // Get some values from the current game situation in database...
-    
+
         // return values:
         return array(
             'variable1' => $value1,
             'variable2' => $value2,
             ...
         );
-    }    
+    }
     */
+
+    function argSelectPattern()
+    {
+        $current_player_id = self::getCurrentPlayerId();
+        $sql = "
+            SELECT sag_patterns, sag_privateobjectives
+            FROM player
+            WHERE player_id = {$current_player_id}";
+        $playerSagData = self::db($sql)->fetch_assoc();
+        $result = [];
+        $result['patterns'] = explode(',', $playerSagData['sag_patterns']);
+        $result['privateobjectives'] = explode(',', $playerSagData['sag_privateobjectives']);
+
+        return $result;
+    }
 
 //////////////////////////////////////////////////////////////////////////////
 //////////// Game state actions

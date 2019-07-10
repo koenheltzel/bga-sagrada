@@ -87,23 +87,28 @@ function (dojo, declare) {
         {
             console.log( 'Entering state: '+stateName );
             
-            switch( stateName )
-            {
-            
-            /* Example:
-            
-            case 'myGameState':
-            
-                // Show some HTML block at this game state
-                dojo.style( 'my_html_block_id', 'display', 'block' );
-                
-                break;
-           */
-           
-           
-            case 'dummmy':
-                break;
+            switch( stateName ) {
+                case 'selectPattern':
+                    console.log('SUP', stateName, args);
+                    // Show some HTML block at this game state
+                    // dojo.style( 'my_html_block_id', 'display', 'block' );
+
+                    let patterns = args.args.patterns;
+                    console.log('Patterns to select between: ', patterns);
+
+                    break;
+
+                /* Example:
+
+                case 'myGameState':
+
+                    // Show some HTML block at this game state
+                    dojo.style( 'my_html_block_id', 'display', 'block' );
+
+                    break;
+               */
             }
+
         },
 
         // onLeavingState: this method is called each time we are leaving a game state.

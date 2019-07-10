@@ -58,7 +58,7 @@ $machinestates = array(
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => array( "" => 2 )
+        "transitions" => array( "soloSelectDifficulty" => 2, "selectPattern" => "3" )
     ),
     
     // Note: ID=2 => your first state
@@ -80,7 +80,8 @@ $machinestates = array(
         "type" => "multipleactiveplayer",
         "action" => "stSelectPattern",
         "possibleactions" => array( "selectPattern" ),
-        "transitions" => array( "patternSelected" => 4 )
+        "transitions" => array( "patternSelected" => 4 ),
+        "args" => 'argSelectPattern',
     ),
 
     10 => array(
