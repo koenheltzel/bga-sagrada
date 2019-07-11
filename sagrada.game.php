@@ -33,10 +33,10 @@ use Sagrada\Colors;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
-
+//print "<PRE>" . print_r(file_get_contents('include/APP_Template.inc.php'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
-    use Sagrada\States\StateSelectPattern;
+    use Sagrada\States\StateSelectPatternTrait;
 
     const PATTERNS_PER_PLAYER = 4;
     const GAMESTATE_DICEBAG = "dicebag_";
@@ -162,7 +162,7 @@ class Sagrada extends Table {
 
         foreach ($players AS $i => $player) {
             // Assign 2 random pattern pairs (= 4 patterns) to the player.
-            $patternIds = array_map(function($pattern) { return $pattern['pattern_id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
+            $patternIds = array_map(function($pattern) { return $pattern['id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
             $patternIdsString = implode(',', $patternIds);
 
             // Assign private objective(s) to the player.

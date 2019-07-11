@@ -2,36 +2,28 @@
 
 namespace Sagrada;
 
+use Sagrada;
+
 class Patterns {
 
     /**
-     * @var Pattern[]
+     * @param Array $ids
+     * @return Pattern[]
      */
-    public $patterns;
-
-    public function __construct() {
-        $this->patterns = [
-            new Pattern(
-                "Sun's Glory",
-                6,
-                [
-                    "1PY 4",
-                    "PY  6",
-                    "Y  53",
-                    " 5421"
-                ]
-            ),
-            new Pattern(
-                "Firelight",
-                5,
-                [
-                    "3415 ",
-                    " 62 Y",
-                    "   YR",
-                    "5 YR6"
-                ]
-            ),
-        ];
+    public static function getPatterns($ids) {
+        $idsString = implode(',', $ids);
+        $sql = "
+            SELECT *
+            FROM sag_patterns
+            WHERE id IN ($idsString)
+            ORDER BY FIELD(id, {$idsString})
+        ";
+        $result = Sagrada::db($sql);
+        $patterns = [];
+        while ($pattern = $result->fetch_object("Sagrada\Pattern")) {
+            $patterns[] = $pattern;
+        }
+        return $patterns;
     }
 
 }

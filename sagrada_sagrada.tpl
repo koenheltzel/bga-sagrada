@@ -2,8 +2,9 @@
 
 <style>
     html {
-        background-image:none;
+        background-image: none;
     }
+
     body {
         font-size: 12px !important;
     }
@@ -35,6 +36,14 @@
 -->
 
 
+<div id="pattern_selection">
+    <!-- BEGIN pattern_selection_pattern -->
+    <div id="pattern_selection_{number}">
+        <a href="">Pattern {number}</a>
+    </div>
+    <!-- END pattern_selection_pattern -->
+</div>
+
 <div id="board">
     <!-- BEGIN square -->
     <div id="square_{X}_{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
@@ -47,16 +56,16 @@
 
 <script type="text/javascript">
 
-// Javascript HTML templates
+    // Javascript HTML templates
 
-/*
-// Example:
-var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${id}"></div>';
+    /*
+    // Example:
+    var jstpl_some_game_item='<div class="my_game_item" id="my_game_item_${id}"></div>';
 
-*/
+    */
 
-var jstpl_die='<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
+    var jstpl_die = '<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
 
-</script>  
+</script>
 
 {OVERALL_GAME_FOOTER}

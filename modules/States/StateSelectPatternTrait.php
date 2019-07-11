@@ -2,7 +2,9 @@
 
 namespace Sagrada\States;
 
-trait StateSelectPattern {
+use Sagrada\Patterns;
+
+trait StateSelectPatternTrait {
     function argSelectPattern()
     {
         $current_player_id = self::getCurrentPlayerId();
@@ -12,7 +14,7 @@ trait StateSelectPattern {
             WHERE player_id = {$current_player_id}";
         $playerSagData = self::db($sql)->fetch_assoc();
         $result = [];
-        $result['patterns'] = explode(',', $playerSagData['sag_patterns']);
+        $result['patterns'] = Patterns::getPatterns(explode(',', $playerSagData['sag_patterns']));
         $result['privateobjectives'] = explode(',', $playerSagData['sag_privateobjectives']);
 
 //        print "<PRE>" . print_r($result, true) . "</PRE>";

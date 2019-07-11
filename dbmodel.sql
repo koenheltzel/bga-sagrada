@@ -82,9 +82,9 @@ CREATE TABLE `sag_game_tools` (
 --
 
 CREATE TABLE `sag_patterns` (
-                                `pattern_id` tinyint(3) UNSIGNED NOT NULL,
-                                `pattern_name` varchar(50) NOT NULL,
-                                `pattern_difficulty` tinyint(4) NOT NULL,
+                                `id` tinyint(3) UNSIGNED NOT NULL,
+                                `name` varchar(50) NOT NULL,
+                                `difficulty` tinyint(4) NOT NULL,
                                 `pattern` varchar(20) NOT NULL,
                                 `pair` tinyint(3) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -93,7 +93,7 @@ CREATE TABLE `sag_patterns` (
 -- Dumping data for table `sag_patterns`
 --
 
-INSERT INTO `sag_patterns` (`pattern_id`, `pattern_name`, `pattern_difficulty`, `pattern`, `pair`) VALUES
+INSERT INTO `sag_patterns` (`id`, `name`, `difficulty`, `pattern`, `pair`) VALUES
 (1, 'Sun\'s Glory', 6, '1PY 4PY  6Y  53 5421', 1),
 (2, 'Firelight', 5, '3415  62 Y   YR5 YR6', 1),
 (3, 'Shadow Thief', 5, '6P  55 P  R6 P YR563', 2),
@@ -200,7 +200,7 @@ INSERT INTO `sag_tools` (`id`, `name`, `description`, `die_color`) VALUES
 -- Indexes for table `sag_patterns`
 --
 ALTER TABLE `sag_patterns`
-    ADD PRIMARY KEY (`pattern_id`);
+    ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sag_publicobjectives`
@@ -228,7 +228,7 @@ ALTER TABLE `sag_tools`
 -- AUTO_INCREMENT for table `sag_patterns`
 --
 ALTER TABLE `sag_patterns`
-    MODIFY `pattern_id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+    MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 --
 -- AUTO_INCREMENT for table `sag_publicobjectives`
 --

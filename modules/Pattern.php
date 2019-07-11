@@ -4,15 +4,11 @@ namespace Sagrada;
 
 class Pattern {
 
+    public $id;
     public $name;
     public $difficulty;
     public $pattern;
-
-    public function __construct($name, $difficulty, $pattern) {
-        $this->name = $name;
-        $this->difficulty = $difficulty;
-        $this->pattern = $pattern;
-    }
+    public $pair;
 
     /**
      * @param int $x

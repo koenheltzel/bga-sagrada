@@ -23,38 +23,44 @@
  * Note: if the HTML of your game interface is always the same, you don't have to place anything here.
  *
  */
-  
-  require_once( APP_BASE_PATH."view/common/game.view.php" );
-  
-  class view_sagrada_sagrada extends game_view
-  {
+
+require_once(APP_BASE_PATH . "view/common/game.view.php");
+
+class view_sagrada_sagrada extends game_view {
+
     function getGameName() {
         return "sagrada";
-    }    
-  	function build_page( $viewArgs )
-  	{
+    }
 
-        print str_repeat("<br/>", 100);
+    function build_page($viewArgs) {
 
-  	    // Get players & players number
+//        print str_repeat("<br/>", 100);
+
+        // Get players & players number
         $players = $this->game->loadPlayersBasicInfos();
-        $players_nbr = count( $players );
+        $players_nbr = count($players);
 
-        /*********** Place your code below:  ************/$this->page->begin_block( "sagrada_sagrada", "square" );
+        /*********** Place your code below:  ************/
+        $this->page->begin_block("sagrada_sagrada", "square");
 
         $hor_scale = 21;
         $ver_scale = 21;
-        for( $x=1; $x<=5; $x++ )
-        {
-            for( $y=1; $y<=4; $y++ )
-            {
-                $this->page->insert_block( "square", array(
+        for ($x = 1; $x <= 5; $x++) {
+            for ($y = 1; $y <= 4; $y++) {
+                $this->page->insert_block("square", [
                     'X' => $x,
                     'Y' => $y,
-                    'LEFT' => round( 15 + ($x-1)*($hor_scale+10) ),
-                    'TOP' => round( 78 + ($y-1)*($ver_scale+10) )
-                ) );
+                    'LEFT' => round(15 + ($x - 1) * ($hor_scale + 10)),
+                    'TOP' => round(78 + ($y - 1) * ($ver_scale + 10))
+                ]);
             }
+        }
+
+        $this->page->begin_block("sagrada_sagrada", "pattern_selection_pattern");
+        for ($i = 1; $i <= 4; $i++) {
+            $this->page->insert_block("pattern_selection_pattern", [
+                'number' => $i
+            ]);
         }
 
 
@@ -72,7 +78,7 @@
         $this->tpl['MY_VARIABLE_ELEMENT'] = self::raw( $some_html_code );
         
         */
-        
+
         /*
         
         // Example: display a specific HTML block for each player in this game.
@@ -95,9 +101,8 @@
         */
 
 
-
         /*********** Do not change anything below this line  ************/
-  	}
-  }
+    }
+}
   
 
