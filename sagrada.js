@@ -66,6 +66,18 @@ function (dojo, declare) {
                     this.addDieToBoard( x, y, color, value, [player_id] );
                 }
             }
+
+            let patterns = dojo.query('#pattern_selection a');
+            for (let i = 0; i < patterns.length; i++) {
+                dojo.connect(patterns[i], 'onclick', this, function(e){
+                    e.preventDefault();
+                    let pattern = dojo.query(e.target);
+                    console.log('pattern ', pattern);
+                    console.log('data-id ', pattern.attr('data-id').pop());
+                } );
+            }
+            console.log('YOO', dojo.query('#pattern_selection a'));
+
             
             // TODO: Set up your game interface here, according to "gamedatas"
             
@@ -100,6 +112,7 @@ function (dojo, declare) {
                         let a = dojo.query('#pattern_selection_' + i + ' a');
                         let pattern = patterns[i - 1];
                         console.log(a);
+                        a.attr('data-id', pattern.id);
                         a[0].innerHTML = 'Pattern ' + pattern.name;
                     }
                     dojo.style( 'pattern_selection', 'display', 'block' );
