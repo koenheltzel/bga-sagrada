@@ -109,11 +109,11 @@ function (dojo, declare) {
                     console.log('Patterns to select between: ', patterns);
 
                     for(let i = 1; i <= 4; i++) {
-                        let a = dojo.query('#pattern_selection_' + i + ' a');
                         let pattern = patterns[i - 1];
-                        console.log(a);
-                        a.attr('data-id', pattern.id);
-                        a[0].innerHTML = 'Pattern ' + pattern.name;
+                        let div = dojo.query('#pattern_selection_' + i);
+                        div.addClass('pattern-sprite-' + pattern.id);
+                        // a.attr('data-id', pattern.id);
+                        // a[0].innerHTML = 'Pattern ' + pattern.name;
                     }
                     dojo.style( 'pattern_selection', 'display', 'block' );
 

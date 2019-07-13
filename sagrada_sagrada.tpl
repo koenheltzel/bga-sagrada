@@ -1,9 +1,9 @@
 {OVERALL_GAME_HEADER}
 
 <style>
-    html {
-        background-image: none;
-    }
+    /*html {*/
+    /*    background-image: none;*/
+    /*}*/
 
     body {
         font-size: 12px !important;
@@ -36,10 +36,10 @@
 -->
 
 
-<div id="pattern_selection">
+<div class="whiteblock" id="pattern_selection">
+    <h3>Select a window pattern:</h3>
     <!-- BEGIN pattern_selection_pattern -->
-    <div id="pattern_selection_{number}">
-        <a href="">Pattern {number}</a>
+    <div id="pattern_selection_{number}" class="pattern-sprite">
     </div>
     <!-- END pattern_selection_pattern -->
 </div>

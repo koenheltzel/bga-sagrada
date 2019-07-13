@@ -12,7 +12,6 @@
  * Sagrada stylesheet
  *
  */
-
 /*
     This is the CSS stylesheet of your game User Interface.
     
@@ -41,7 +40,6 @@
      Note: on the production platform, this file will be compressed and comments will be removed.
            Consequently, don't hesitate to put as many comments as necessary.
 */
-
 @import url(../../../css/csslayer.css); /* Note: you must not use any @import directive other than this one */
 
 /********* You can start writing your CSS below this line: **********/
@@ -66,40 +64,126 @@
     position: absolute;
     background-image: url('img/dice.png');
 }
-.die_red_1 { background-position: 0px 0px;   }
-.die_red_2 { background-position: 30px 0px;   }
-.die_red_3 { background-position: 60px 0px;   }
-.die_red_4 { background-position: 90px 0px;   }
-.die_red_5 { background-position: 120px 0px;   }
-.die_red_6 { background-position: 150px 0px;   }
 
-.die_yellow_1 { background-position: 0px 30px;   }
-.die_yellow_2 { background-position: 30px 30px;   }
-.die_yellow_3 { background-position: 60px 30px;   }
-.die_yellow_4 { background-position: 90px 30px;   }
-.die_yellow_5 { background-position: 120px 30px;   }
-.die_yellow_6 { background-position: 150px 30px;   }
+.die_red_1 {
+    background-position: 0px 0px;
+}
 
-.die_green_1 { background-position: 0px 60px;   }
-.die_green_2 { background-position: 30px 60px;   }
-.die_green_3 { background-position: 60px 60px;   }
-.die_green_4 { background-position: 90px 60px;   }
-.die_green_5 { background-position: 120px 60px;   }
-.die_green_6 { background-position: 150px 60px;   }
+.die_red_2 {
+    background-position: 30px 0px;
+}
 
-.die_blue_1 { background-position: 0px 90px;   }
-.die_blue_2 { background-position: 30px 90px;   }
-.die_blue_3 { background-position: 60px 90px;   }
-.die_blue_4 { background-position: 90px 90px;   }
-.die_blue_5 { background-position: 120px 90px;   }
-.die_blue_6 { background-position: 150px 90px;   }
+.die_red_3 {
+    background-position: 60px 0px;
+}
 
-.die_purple_1 { background-position: 0px 120px;   }
-.die_purple_2 { background-position: 30px 120px;   }
-.die_purple_3 { background-position: 60px 120px;   }
-.die_purple_4 { background-position: 90px 120px;   }
-.die_purple_5 { background-position: 120px 120px;   }
-.die_purple_6 { background-position: 150px 120px;   }
+.die_red_4 {
+    background-position: 90px 0px;
+}
+
+.die_red_5 {
+    background-position: 120px 0px;
+}
+
+.die_red_6 {
+    background-position: 150px 0px;
+}
+
+.die_yellow_1 {
+    background-position: 0px 30px;
+}
+
+.die_yellow_2 {
+    background-position: 30px 30px;
+}
+
+.die_yellow_3 {
+    background-position: 60px 30px;
+}
+
+.die_yellow_4 {
+    background-position: 90px 30px;
+}
+
+.die_yellow_5 {
+    background-position: 120px 30px;
+}
+
+.die_yellow_6 {
+    background-position: 150px 30px;
+}
+
+.die_green_1 {
+    background-position: 0px 60px;
+}
+
+.die_green_2 {
+    background-position: 30px 60px;
+}
+
+.die_green_3 {
+    background-position: 60px 60px;
+}
+
+.die_green_4 {
+    background-position: 90px 60px;
+}
+
+.die_green_5 {
+    background-position: 120px 60px;
+}
+
+.die_green_6 {
+    background-position: 150px 60px;
+}
+
+.die_blue_1 {
+    background-position: 0px 90px;
+}
+
+.die_blue_2 {
+    background-position: 30px 90px;
+}
+
+.die_blue_3 {
+    background-position: 60px 90px;
+}
+
+.die_blue_4 {
+    background-position: 90px 90px;
+}
+
+.die_blue_5 {
+    background-position: 120px 90px;
+}
+
+.die_blue_6 {
+    background-position: 150px 90px;
+}
+
+.die_purple_1 {
+    background-position: 0px 120px;
+}
+
+.die_purple_2 {
+    background-position: 30px 120px;
+}
+
+.die_purple_3 {
+    background-position: 60px 120px;
+}
+
+.die_purple_4 {
+    background-position: 90px 120px;
+}
+
+.die_purple_5 {
+    background-position: 120px 120px;
+}
+
+.die_purple_6 {
+    background-position: 150px 120px;
+}
 
 
 /*
@@ -119,6 +203,157 @@
         background-repeat: none;
     }
 */
+ 
+.pattern-sprite {
+    background-image: url('img/patterns.png');
+    background-repeat: no-repeat;
+    display: block;
+    cursor: pointer;
+}
+
+.pattern-sprite-1 {
+    width: 180px;
+    height: 159px;
+    background-position: -5px -5px;
+}
+
+.pattern-sprite-10 {
+    width: 180px;
+    height: 159px;
+    background-position: -195px -5px;
+}
+
+.pattern-sprite-11 {
+    width: 180px;
+    height: 159px;
+    background-position: -385px -5px;
+}
+
+.pattern-sprite-12 {
+    width: 180px;
+    height: 159px;
+    background-position: -575px -5px;
+}
+
+.pattern-sprite-13 {
+    width: 180px;
+    height: 159px;
+    background-position: -765px -5px;
+}
+
+.pattern-sprite-14 {
+    width: 180px;
+    height: 159px;
+    background-position: -955px -5px;
+}
+
+.pattern-sprite-15 {
+    width: 180px;
+    height: 159px;
+    background-position: -1145px -5px;
+}
+
+.pattern-sprite-16 {
+    width: 180px;
+    height: 159px;
+    background-position: -1335px -5px;
+}
+
+.pattern-sprite-17 {
+    width: 180px;
+    height: 159px;
+    background-position: -1525px -5px;
+}
+
+.pattern-sprite-18 {
+    width: 180px;
+    height: 159px;
+    background-position: -1715px -5px;
+}
+
+.pattern-sprite-19 {
+    width: 180px;
+    height: 159px;
+    background-position: -1905px -5px;
+}
+
+.pattern-sprite-2 {
+    width: 180px;
+    height: 159px;
+    background-position: -2095px -5px;
+}
+
+.pattern-sprite-20 {
+    width: 180px;
+    height: 159px;
+    background-position: -2285px -5px;
+}
+
+.pattern-sprite-21 {
+    width: 180px;
+    height: 159px;
+    background-position: -2475px -5px;
+}
+
+.pattern-sprite-22 {
+    width: 180px;
+    height: 159px;
+    background-position: -2665px -5px;
+}
+
+.pattern-sprite-23 {
+    width: 180px;
+    height: 159px;
+    background-position: -2855px -5px;
+}
+
+.pattern-sprite-24 {
+    width: 180px;
+    height: 159px;
+    background-position: -3045px -5px;
+}
+
+.pattern-sprite-3 {
+    width: 180px;
+    height: 159px;
+    background-position: -3235px -5px;
+}
+
+.pattern-sprite-4 {
+    width: 180px;
+    height: 159px;
+    background-position: -3425px -5px;
+}
+
+.pattern-sprite-5 {
+    width: 180px;
+    height: 159px;
+    background-position: -3615px -5px;
+}
+
+.pattern-sprite-6 {
+    width: 180px;
+    height: 159px;
+    background-position: -3805px -5px;
+}
+
+.pattern-sprite-7 {
+    width: 180px;
+    height: 159px;
+    background-position: -3995px -5px;
+}
+
+.pattern-sprite-8 {
+    width: 180px;
+    height: 159px;
+    background-position: -4185px -5px;
+}
+
+.pattern-sprite-9 {
+    width: 180px;
+    height: 159px;
+    background-position: -4375px -5px;
+}
 
 
 
