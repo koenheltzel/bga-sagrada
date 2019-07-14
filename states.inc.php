@@ -58,7 +58,7 @@ $machinestates = array(
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => array( "soloSelectDifficulty" => 2, "selectPattern" => "3" )
+        "transitions" => array( "soloSelectDifficulty" => 2, "selectPattern" => 3 )
     ),
     
     // Note: ID=2 => your first state
@@ -78,9 +78,9 @@ $machinestates = array(
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
         "type" => "multipleactiveplayer",
-        "action" => "stSelectPattern",
+//        "action" => "stSelectPattern",
         "possibleactions" => array( "selectPattern" ),
-        "transitions" => array( "patternSelected" => 4 ),
+        "transitions" => array( "patternSelected" => 10 ),
         "args" => 'argSelectPattern',
     ),
 
