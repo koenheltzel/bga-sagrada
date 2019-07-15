@@ -77,7 +77,7 @@ $machinestates = array(
         "name" => "selectPattern",
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
-        "type" => "multipleactiveplayer",
+        "type" => "activeplayer",
 //        "action" => "stSelectPattern",
         "possibleactions" => array( "selectPattern" ),
         "transitions" => array( "patternSelected" => 10 ),

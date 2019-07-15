@@ -33,7 +33,7 @@ use Sagrada\Colors;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
-//print "<PRE>" . print_r(file_get_contents('include/APP_Template.inc.php'), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(file_get_contents('game/module/table/table.game.php'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
     use Sagrada\States\StateSelectPatternTrait;
@@ -121,7 +121,7 @@ class Sagrada extends Table {
 
         // TODO: setup the initial game situation here
 
-        $this->sagradaSetupNewGame();
+        $this->sagradaSetupNewGame($players, $options);
 
 
         // Activate first player (which is in general a good idea :) )
@@ -130,13 +130,13 @@ class Sagrada extends Table {
         /************ End of the game initialization *****/
     }
 
-    private function sagradaSetupNewGame() {
+    private function sagradaSetupNewGame($players, $options) {
         // Fill the dice bag.
         foreach (Colors::get()->colors as $color) {
             self::setGameStateInitialValue(static::GAMESTATE_DICEBAG . $color->char, 18);
         }
 
-        $players = static::db("SELECT * FROM player ORDER BY player_no")->fetch_all(MYSQLI_ASSOC);
+//        $players = static::db("SELECT * FROM player ORDER BY player_no")->fetch_all(MYSQLI_ASSOC);
         $playerCount = count($players);
         $patternCount = count($players) * static::PATTERNS_PER_PLAYER;
         $pairCount = $patternCount / 2;
@@ -160,7 +160,8 @@ class Sagrada extends Table {
         shuffle($randomColors);
         $randomColorChars = array_map(function($randomColor) { return $randomColor->char;}, $randomColors);
 
-        foreach ($players AS $i => $player) {
+        $i = 0;
+        foreach ($players AS $id => $player) {
             // Assign 2 random pattern pairs (= 4 patterns) to the player.
             $patternIds = array_map(function($pattern) { return $pattern['id'] ;}, array_slice($patterns, $i * static::PATTERNS_PER_PLAYER, static::PATTERNS_PER_PLAYER) );
             $patternIdsString = implode(',', $patternIds);
@@ -169,13 +170,15 @@ class Sagrada extends Table {
             $privateObjectiveCount = count($players) == 1 ? 2 : 1; // Normally 1 private objective is assigned, but in a solo game 2.
             $privateObjectiveIdsString = implode(',', array_slice($randomColorChars, $i * $privateObjectiveCount, $privateObjectiveCount));
 
+            $player_no = $i + 1;
             $sql = "
                 UPDATE player
                 SET sag_patterns          = '{$patternIdsString}'
                   , sag_privateobjectives = '{$privateObjectiveIdsString}'
-                WHERE player_no = {$player['player_no']}
+                WHERE player_no = {$player_no}
             ";
             static::db($sql);
+            $i++;
         }
     }
 

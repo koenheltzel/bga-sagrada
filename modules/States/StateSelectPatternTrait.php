@@ -7,12 +7,6 @@ use Sagrada\Patterns;
 trait StateSelectPatternTrait {
     function argSelectPattern()
     {
-        $current_player_id = self::getCurrentPlayerId();
-        $sql = "
-            SELECT sag_patterns, sag_privateobjectives
-            FROM player
-            WHERE player_id = {$current_player_id}";
-        $playerSagData = self::db($sql)->fetch_assoc();
         $result = [];
 //        $current_player_id = self::getCurrentPlayerId();
 //        $sql = "
