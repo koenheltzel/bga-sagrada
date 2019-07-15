@@ -125,6 +125,7 @@ class Sagrada extends Table {
 
 
         // Activate first player (which is in general a good idea :) )
+        self::activeNextPlayer();
         $this->gamestate->nextState( "selectPattern" );
 
         /************ End of the game initialization *****/
