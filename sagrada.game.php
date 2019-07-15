@@ -57,7 +57,7 @@ class Sagrada extends Table {
                 static::GAMESTATE_DICEBAG . "B" => 12,
                 static::GAMESTATE_DICEBAG . "Y" => 13,
                 static::GAMESTATE_DICEBAG . "P" => 14,
-                static::GAMESTATE_PUBLICOBJECTIVES => 15,
+//                static::GAMESTATE_PUBLICOBJECTIVES => 15,
             //      ...
             //    "my_first_game_variant" => 100,
             //    "my_second_game_variant" => 101,
@@ -145,7 +145,7 @@ class Sagrada extends Table {
         $publicObjectives = static::db("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
         $publicObjectivesIds = array_map(function($publicObjective) { return $publicObjective['id'] ;}, $publicObjectives );
         $publicObjectivesIdsString = implode(',', $publicObjectivesIds);
-        self::setGameStateInitialValue(static::GAMESTATE_PUBLICOBJECTIVES, $publicObjectivesIdsString);
+//        self::setGameStateInitialValue(static::GAMESTATE_PUBLICOBJECTIVES, $publicObjectivesIdsString);
 
         // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
         $pairs = static::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
