@@ -2,7 +2,7 @@
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
- * Sagrada implementation : © Koen Heltzel koenheltzel@gmail.com
+ * Sagrada implementation : © Koen Heltzel <koenheltzel@gmail.com>
  *
  * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
  * See http://en.boardgamearena.com/#!doc/Studio for more information.
@@ -126,7 +126,8 @@ class Sagrada extends Table {
 
         // Activate first player (which is in general a good idea :) )
         self::activeNextPlayer();
-        $this->gamestate->nextState( "selectPattern" );
+        $this->gamestate->setAllPlayersMultiactive();
+//        $this->gamestate->nextState( "selectPattern" );
 
         /************ End of the game initialization *****/
     }

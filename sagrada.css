@@ -1,7 +1,7 @@
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
- * Sagrada implementation : © Koen Heltzel koenheltzel@gmail.com
+ * Sagrada implementation : © Koen Heltzel <koenheltzel@gmail.com>
  *
  * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
  * See http://en.boardgamearena.com/#!doc/Studio for more information.
@@ -43,6 +43,14 @@
 @import url(../../../css/csslayer.css); /* Note: you must not use any @import directive other than this one */
 
 /********* You can start writing your CSS below this line: **********/
+
+#pattern_selection {
+    overflow: hidden;
+}
+
+.pattern-sprite {
+    float: left;
+}
 
 #board {
     width: 177px;

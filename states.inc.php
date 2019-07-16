@@ -2,7 +2,7 @@
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
- * Sagrada implementation : © Koen Heltzel koenheltzel@gmail.com
+ * Sagrada implementation : © Koen Heltzel <koenheltzel@gmail.com>
  *
  * This code has been produced on the BGA studio platform for use on http://boardgamearena.com.
  * See http://en.boardgamearena.com/#!doc/Studio for more information.
@@ -58,26 +58,26 @@ $machinestates = array(
         "description" => "",
         "type" => "manager",
         "action" => "stGameSetup",
-        "transitions" => array( "soloSelectDifficulty" => 2, "selectPattern" => 3 )
+        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => 3 )
     ),
     
     // Note: ID=2 => your first state
 
-    2 => array(
-        "name" => "soloSelectDifficulty",
-        "description" => clienttranslate('${actplayer} must select a difficulty level'),
-        "descriptionmyturn" => clienttranslate('${you} must select a difficulty level'),
-        "type" => "activeplayer",
-        "action" => "stSoloSelectDifficulty",
-        "possibleactions" => array( "soloSelectDifficulty" ),
-        "transitions" => array( "soloDifficultySelected" => 3 )
-    ),
+//    2 => array(
+//        "name" => "soloSelectDifficulty",
+//        "description" => clienttranslate('${actplayer} must select a difficulty level'),
+//        "descriptionmyturn" => clienttranslate('${you} must select a difficulty level'),
+//        "type" => "activeplayer",
+//        "action" => "stSoloSelectDifficulty",
+//        "possibleactions" => array( "soloSelectDifficulty" ),
+//        "transitions" => array( "soloDifficultySelected" => 3 )
+//    ),
 
     3 => array(
         "name" => "selectPattern",
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
-        "type" => "activeplayer",
+        "type" => "multipleactiveplayer",
 //        "action" => "stSelectPattern",
         "possibleactions" => array( "selectPattern" ),
         "transitions" => array( "patternSelected" => 10 ),
