@@ -33,7 +33,8 @@ use Sagrada\Colors;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
-//print "<PRE>" . print_r(file_get_contents('game/module/table/table.game.php'), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(file_get_contents('game/module/gamestate.game.php'), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
     use Sagrada\States\StateSelectPatternTrait;
