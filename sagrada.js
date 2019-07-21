@@ -78,7 +78,7 @@ function (dojo, declare) {
             }
             console.log('YOO', dojo.query('#pattern_selection a'));
 
-            
+            this.selectPatternSetup(gamedatas);
             // TODO: Set up your game interface here, according to "gamedatas"
             
  
@@ -87,7 +87,23 @@ function (dojo, declare) {
 
             console.log( "Ending game setup" );
         },
-       
+
+        selectPatternSetup: function( data )
+        {
+            console.log('selectPatternSetup', data);
+
+            let patterns = data.patterns;
+            console.log('Patterns to select between: ', patterns);
+
+            for(let i = 1; i <= 4; i++) {
+                let pattern = patterns[i - 1];
+                let div = dojo.query('#pattern_selection_' + i);
+                div.addClass('pattern-sprite-' + pattern.id);
+                // a.attr('data-id', pattern.id);
+                // a[0].innerHTML = 'Pattern ' + pattern.name;
+            }
+            dojo.style( 'pattern_selection', 'display', 'block' );
+        },
 
         ///////////////////////////////////////////////////
         //// Game & client states
@@ -101,22 +117,6 @@ function (dojo, declare) {
 
             switch( stateName ) {
                 case 'selectPattern':
-                    console.log('SUP', stateName, args);
-                    // Show some HTML block at this game state
-                    // dojo.style( 'my_html_block_id', 'display', 'block' );
-
-                    let patterns = args.args.patterns;
-                    console.log('Patterns to select between: ', patterns);
-
-                    for(let i = 1; i <= 4; i++) {
-                        let pattern = patterns[i - 1];
-                        let div = dojo.query('#pattern_selection_' + i);
-                        div.addClass('pattern-sprite-' + pattern.id);
-                        // a.attr('data-id', pattern.id);
-                        // a[0].innerHTML = 'Pattern ' + pattern.name;
-                    }
-                    dojo.style( 'pattern_selection', 'display', 'block' );
-
                     break;
 
                 /* Example:
@@ -277,6 +277,7 @@ function (dojo, declare) {
             
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
+            dojo.subscribe( 'selectPattern', this, "notif_selectPattern" );
             
             // Example 2: standard notification handling + tell the user interface to wait
             //            during 3 seconds after calling the method in order to let the players
@@ -299,8 +300,16 @@ function (dojo, declare) {
             // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
             
             // TODO: play the card in the user interface.
-        },    
-        
-        */
-   });             
+        },   */
+
+        notif_selectPattern: function( notif )
+        {
+            console.log( 'notif_selectPattern' );
+            console.log( notif );
+
+            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
+
+            // TODO: play the card in the user interface.
+        },
+    });
 });
