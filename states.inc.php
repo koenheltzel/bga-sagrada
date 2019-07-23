@@ -49,7 +49,9 @@
 
 //    !! It is not a good idea to modify this file when a game is running !!
 
- 
+
+use Sagrada\States\StateSelectPattern;
+
 $machinestates = array(
 
     // The initial state. Please do not modify.
@@ -73,7 +75,8 @@ $machinestates = array(
 //        "transitions" => array( "soloDifficultySelected" => 3 )
 //    ),
 
-    3 => array(
+    // 3
+    StateSelectPattern::ID => array(
         "name" => "selectPattern",
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),

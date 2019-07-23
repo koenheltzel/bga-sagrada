@@ -30,6 +30,7 @@ $sagradaNamespaceAutoload = function($class) {
 spl_autoload_register($sagradaNamespaceAutoload, true, true);
 
 use Sagrada\Colors;
+use Sagrada\States\StateSelectPattern as StateSelectPatternAlias;
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
@@ -218,7 +219,7 @@ class Sagrada extends Table {
 //        print "<PRE>" . print_r($this->gamestate->state(), true) . "</PRE>";
         switch ($this->gamestate->state()['name']) {
             case 'selectPattern':
-                $result = array_merge($result, $this->getSelectPatternData($current_player_id));
+                $result = array_merge($result, StateSelectPatternAlias::getData($current_player_id));
                 break;
         }
 
