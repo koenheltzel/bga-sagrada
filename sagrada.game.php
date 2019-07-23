@@ -215,8 +215,12 @@ class Sagrada extends Table {
 
         // TODO: Gather all information about current game situation (visible by player $current_player_id).
 
-
-        $result = array_merge($result, $this->getSelectPatternData($current_player_id));
+//        print "<PRE>" . print_r($this->gamestate->state(), true) . "</PRE>";
+        switch ($this->gamestate->state()['name']) {
+            case 'selectPattern':
+                $result = array_merge($result, $this->getSelectPatternData($current_player_id));
+                break;
+        }
 
         return $result;
     }
