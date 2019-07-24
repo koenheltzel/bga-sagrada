@@ -130,10 +130,6 @@ class Sagrada extends Table {
         /************ End of the game initialization *****/
     }
 
-    private function sagradaSetupNewGame($players, $options) {
-
-    }
-
     /*
         getAllDatas: 
         
@@ -167,7 +163,7 @@ class Sagrada extends Table {
 //        print "<PRE>" . print_r($this->gamestate->state(), true) . "</PRE>";
         switch ($this->gamestate->state()['name']) {
             case 'selectPattern':
-                $result = array_merge($result, StateSelectPatternAlias::getData($current_player_id));
+                $result = array_merge($result, $this->getSelectPatternData($current_player_id));
                 break;
         }
 

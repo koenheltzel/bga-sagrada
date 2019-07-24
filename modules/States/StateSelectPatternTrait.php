@@ -6,7 +6,21 @@ use Sagrada\Patterns;
 
 trait StateSelectPatternTrait {
 
-    function stSelectPattern() {
+    public function getSelectPatternData($playerId) {
+        // Normal gameplay, use self::getCurrentPlayerId() to return real data.
+        $sql = "
+            SELECT sag_patterns, sag_privateobjectives
+            FROM player
+            WHERE player_id = {$playerId}";
+        $playerSagData = \Sagrada::db($sql)->fetch_assoc();
+
+        return [
+            'patterns' => Patterns::getPatterns(explode(',', $playerSagData['sag_patterns'])),
+            'privateobjectives' => explode(',', $playerSagData['sag_privateobjectives'])
+        ];
+    }
+
+    public function stSelectPattern() {
 //        print "<PRE>" . print_r("stSelectPattern", true) . "</PRE>";
 //        $playerId = (int) $this->getCurrentPlayerId();
 

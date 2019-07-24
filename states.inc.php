@@ -57,11 +57,11 @@ $machinestates = array(
 
     // The initial state. Please do not modify.
     // 1
-    StateGameSetup::ID => array(
+    1 => array(
         "name" => "gameSetup",
         "description" => "",
         "type" => "manager",
-        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => StateSelectPattern::ID )
+        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => 3 )
     ),
     
     // Note: ID=2 => your first state
@@ -77,7 +77,7 @@ $machinestates = array(
 //    ),
 
     // 3
-    StateSelectPattern::ID => array(
+    3 => array(
         "name" => "selectPattern",
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
