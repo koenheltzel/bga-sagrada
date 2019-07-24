@@ -37,7 +37,7 @@ class view_sagrada_sagrada extends game_view {
 //        print str_repeat("<br/>", 100);
 
         // Get players & players number
-        $players = $this->game->loadPlayersBasicInfos();
+        $players = $this->game->loadPlayersBasicInfos(); 
         $players_nbr = count($players);
 
         /*********** Place your code below:  ************/

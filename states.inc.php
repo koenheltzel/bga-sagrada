@@ -50,17 +50,18 @@
 //    !! It is not a good idea to modify this file when a game is running !!
 
 
+use Sagrada\States\StateGameSetup;
 use Sagrada\States\StateSelectPattern;
 
 $machinestates = array(
 
     // The initial state. Please do not modify.
-    1 => array(
+    // 1
+    StateGameSetup::ID => array(
         "name" => "gameSetup",
         "description" => "",
         "type" => "manager",
-        "action" => "stGameSetup",
-        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => 3 )
+        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => StateSelectPattern::ID )
     ),
     
     // Note: ID=2 => your first state

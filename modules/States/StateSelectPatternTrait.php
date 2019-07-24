@@ -7,6 +7,7 @@ use Sagrada\Patterns;
 trait StateSelectPatternTrait {
 
     function stSelectPattern() {
+//        print "<PRE>" . print_r("stSelectPattern", true) . "</PRE>";
 //        $playerId = (int) $this->getCurrentPlayerId();
 
 //        $this->notifyAllPlayers(
