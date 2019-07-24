@@ -17,9 +17,9 @@ class Board {
         $this->pattern = $pattern;
 
         $this->rows = [];
-        for ($y = 0; $y < static::HEIGHT; $y++) {
+        for ($y = 0; $y < self::HEIGHT; $y++) {
             $spaces = [];
-            for ($x = 0; $x < static::WIDTH; $x++) {
+            for ($x = 0; $x < self::WIDTH; $x++) {
                 $spaces[] = new BoardSpace($this, $x, $y);
             }
             $this->rows[] = $spaces;

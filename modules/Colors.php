@@ -15,10 +15,10 @@ class Colors {
      * @return Colors
      */
     public static function get() {
-        if (is_null(static::$instance)) {
-            static::$instance = new Colors();
+        if (is_null(self::$instance)) {
+            self::$instance = new Colors();
         }
-        return static::$instance;
+        return self::$instance;
     }
 
     public function __construct() {
