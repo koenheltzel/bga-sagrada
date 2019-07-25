@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagrada;
+namespace Sag;
 
 use Sagrada;
 
@@ -20,7 +20,7 @@ class Patterns {
         ";
         $result = Sagrada::db($sql);
         $patterns = [];
-        while ($pattern = $result->fetch_object("Sagrada\Pattern")) {
+        while ($pattern = $result->fetch_object("Sag\Pattern")) {
             $patterns[] = $pattern;
         }
         return $patterns;

@@ -18,7 +18,7 @@
 
 $sagradaNamespaceAutoload = function($class) {
     $classParts = explode('\\', $class);
-    if ($classParts[0] == 'Sagrada') {
+    if ($classParts[0] == 'Sag') {
         array_shift($classParts);
         $file = dirname(__FILE__) . "/modules/" . implode(DIRECTORY_SEPARATOR, $classParts) . ".php";
         if (file_exists($file)) {
@@ -35,8 +35,8 @@ if (0) require_once '_bga_ide_helper.php';
 //print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
-    use Sagrada\States\GameSetupTrait;
-    use Sagrada\States\SelectPatternTrait;
+    use Sag\States\GameSetupTrait;
+    use Sag\States\SelectPatternTrait;
 
     const PATTERNS_PER_PLAYER = 4;
     const GAMESTATE_DICEBAG = "dicebag_";

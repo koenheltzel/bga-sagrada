@@ -1,9 +1,8 @@
 <?php
 
-namespace Sagrada\States;
+namespace Sag\States;
 
-use Sagrada\Colors;
-use Sagrada\Patterns;
+use Sag\Colors;
 
 trait GameSetupTrait {
 

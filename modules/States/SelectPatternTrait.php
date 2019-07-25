@@ -1,8 +1,9 @@
 <?php
 
-namespace Sagrada\States;
+namespace Sag\States;
 
-use Sagrada\Patterns;
+use Sag\Patterns;
+use Sagrada;
 
 trait SelectPatternTrait {
 
@@ -12,7 +13,7 @@ trait SelectPatternTrait {
             SELECT sag_patterns, sag_privateobjectives
             FROM player
             WHERE player_id = {$playerId}";
-        $playerSagData = \Sagrada::db($sql)->fetch_assoc();
+        $playerSagData = Sagrada::db($sql)->fetch_assoc();
 
         return [
             'patterns' => Patterns::getPatterns(explode(',', $playerSagData['sag_patterns'])),

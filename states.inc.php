@@ -50,8 +50,8 @@
 //    !! It is not a good idea to modify this file when a game is running !!
 
 
-use Sagrada\States\StateGameSetup;
-use Sagrada\States\StateSelectPattern;
+use Sag\States\StateGameSetup;
+use Sag\States\StateSelectPattern;
 
 $machinestates = array(
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Sagrada;
+namespace Sag;
 
 class Pattern {
 
