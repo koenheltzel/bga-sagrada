@@ -83,7 +83,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
         "type" => "multipleactiveplayer",
         "action" => "stSelectPattern",
-        "possibleactions" => array( "selectPattern" ),
+        "possibleactions" => array( "actionSelectPattern" ),
         "transitions" => array( "patternSelected" => 10 ),
 //        "args" => 'argSelectPattern',
     ),

@@ -67,14 +67,9 @@ function (dojo, declare) {
                 }
             }
 
-            let patterns = dojo.query('#pattern_selection a');
+            let patterns = dojo.query('.pattern-sprite');
             for (let i = 0; i < patterns.length; i++) {
-                dojo.connect(patterns[i], 'onclick', this, function(e){
-                    e.preventDefault();
-                    let pattern = dojo.query(e.target);
-                    console.log('pattern ', pattern);
-                    console.log('data-id ', pattern.attr('data-id').pop());
-                } );
+                dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
             }
             console.log('YOO', dojo.query('#pattern_selection a'));
 
@@ -99,8 +94,7 @@ function (dojo, declare) {
                 let pattern = patterns[i - 1];
                 let div = dojo.query('#pattern_selection_' + i);
                 div.addClass('pattern-sprite-' + pattern.id);
-                // a.attr('data-id', pattern.id);
-                // a[0].innerHTML = 'Pattern ' + pattern.name;
+                div.attr('data-id', pattern.id);
             }
             dojo.style( 'pattern_selection', 'display', 'block' );
         },
@@ -255,8 +249,36 @@ function (dojo, declare) {
         },        
         
         */
+        onSelectPatternClick: function( e )
+        {
+            // Preventing default browser reaction
+            dojo.stopEvent( e );
 
-        
+            let pattern = dojo.query(e.target);
+            console.log('pattern ', pattern);
+            console.log('data-id ', pattern.attr('data-id').pop());
+
+            // Check that this action is possible (see "possibleactions" in states.inc.php)
+            if( ! this.checkAction( 'actionSelectPattern' ) )
+            {   return; }
+
+            this.ajaxcall( "/sagrada/sagrada/actionSelectPattern.html", {
+                    pattern: pattern.attr('data-id')
+                },
+                this, function( result ) {
+                    console.log('success result: ', result);
+                    // What to do after the server call if it succeeded
+                    // (most of the time: nothing)
+
+                }, function( is_error) {
+                    console.log('error result: ', is_error);
+                    // What to do after the server call in anyway (success or failure)
+                    // (most of the time: nothing)
+
+                } );
+        },
+
+
         ///////////////////////////////////////////////////
         //// Reaction to cometD notifications
 

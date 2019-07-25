@@ -21,6 +21,16 @@ trait SelectPatternTrait {
         ];
     }
 
+    public function actionSelectPattern($pattern){
+        $current_player_id = self::getCurrentPlayerId();
+        $sql = "
+            UPDATE player
+            SET sag_patterns          = '{$pattern}'
+            WHERE player_id = {$current_player_id}
+        ";
+        self::db($sql);
+    }
+
     public function stSelectPattern() {
 //        print "<PRE>" . print_r("stSelectPattern", true) . "</PRE>";
 //        $playerId = (int) $this->getCurrentPlayerId();
