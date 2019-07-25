@@ -29,21 +29,21 @@ $sagradaNamespaceAutoload = function($class) {
 };
 spl_autoload_register($sagradaNamespaceAutoload, true, true);
 
-use Sagrada\Colors;
-use Sagrada\States\StateSelectPattern as StateSelectPatternAlias;
-
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
 //print "<PRE>" . print_r(file_get_contents('game/module/gamestate.game.php'), true) . "</PRE>";exit;
 //print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
-    use Sagrada\States\StateSelectPatternTrait;
-    use Sagrada\States\StateGameSetupTrait;
+    use Sagrada\States\GameSetupTrait;
+    use Sagrada\States\SelectPatternTrait;
 
     const PATTERNS_PER_PLAYER = 4;
     const GAMESTATE_DICEBAG = "dicebag_";
     const GAMESTATE_PUBLICOBJECTIVES = "publicobjectives";
+
+    const STATE_GAME_SETUP = 1;
+    const STATE_SELECT_PATTERN = 3;
 
     function __construct() {
         // Your global variables labels:

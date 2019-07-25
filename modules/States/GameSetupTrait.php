@@ -5,7 +5,7 @@ namespace Sagrada\States;
 use Sagrada\Colors;
 use Sagrada\Patterns;
 
-trait StateGameSetupTrait {
+trait GameSetupTrait {
 
     public function stGameSetup() {
 //        print "<PRE>" . print_r("stGameSetup", true) . "</PRE>";

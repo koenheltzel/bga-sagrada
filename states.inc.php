@@ -57,11 +57,11 @@ $machinestates = array(
 
     // The initial state. Please do not modify.
     // 1
-    1 => array(
+    Sagrada::STATE_GAME_SETUP => array(
         "name" => "gameSetup",
         "description" => "",
         "type" => "manager",
-        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => 3 )
+        "transitions" => array( /*"soloSelectDifficulty" => 2,*/ "" => Sagrada::STATE_SELECT_PATTERN )
     ),
     
     // Note: ID=2 => your first state
@@ -77,7 +77,7 @@ $machinestates = array(
 //    ),
 
     // 3
-    3 => array(
+    Sagrada::STATE_SELECT_PATTERN => array(
         "name" => "selectPattern",
         "description" => clienttranslate('${actplayer} must select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),

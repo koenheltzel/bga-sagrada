@@ -4,7 +4,7 @@ namespace Sagrada\States;
 
 use Sagrada\Patterns;
 
-trait StateSelectPatternTrait {
+trait SelectPatternTrait {
 
     public function getSelectPatternData($playerId) {
         // Normal gameplay, use self::getCurrentPlayerId() to return real data.
