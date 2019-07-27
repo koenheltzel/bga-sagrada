@@ -88,15 +88,17 @@ function (dojo, declare) {
             console.log('selectPatternSetup', data);
 
             let patterns = data.patterns;
-            console.log('Patterns to select between: ', patterns);
+            if (data.patterns.length == 4) {
+                console.log('Patterns to select between: ', patterns);
 
-            for(let i = 1; i <= 4; i++) {
-                let pattern = patterns[i - 1];
-                let div = dojo.query('#pattern_selection_' + i);
-                div.addClass('pattern-sprite-' + pattern.id);
-                div.attr('data-id', pattern.id);
+                for(let i = 1; i <= 4; i++) {
+                    let pattern = patterns[i - 1];
+                    let div = dojo.query('#pattern_selection_' + i);
+                    div.addClass('pattern-sprite-' + pattern.id);
+                    div.attr('data-id', pattern.id);
+                }
+                dojo.style( 'pattern_selection', 'display', 'block' );
             }
-            dojo.style( 'pattern_selection', 'display', 'block' );
         },
 
         ///////////////////////////////////////////////////
@@ -269,6 +271,9 @@ function (dojo, declare) {
                     console.log('success result: ', result);
                     // What to do after the server call if it succeeded
                     // (most of the time: nothing)
+
+                    // Hide pattern selection
+                    dojo.style( 'pattern_selection', 'display', 'none' );
 
                 }, function( is_error) {
                     console.log('error result: ', is_error);

@@ -21,14 +21,41 @@ trait SelectPatternTrait {
         ];
     }
 
-    public function actionSelectPattern($pattern){
-        $current_player_id = self::getCurrentPlayerId();
+    public function actionSelectPattern($patternId){
+        $playerId = self::getCurrentPlayerId();
+
+        // TODO: Check if this pattern is allowed (aka currently in the sag_patterns list.
+
         $sql = "
             UPDATE player
-            SET sag_patterns          = '{$pattern}'
-            WHERE player_id = {$current_player_id}
+            SET sag_patterns          = '{$patternId}'
+            WHERE player_id = {$playerId}
         ";
         self::db($sql);
+
+        $pattern = Patterns::getPatterns([$patternId])[0];
+
+        $this->notifyAllPlayers(
+            'patternSelected',
+            clienttranslate('${playerName} selected pattern ${patternName} (${difficulty})'),
+            [
+                'patternName' => $pattern->name,
+                'difficulty' => substr('**********', 0, $pattern->difficulty),
+                'playerName' => $this->getCurrentPlayerName(),
+                'playerColor' => $this->getCurrentPlayerColor(),
+                'playerId' => $playerId
+            ]
+        );
+//
+//        $this->notifyPlayer(
+//            $playerId,
+//            'iReturnedToDeck',
+//            '',
+//            ['cardIds' => $cardIds]
+//        );
+
+        $this->giveExtraTime($playerId);
+        $this->gamestate->setPlayerNonMultiactive($playerId, 'allPatternsSelected');
     }
 
     public function stSelectPattern() {

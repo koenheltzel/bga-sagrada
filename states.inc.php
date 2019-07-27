@@ -79,12 +79,12 @@ $machinestates = array(
     // 3
     Sagrada::STATE_SELECT_PATTERN => array(
         "name" => "selectPattern",
-        "description" => clienttranslate('${actplayer} must select a window pattern'),
+        "description" => clienttranslate('Wait for other players to select a window pattern'),
         "descriptionmyturn" => clienttranslate('${you} must select a window pattern'),
         "type" => "multipleactiveplayer",
         "action" => "stSelectPattern",
         "possibleactions" => array( "actionSelectPattern" ),
-        "transitions" => array( "patternSelected" => 10 ),
+        "transitions" => array( "allPatternsSelected" => 10 ),
 //        "args" => 'argSelectPattern',
     ),
 
