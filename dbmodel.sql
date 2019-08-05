@@ -119,6 +119,18 @@ INSERT INTO `sag_patterns` (`id`, `name`, `difficulty`, `pattern`, `pair`) VALUE
 (23, 'Industria', 5, '1R3 654R2   5R1   3R', 11),
 (24, 'Comitas', 5, 'Y 2 6 4 5Y   Y512Y3 ', 12);
 
+--
+-- Indexes for table `sag_patterns`
+--
+ALTER TABLE `sag_patterns`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `sag_patterns`
+--
+ALTER TABLE `sag_patterns`
+    MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+
 -- --------------------------------------------------------
 
 --
@@ -148,6 +160,18 @@ INSERT INTO `sag_publicobjectives` (`id`, `name`, `description`, `points`) VALUE
 (9, 'Color Variety', 'Sets of one of each color anywhere', 4),
 (10, 'Color Diagonals', 'Count of diagonally adjacent same-color dice', 0);
 
+--
+-- Indexes for table `sag_publicobjectives`
+--
+ALTER TABLE `sag_publicobjectives`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `sag_publicobjectives`
+--
+ALTER TABLE `sag_publicobjectives`
+    MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
 -- --------------------------------------------------------
 
 --
@@ -160,6 +184,18 @@ CREATE TABLE `sag_roundtrack` (
                                   `die_color` char(1) DEFAULT NULL,
                                   `die_value` tinyint(1) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexes for table `sag_roundtrack`
+--
+ALTER TABLE `sag_roundtrack`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for table `sag_roundtrack`
+--
+ALTER TABLE `sag_roundtrack`
+    MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
 
 -- --------------------------------------------------------
 
@@ -193,54 +229,35 @@ INSERT INTO `sag_tools` (`id`, `name`, `description`, `die_color`) VALUES
 (12, 'Tap Wheel', '', 'B');
 
 --
--- Indexes for dumped tables
---
-
---
--- Indexes for table `sag_patterns`
---
-ALTER TABLE `sag_patterns`
-    ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sag_publicobjectives`
---
-ALTER TABLE `sag_publicobjectives`
-    ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `sag_roundtrack`
---
-ALTER TABLE `sag_roundtrack`
-    ADD PRIMARY KEY (`id`);
-
---
 -- Indexes for table `sag_tools`
 --
 ALTER TABLE `sag_tools`
     ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `sag_patterns`
---
-ALTER TABLE `sag_patterns`
-    MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
---
--- AUTO_INCREMENT for table `sag_publicobjectives`
---
-ALTER TABLE `sag_publicobjectives`
-    MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
---
--- AUTO_INCREMENT for table `sag_roundtrack`
---
-ALTER TABLE `sag_roundtrack`
-    MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT for table `sag_tools`
 --
 ALTER TABLE `sag_tools`
     MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- Tabelstructuur voor tabel `sag_draftpool`
+--
+
+CREATE TABLE `sag_draftpool` (
+                                 `id` int(10) NOT NULL,
+                                 `die_color` char(1) DEFAULT NULL,
+                                 `die_value` tinyint(1) UNSIGNED DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Indexen voor tabel `sag_draftpool`
+--
+ALTER TABLE `sag_draftpool`
+    ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT voor een tabel `sag_draftpool`
+--
+ALTER TABLE `sag_draftpool`
+    MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
