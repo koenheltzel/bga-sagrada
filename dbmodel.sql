@@ -39,7 +39,7 @@
 
 ALTER TABLE `player`
     ADD COLUMN `sag_patterns` VARCHAR(20) NULL DEFAULT NULL COMMENT 'comma separated',
-    ADD COLUMN `sag_privateobjectives` VARCHAR(20) NOT NULL COMMENT 'comma separated',
+    ADD COLUMN `sag_private_objectives` VARCHAR(20) NOT NULL COMMENT 'comma separated',
     ADD COLUMN `sag_tokens` TINYINT(3) UNSIGNED NULL DEFAULT NULL;
 
 ALTER TABLE `global`

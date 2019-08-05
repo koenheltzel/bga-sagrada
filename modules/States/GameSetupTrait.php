@@ -52,7 +52,7 @@ trait GameSetupTrait {
             $sql = "
                 UPDATE player
                 SET sag_patterns          = '{$patternIdsString}'
-                  , sag_privateobjectives = '{$privateObjectiveIdsString}'
+                  , sag_private_objectives = '{$privateObjectiveIdsString}'
                 WHERE player_no = {$player_no}
             ";
             self::db($sql);

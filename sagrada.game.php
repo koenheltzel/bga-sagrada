@@ -68,6 +68,8 @@ class Sagrada extends Table {
         ]);
     }
 
+
+
     /**
      * This is the generic method to access the database.
      * It can execute any type of SELECT/UPDATE/DELETE/REPLACE query on the database.

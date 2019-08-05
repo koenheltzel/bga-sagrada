@@ -11,6 +11,11 @@ class BoardSpace {
      */
     public $board;
 
+    /**
+     * @var Die_
+     */
+    public $die;
+
     public function __construct(Board $board, $x, $y) {
         $this->x = $x;
         $this->y = $y;
