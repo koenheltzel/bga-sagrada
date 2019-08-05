@@ -1,1 +1,24 @@
 States array (ID's are the keys): $this->gamestate->states
+
+Maxiumum cards onscreen:
+    Normal play:
+        1 private
+        3 public
+        3 tools
+        Max 7 cards
+
+    Solo play:
+        2 private
+        2 public
+        1 to 5 tools
+        Max 9 cards
+
+
+sagrada.js
+Ajax call in click handler to /sagrada/sagrada/actionSelectPattern.html
+
+sagrada.action.php
+Function actionSelectPattern(), sets ajax mode, gather passed arguments and call Sagrada game class' actionSelectPattern(). Output ajax response.
+
+modules/States/SelectPatternTrait.php (as used by Sagrada game class).
+Function actionSelectPattern($args). Handle player action, notify players, add time to player's clock.

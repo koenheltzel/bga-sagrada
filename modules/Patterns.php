@@ -26,4 +26,12 @@ class Patterns {
         return $patterns;
     }
 
+    /**
+     * @param $id
+     * @return Pattern
+     */
+    public static function getPattern($id) {
+        return Patterns::getPatterns([$id])[0];
+    }
+
 }

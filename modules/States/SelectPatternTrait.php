@@ -24,16 +24,17 @@ trait SelectPatternTrait {
     public function actionSelectPattern($patternId){
         $playerId = self::getCurrentPlayerId();
 
-        // TODO: Check if this pattern is allowed (aka currently in the sag_patterns list.
+        $pattern = Patterns::getPattern($patternId);
+        // TODO: Check if the selected pattern is actually available to this player (aka currently in the sag_patterns list).
 
         $sql = "
             UPDATE player
-            SET sag_patterns          = '{$patternId}'
+            SET sag_patterns        = '{$patternId}',
+                sag_tokens          = '{$pattern->difficulty}'
             WHERE player_id = {$playerId}
         ";
         self::db($sql);
 
-        $pattern = Patterns::getPatterns([$patternId])[0];
 
         $this->notifyAllPlayers(
             'patternSelected',
