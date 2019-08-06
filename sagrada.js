@@ -62,7 +62,6 @@ function (dojo, declare) {
                 for (let y = 1; y <= 4; y++) {
                     let color = colors[Math.floor(Math.random()*colors.length)];
                     let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-                    console.log(x, y, color, value, [player_id]);
                     this.addDieToBoard( x, y, color, value, [player_id] );
                 }
             }
@@ -71,7 +70,6 @@ function (dojo, declare) {
             for (let i = 0; i < patterns.length; i++) {
                 dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
             }
-            console.log('YOO', dojo.query('#pattern_selection a'));
 
             this.selectPatternSetup(gamedatas);
             // TODO: Set up your game interface here, according to "gamedatas"
@@ -85,8 +83,6 @@ function (dojo, declare) {
 
         selectPatternSetup: function( data )
         {
-            console.log('selectPatternSetup', data);
-
             let patterns = data.patterns;
             if (patterns !== undefined && patterns.length == 4) {
                 console.log('Patterns to select between: ', patterns);
@@ -195,14 +191,9 @@ function (dojo, declare) {
         */
 
         updateDraftPool: function(draftPool) {
+            dojo.empty("draftpool");
             for (var i = 0; i < draftPool.length; i++) {
                 var die = draftPool[i];
-                console.log('Try to place die:', {
-                    i: i,
-                    left: i * 21,
-                    color: die.color.char.toLowerCase(),
-                    value: die.value,
-                })
                 dojo.place( this.format_block( 'jstpl_draftpool_die', {
                     i: i,
                     left: i * 30,

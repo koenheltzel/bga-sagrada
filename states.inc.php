@@ -88,16 +88,18 @@ $machinestates = array(
 //        "args" => 'argSelectPattern',
     ),
 
+    // 5
     Sagrada::STATE_NEXT_ROUND => array(
         "name" => "nextRound",
         "description" => '',
         "type" => "game",
         "action" => "stNextRound",
         "updateGameProgression" => true,
-        "transitions" => array("" => 10 )
+        "transitions" => array("" => Sagrada::STATE_PLAYER_TURN )
     ),
 
-    10 => array(
+    // 10
+    Sagrada::STATE_PLAYER_TURN => array(
         "name" => "playerTurn",
         "description" => clienttranslate('${actplayer} must draft a die and/or use a tool'),
         "descriptionmyturn" => clienttranslate('${you} must draft a die and/or use a tool in any order'),

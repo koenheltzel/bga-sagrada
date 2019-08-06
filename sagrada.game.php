@@ -45,6 +45,7 @@ class Sagrada extends Table {
     const STATE_GAME_SETUP = 1;
     const STATE_SELECT_PATTERN = 3;
     const STATE_NEXT_ROUND = 5;
+    const STATE_PLAYER_TURN = 10;
 
     function __construct() {
         // Your global variables labels:

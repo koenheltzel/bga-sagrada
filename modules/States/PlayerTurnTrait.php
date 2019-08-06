@@ -15,6 +15,7 @@ trait PlayerTurnTrait {
     public function argPlayerTurn() {
         return $this->getPlayerTurnData();
     }
+
     public function stPlayerTurn() {
         $this->notifyAllPlayers(
             'playerTurn',
