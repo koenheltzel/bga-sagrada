@@ -3,15 +3,12 @@
 namespace Sag\States;
 
 use Sag\Colors;
+use Sag\GameState;
 
 trait GameSetupTrait {
 
     public function stGameSetup() {
 //        print "<PRE>" . print_r("stGameSetup", true) . "</PRE>";
-        // Fill the dice bag.
-        foreach (Colors::get()->colors as $color) {
-            self::setGameStateInitialValue(self::GAMESTATE_DICEBAG . $color->char, 18);
-        }
 
 //        $players = self::db("SELECT * FROM player ORDER BY player_no")->fetch_all(MYSQLI_ASSOC);
         $players = $this->loadPlayersBasicInfos();
@@ -19,11 +16,7 @@ trait GameSetupTrait {
         $patternCount = count($players) * self::PATTERNS_PER_PLAYER;
         $pairCount = $patternCount / 2;
 
-        $publicObjectivesCount = count($players) > 1 ? 3 : 2; // Normally 3 public objectives are assigned, but in a solo game 2.
-        $publicObjectives = self::db("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
-        $publicObjectivesIds = array_map(function($publicObjective) { return $publicObjective['id'] ;}, $publicObjectives );
-        $publicObjectivesIdsString = implode(',', $publicObjectivesIds);
-//        self::setGameStateInitialValue(self::GAMESTATE_PUBLICOBJECTIVES, $publicObjectivesIdsString);
+        GameState::get()->init($players);
 
         // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
         $pairs = self::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();

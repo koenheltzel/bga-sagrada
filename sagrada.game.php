@@ -39,8 +39,6 @@ class Sagrada extends Table {
     use Sag\States\SelectPatternTrait;
 
     const PATTERNS_PER_PLAYER = 4;
-    const GAMESTATE_DICEBAG = "dicebag_";
-    const GAMESTATE_PUBLICOBJECTIVES = "publicobjectives";
 
     const STATE_GAME_SETUP = 1;
     const STATE_SELECT_PATTERN = 3;
@@ -55,12 +53,6 @@ class Sagrada extends Table {
         parent::__construct();
 
         self::initGameStateLabels([
-                self::GAMESTATE_DICEBAG . "R" => 10,
-                self::GAMESTATE_DICEBAG . "G" => 11,
-                self::GAMESTATE_DICEBAG . "B" => 12,
-                self::GAMESTATE_DICEBAG . "Y" => 13,
-                self::GAMESTATE_DICEBAG . "P" => 14,
-//                self::GAMESTATE_PUBLICOBJECTIVES => 15,
             //      ...
             //    "my_first_game_variant" => 100,
             //    "my_second_game_variant" => 101,
