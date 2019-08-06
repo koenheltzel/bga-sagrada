@@ -37,11 +37,13 @@ if (0) require_once '_bga_ide_helper.php';
 class Sagrada extends Table {
     use Sag\States\GameSetupTrait;
     use Sag\States\SelectPatternTrait;
+    use Sag\States\NextRoundTrait;
 
     const PATTERNS_PER_PLAYER = 4;
 
     const STATE_GAME_SETUP = 1;
     const STATE_SELECT_PATTERN = 3;
+    const STATE_NEXT_ROUND = 5;
 
     function __construct() {
         // Your global variables labels:

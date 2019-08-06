@@ -5,13 +5,18 @@ namespace Sag;
 class Die_ {
 
     /**
-     * @var Pattern
+     * @var Color
      */
     public $color;
+
+    /**
+     * @var int
+     */
     public $value;
 
-    public function __construct() {
-
+    public function __construct($color, $value) {
+        $this->color = $color;
+        $this->value = $value;
     }
 
 }

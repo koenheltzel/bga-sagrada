@@ -39,7 +39,7 @@ class GameState {
     /**
      * @var GameState
      */
-    private static $instance = null;
+    static private $instance = null;
 
     /**
      * @return GameState
@@ -52,7 +52,7 @@ class GameState {
     }
 
     public function __construct() {
-
+        $this->load();
     }
 
     public function init($players) {
@@ -72,6 +72,17 @@ class GameState {
         $this->save();
     }
 
+    public function load() {
+        $result = Sagrada::db("SELECT * FROM sag_game_state")->fetch_all(MYSQLI_ASSOC);
+        if (count($result) > 0) {
+            $result = array_shift($result);
+            foreach (Colors::get()->colors as $char => $color) {
+                $this->{"diceBag$char"} = $result['dice_bag_' . strtolower($char)];
+            }
+            $this->publicObjectiveIds = explode(',', $result['public_objectives']);
+        }
+    }
+
     public function save() {
         $publicObjectivesIdsString = implode(',',$this->publicObjectiveIds);
         $sql = "            
@@ -84,6 +95,14 @@ class GameState {
                 public_objectives = '{$publicObjectivesIdsString}'
         ";
         Sagrada::db($sql);
+    }
+
+    public function diceBagTotal() {
+        $total = 0;
+        foreach (Colors::get()->colors as $char => $color) {
+            $total += $this->{"diceBag$char"};
+        }
+        return $total;
     }
 
 }

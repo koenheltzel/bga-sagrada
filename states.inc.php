@@ -84,14 +84,23 @@ $machinestates = array(
         "type" => "multipleactiveplayer",
         "action" => "stSelectPattern",
         "possibleactions" => array( "actionSelectPattern" ),
-        "transitions" => array( "allPatternsSelected" => 10 ),
+        "transitions" => array( "allPatternsSelected" => Sagrada::STATE_NEXT_ROUND ),
 //        "args" => 'argSelectPattern',
+    ),
+
+    Sagrada::STATE_NEXT_ROUND => array(
+        "name" => "nextRound",
+        "description" => '',
+        "type" => "game",
+        "action" => "stNextRound",
+        "updateGameProgression" => true,
+        "transitions" => array("" => 10 )
     ),
 
     10 => array(
         "name" => "playerTurn",
-        "description" => clienttranslate('${actplayer} must play a card or pass'),
-        "descriptionmyturn" => clienttranslate('${you} must play a card or pass'),
+        "description" => clienttranslate('${actplayer} must draft a die and/or use a tool'),
+        "descriptionmyturn" => clienttranslate('${you} must draft a die and/or use a tool in any order'),
         "type" => "activeplayer",
         "possibleactions" => array( "draftDie", "useTool", "pass" ),
         "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50 )
