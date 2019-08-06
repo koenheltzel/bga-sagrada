@@ -57,7 +57,7 @@ function (dojo, declare) {
 
             }
 
-            let colors = ['red','yellow','green','blue','purple'];
+            let colors = ['r','g','b','y','p'];
             for (let x = 1; x <= 5; x++) {
                 for (let y = 1; y <= 4; y++) {
                     let color = colors[Math.floor(Math.random()*colors.length)];
@@ -88,7 +88,7 @@ function (dojo, declare) {
             console.log('selectPatternSetup', data);
 
             let patterns = data.patterns;
-            if (data.patterns.length == 4) {
+            if (patterns !== undefined && patterns.length == 4) {
                 console.log('Patterns to select between: ', patterns);
 
                 for(let i = 1; i <= 4; i++) {
@@ -109,10 +109,13 @@ function (dojo, declare) {
         //
         onEnteringState: function( stateName, args )
         {
-            console.log( 'Entering state: '+stateName );
+            console.log( 'Entering state:', stateName, 'args:', args);
 
             switch( stateName ) {
                 case 'selectPattern':
+                    break;
+                case 'playerTurn':
+                    this.updateDraftPool(args.args.draftPool);
                     break;
 
                 /* Example:
@@ -190,6 +193,26 @@ function (dojo, declare) {
             script.
         
         */
+
+        updateDraftPool: function(draftPool) {
+            for (var i = 0; i < draftPool.length; i++) {
+                var die = draftPool[i];
+                console.log('Try to place die:', {
+                    i: i,
+                    left: i * 21,
+                    color: die.color.char.toLowerCase(),
+                    value: die.value,
+                })
+                dojo.place( this.format_block( 'jstpl_draftpool_die', {
+                    i: i,
+                    left: i * 30,
+                    color: die.color.char.toLowerCase(),
+                    value: die.value,
+                } ) , 'draftpool' );
+            }
+
+            dojo.style( 'draftpool', 'display', 'block' );
+        },
 
 
         ///////////////////////////////////////////////////
@@ -305,7 +328,8 @@ function (dojo, declare) {
             // Example 1: standard notification handling
             // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
             dojo.subscribe( 'selectPattern', this, "notif_selectPattern" );
-            
+            dojo.subscribe( 'playerTurn', this, "notif_playerTurn" );
+
             // Example 2: standard notification handling + tell the user interface to wait
             //            during 3 seconds after calling the method in order to let the players
             //            see what is happening in the game.
@@ -333,6 +357,17 @@ function (dojo, declare) {
         {
             console.log( 'notif_selectPattern' );
             console.log( notif );
+
+            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
+
+            // TODO: play the card in the user interface.
+        },
+
+        notif_playerTurn: function( notif )
+        {
+            console.log( 'notif_playerTurn' );
+            console.log( notif );
+            this.updateDraftPool(notif.args.draftPool);
 
             // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 

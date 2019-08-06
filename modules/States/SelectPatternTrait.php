@@ -62,8 +62,9 @@ trait SelectPatternTrait {
     public function stSelectPattern() {
 //        print "<PRE>" . print_r("stSelectPattern", true) . "</PRE>";
 //        $playerId = (int) $this->getCurrentPlayerId();
-
-//        $this->notifyAllPlayers(
+//
+//        $this->notifyPlayer(
+//            $playerId,
 //            'selectPattern',
 //            "stSelectPattern notification log",
 //            $this->getSelectPatternData($playerId)

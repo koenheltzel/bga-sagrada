@@ -24,7 +24,7 @@ class DraftPool {
     }
 
     public function __construct() {
-
+        $this->load();
     }
 
     public function fill($goalSize) {
@@ -44,6 +44,15 @@ class DraftPool {
             Sagrada::db("UPDATE sag_game_state SET dice_bag_{$lowerChar} = dice_bag_{$lowerChar} - 1");
         }
         $this->save();
+    }
+
+    public function load() {
+        $results = Sagrada::db("SELECT * FROM sag_draftpool ORDER BY id")->fetch_all(MYSQLI_ASSOC);
+        if (count($results) > 0) {
+            foreach ($results as $result) {
+                $this->dice[] = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
+            }
+        }
     }
 
     public function save() {

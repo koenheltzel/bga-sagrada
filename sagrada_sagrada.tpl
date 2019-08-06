@@ -53,6 +53,10 @@
     </div>
 </div>
 
+<div id="draftpool">
+
+</div>
+
 
 <script type="text/javascript">
 
@@ -65,6 +69,7 @@
     */
 
     var jstpl_die = '<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
+    var jstpl_draftpool_die = '<div class="die die_${color}_${value}" id="die_${i}" style="left: ${left}px;"></div>';
 
 </script>
 

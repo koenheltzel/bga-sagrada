@@ -102,8 +102,10 @@ $machinestates = array(
         "description" => clienttranslate('${actplayer} must draft a die and/or use a tool'),
         "descriptionmyturn" => clienttranslate('${you} must draft a die and/or use a tool in any order'),
         "type" => "activeplayer",
+        "action" => "stPlayerTurn",
         "possibleactions" => array( "draftDie", "useTool", "pass" ),
-        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50 )
+        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50 ),
+        "args" => 'argPlayerTurn'
     ),
 
     20 => array(

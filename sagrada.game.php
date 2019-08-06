@@ -38,6 +38,7 @@ class Sagrada extends Table {
     use Sag\States\GameSetupTrait;
     use Sag\States\SelectPatternTrait;
     use Sag\States\NextRoundTrait;
+    use Sag\States\PlayerTurnTrait;
 
     const PATTERNS_PER_PLAYER = 4;
 
