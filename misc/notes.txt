@@ -1,5 +1,7 @@
 States array (ID's are the keys): $this->gamestate->states
 
+Dojo version: 1.15.0
+
 Maxiumum cards onscreen:
     Normal play:
         1 private
