@@ -10,359 +10,346 @@
  * sagrada.js
  *
  * Sagrada user interface script
- * 
+ *
  * In this file, you are describing the logic of your user interface, in Javascript language.
  *
  */
 
 define([
-    "dojo","dojo/_base/declare",
-    "ebg/core/gamegui",
-    "ebg/counter"
-],
-function (dojo, declare) {
-    return declare("bgagame.sagrada", ebg.core.gamegui, {
-        constructor: function(){
-            console.log('sagrada constructor');
-              
-            // Here, you can init the global variables of your user interface
-            // Example:
-            // this.myGlobalValue = 0;
+        "dojo", "dojo/_base/declare",
+        "ebg/core/gamegui",
+        "ebg/counter"
+    ],
+    function (dojo, declare) {
+        return declare("bgagame.sagrada", ebg.core.gamegui, {
+            constructor: function () {
+                console.log('sagrada constructor');
 
-        },
-        
-        /*
-            setup:
-            
-            This method must set up the game user interface according to current game situation specified
-            in parameters.
-            
-            The method is called each time the game interface is displayed to a player, ie:
-            _ when the game starts
-            _ when a player refreshes the game page (F5)
-            
-            "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
-        */
-        
-        setup: function( gamedatas )
-        {
-            console.log( "Starting game setup" );
-            
-            // Setting up player boards
-            for( var player_id in gamedatas.players )
-            {
-                var player = gamedatas.players[player_id];
-                         
-                // TODO: Setting up players boards if needed
+                // Here, you can init the global variables of your user interface
+                // Example:
+                // this.myGlobalValue = 0;
 
-            }
+            },
 
-            let colors = ['r','g','b','y','p'];
-            for (let x = 1; x <= 5; x++) {
-                for (let y = 1; y <= 4; y++) {
-                    let color = colors[Math.floor(Math.random()*colors.length)];
-                    let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-                    this.addDieToBoard( x, y, color, value, [player_id] );
+            /*
+                setup:
+
+                This method must set up the game user interface according to current game situation specified
+                in parameters.
+
+                The method is called each time the game interface is displayed to a player, ie:
+                _ when the game starts
+                _ when a player refreshes the game page (F5)
+
+                "gamedatas" argument contains all datas retrieved by your "getAllDatas" PHP method.
+            */
+
+            setup: function (gamedatas) {
+                console.log("Starting game setup");
+
+                // Setting up player boards
+                for (var player_id in gamedatas.players) {
+                    var player = gamedatas.players[player_id];
+
+                    // TODO: Setting up players boards if needed
+
                 }
-            }
 
-            let patterns = dojo.query('.pattern-sprite');
-            for (let i = 0; i < patterns.length; i++) {
-                dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
-            }
-
-            this.selectPatternSetup(gamedatas);
-            // TODO: Set up your game interface here, according to "gamedatas"
-            
- 
-            // Setup game notifications to handle (see "setupNotifications" method below)
-            this.setupNotifications();
-
-            console.log( "Ending game setup" );
-        },
-
-        selectPatternSetup: function( data )
-        {
-            let patterns = data.patterns;
-            if (patterns !== undefined && patterns.length == 4) {
-                console.log('Patterns to select between: ', patterns);
-
-                for(let i = 1; i <= 4; i++) {
-                    let pattern = patterns[i - 1];
-                    let div = dojo.query('#pattern_selection_' + i);
-                    div.addClass('pattern-sprite-' + pattern.id);
-                    div.attr('data-id', pattern.id);
+                let colors = ['r', 'g', 'b', 'y', 'p'];
+                for (let x = 1; x <= 5; x++) {
+                    for (let y = 1; y <= 4; y++) {
+                        let color = colors[Math.floor(Math.random() * colors.length)];
+                        let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+                        this.addDieToBoard(x, y, color, value, [player_id]);
+                    }
                 }
-                dojo.style( 'pattern_selection', 'display', 'block' );
-            }
-        },
 
-        ///////////////////////////////////////////////////
-        //// Game & client states
-        
-        // onEnteringState: this method is called each time we are entering into a new game state.
-        //                  You can use this method to perform some user interface changes at this moment.
-        //
-        onEnteringState: function( stateName, args )
-        {
-            console.log( 'Entering state:', stateName, 'args:', args);
+                let patterns = dojo.query('.pattern-sprite');
+                for (let i = 0; i < patterns.length; i++) {
+                    dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
+                }
 
-            switch( stateName ) {
-                case 'selectPattern':
-                    break;
-                case 'playerTurn':
-                    this.updateDraftPool(args.args.draftPool);
-                    break;
+                this.selectPatternSetup(gamedatas);
+                // TODO: Set up your game interface here, according to "gamedatas"
 
-                /* Example:
 
-                case 'myGameState':
+                // Setup game notifications to handle (see "setupNotifications" method below)
+                this.setupNotifications();
 
-                    // Show some HTML block at this game state
-                    dojo.style( 'my_html_block_id', 'display', 'block' );
+                console.log("Ending game setup");
+            },
 
-                    break;
-               */
-            }
+            selectPatternSetup: function (data) {
+                let patterns = data.patterns;
+                if (patterns !== undefined && patterns.length == 4) {
+                    console.log('Patterns to select between: ', patterns);
 
-        },
+                    for (let i = 1; i <= 4; i++) {
+                        let pattern = patterns[i - 1];
+                        let div = dojo.query('#pattern_selection_' + i);
+                        div.addClass('pattern-sprite-' + pattern.id);
+                        div.attr('data-id', pattern.id);
+                    }
+                    dojo.style('pattern_selection', 'display', 'block');
+                }
+            },
 
-        // onLeavingState: this method is called each time we are leaving a game state.
-        //                 You can use this method to perform some user interface changes at this moment.
-        //
-        onLeavingState: function( stateName )
-        {
-            console.log( 'Leaving state: '+stateName );
-            
-            switch( stateName )
-            {
-            
+            ///////////////////////////////////////////////////
+            //// Game & client states
+
+            // onEnteringState: this method is called each time we are entering into a new game state.
+            //                  You can use this method to perform some user interface changes at this moment.
+            //
+            onEnteringState: function (stateName, args) {
+                console.log('Entering state:', stateName, 'args:', args);
+
+                switch (stateName) {
+                    case 'selectPattern':
+                        break;
+                    case 'playerTurn':
+                        this.updateDraftPool(args.args.draftPool);
+                        break;
+
+                    /* Example:
+
+                    case 'myGameState':
+
+                        // Show some HTML block at this game state
+                        dojo.style( 'my_html_block_id', 'display', 'block' );
+
+                        break;
+                   */
+                }
+
+            },
+
+            // onLeavingState: this method is called each time we are leaving a game state.
+            //                 You can use this method to perform some user interface changes at this moment.
+            //
+            onLeavingState: function (stateName) {
+                console.log('Leaving state: ' + stateName);
+
+                switch (stateName) {
+
+                    /* Example:
+
+                    case 'myGameState':
+
+                        // Hide the HTML block we are displaying only during this game state
+                        dojo.style( 'my_html_block_id', 'display', 'none' );
+
+                        break;
+                   */
+
+
+                    case 'dummmy':
+                        break;
+                }
+            },
+
+            // onUpdateActionButtons: in this method you can manage "action buttons" that are displayed in the
+            //                        action status bar (ie: the HTML links in the status bar).
+            //
+            onUpdateActionButtons: function (stateName, args) {
+                console.log('onUpdateActionButtons: ' + stateName);
+
+                if (this.isCurrentPlayerActive()) {
+                    switch (stateName) {
+                        /*
+                                         Example:
+
+                                         case 'myGameState':
+
+                                            // Add 3 action buttons in the action status bar:
+
+                                            this.addActionButton( 'button_1_id', _('Button 1 label'), 'onMyMethodToCall1' );
+                                            this.addActionButton( 'button_2_id', _('Button 2 label'), 'onMyMethodToCall2' );
+                                            this.addActionButton( 'button_3_id', _('Button 3 label'), 'onMyMethodToCall3' );
+                                            break;
+                        */
+                    }
+                }
+            },
+
+            ///////////////////////////////////////////////////
+            //// Utility methods
+
+            /*
+
+                Here, you can defines some utility methods that you can use everywhere in your javascript
+                script.
+
+            */
+
+            updateDraftPool: function (draftPool) {
+                dojo.empty("draftpool");
+                for (var i = 0; i < draftPool.length; i++) {
+                    var die = draftPool[i];
+                    dojo.place(this.format_block('jstpl_draftpool_die', {
+                        i: i,
+                        left: i * 30,
+                        color: die.color.char.toLowerCase(),
+                        value: die.value,
+                    }), 'draftpool');
+                }
+
+                dojo.style('draftpool', 'display', 'block');
+            },
+
+
+            ///////////////////////////////////////////////////
+            //// Player's action
+
+            /*
+
+                Here, you are defining methods to handle player's action (ex: results of mouse click on
+                game objects).
+
+                Most of the time, these methods:
+                _ check the action is possible at this game state.
+                _ make a call to the game server
+
+            */
+
+            addDieToBoard: function (x, y, color, value, player) {
+                dojo.place(this.format_block('jstpl_die', {
+                    x_y: x + '_' + y,
+                    color: color,
+                    value: value,
+                }), 'dice');
+
+                this.placeOnObject('die_' + x + '_' + y, 'overall_player_board_' + player);
+                this.slideToObject('die_' + x + '_' + y, 'square_' + x + '_' + y).play();
+            },
+
             /* Example:
-            
-            case 'myGameState':
-            
-                // Hide the HTML block we are displaying only during this game state
-                dojo.style( 'my_html_block_id', 'display', 'none' );
-                
-                break;
-           */
-           
-           
-            case 'dummmy':
-                break;
-            }               
-        }, 
 
-        // onUpdateActionButtons: in this method you can manage "action buttons" that are displayed in the
-        //                        action status bar (ie: the HTML links in the status bar).
-        //        
-        onUpdateActionButtons: function( stateName, args )
-        {
-            console.log( 'onUpdateActionButtons: '+stateName );
-                      
-            if( this.isCurrentPlayerActive() )
-            {            
-                switch( stateName )
-                {
-/*               
-                 Example:
- 
-                 case 'myGameState':
-                    
-                    // Add 3 action buttons in the action status bar:
-                    
-                    this.addActionButton( 'button_1_id', _('Button 1 label'), 'onMyMethodToCall1' ); 
-                    this.addActionButton( 'button_2_id', _('Button 2 label'), 'onMyMethodToCall2' ); 
-                    this.addActionButton( 'button_3_id', _('Button 3 label'), 'onMyMethodToCall3' ); 
-                    break;
-*/
+            onMyMethodToCall1: function( evt )
+            {
+                console.log( 'onMyMethodToCall1' );
+
+                // Preventing default browser reaction
+                dojo.stopEvent( evt );
+
+                // Check that this action is possible (see "possibleactions" in states.inc.php)
+                if( ! this.checkAction( 'myAction' ) )
+                {   return; }
+
+                this.ajaxcall( "/sagrada/sagrada/myAction.html", {
+                                                                        lock: true,
+                                                                        myArgument1: arg1,
+                                                                        myArgument2: arg2,
+                                                                        ...
+                                                                     },
+                             this, function( result ) {
+
+                                // What to do after the server call if it succeeded
+                                // (most of the time: nothing)
+
+                             }, function( is_error) {
+
+                                // What to do after the server call in anyway (success or failure)
+                                // (most of the time: nothing)
+
+                             } );
+            },
+
+            */
+            onSelectPatternClick: function (e) {
+                // Preventing default browser reaction
+                dojo.stopEvent(e);
+
+                let pattern = dojo.query(e.target);
+                console.log('pattern ', pattern);
+                console.log('data-id ', pattern.attr('data-id').pop());
+
+                // Check that this action is possible (see "possibleactions" in states.inc.php)
+                if (!this.checkAction('actionSelectPattern')) {
+                    return;
                 }
-            }
-        },        
 
-        ///////////////////////////////////////////////////
-        //// Utility methods
-        
-        /*
-        
-            Here, you can defines some utility methods that you can use everywhere in your javascript
-            script.
-        
-        */
+                this.ajaxcall("/sagrada/sagrada/actionSelectPattern.html", {
+                        pattern: pattern.attr('data-id')
+                    },
+                    this, function (result) {
+                        console.log('success result: ', result);
+                        // What to do after the server call if it succeeded
+                        // (most of the time: nothing)
 
-        updateDraftPool: function(draftPool) {
-            dojo.empty("draftpool");
-            for (var i = 0; i < draftPool.length; i++) {
-                var die = draftPool[i];
-                dojo.place( this.format_block( 'jstpl_draftpool_die', {
-                    i: i,
-                    left: i * 30,
-                    color: die.color.char.toLowerCase(),
-                    value: die.value,
-                } ) , 'draftpool' );
-            }
+                        // Hide pattern selection
+                        dojo.style('pattern_selection', 'display', 'none');
 
-            dojo.style( 'draftpool', 'display', 'block' );
-        },
+                    }, function (is_error) {
+                        console.log('error result: ', is_error);
+                        // What to do after the server call in anyway (success or failure)
+                        // (most of the time: nothing)
+
+                    });
+            },
 
 
-        ///////////////////////////////////////////////////
-        //// Player's action
-        
-        /*
-        
-            Here, you are defining methods to handle player's action (ex: results of mouse click on 
-            game objects).
-            
-            Most of the time, these methods:
-            _ check the action is possible at this game state.
-            _ make a call to the game server
-        
-        */
+            ///////////////////////////////////////////////////
+            //// Reaction to cometD notifications
 
-        addDieToBoard: function( x, y, color, value, player )
-        {
-            dojo.place( this.format_block( 'jstpl_die', {
-                x_y: x+'_'+y,
-                color: color,
-                value: value,
-            } ) , 'dice' );
+            /*
+                setupNotifications:
 
-            this.placeOnObject( 'die_'+x+'_'+y, 'overall_player_board_'+player );
-            this.slideToObject( 'die_'+x+'_'+y, 'square_'+x+'_'+y ).play();
-        },
-        
-        /* Example:
-        
-        onMyMethodToCall1: function( evt )
-        {
-            console.log( 'onMyMethodToCall1' );
-            
-            // Preventing default browser reaction
-            dojo.stopEvent( evt );
+                In this method, you associate each of your game notifications with your local method to handle it.
 
-            // Check that this action is possible (see "possibleactions" in states.inc.php)
-            if( ! this.checkAction( 'myAction' ) )
-            {   return; }
+                Note: game notification names correspond to "notifyAllPlayers" and "notifyPlayer" calls in
+                      your sagrada.game.php file.
 
-            this.ajaxcall( "/sagrada/sagrada/myAction.html", { 
-                                                                    lock: true, 
-                                                                    myArgument1: arg1, 
-                                                                    myArgument2: arg2,
-                                                                    ...
-                                                                 }, 
-                         this, function( result ) {
-                            
-                            // What to do after the server call if it succeeded
-                            // (most of the time: nothing)
-                            
-                         }, function( is_error) {
+            */
+            setupNotifications: function () {
+                console.log('notifications subscriptions setup');
 
-                            // What to do after the server call in anyway (success or failure)
-                            // (most of the time: nothing)
+                // TODO: here, associate your game notifications with local methods
 
-                         } );        
-        },        
-        
-        */
-        onSelectPatternClick: function( e )
-        {
-            // Preventing default browser reaction
-            dojo.stopEvent( e );
+                // Example 1: standard notification handling
+                // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
+                dojo.subscribe('selectPattern', this, "notif_selectPattern");
+                dojo.subscribe('playerTurn', this, "notif_playerTurn");
 
-            let pattern = dojo.query(e.target);
-            console.log('pattern ', pattern);
-            console.log('data-id ', pattern.attr('data-id').pop());
+                // Example 2: standard notification handling + tell the user interface to wait
+                //            during 3 seconds after calling the method in order to let the players
+                //            see what is happening in the game.
+                // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
+                // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
+                //
+            },
 
-            // Check that this action is possible (see "possibleactions" in states.inc.php)
-            if( ! this.checkAction( 'actionSelectPattern' ) )
-            {   return; }
+            // TODO: from this point and below, you can write your game notifications handling methods
 
-            this.ajaxcall( "/sagrada/sagrada/actionSelectPattern.html", {
-                    pattern: pattern.attr('data-id')
-                },
-                this, function( result ) {
-                    console.log('success result: ', result);
-                    // What to do after the server call if it succeeded
-                    // (most of the time: nothing)
+            /*
+            Example:
 
-                    // Hide pattern selection
-                    dojo.style( 'pattern_selection', 'display', 'none' );
+            notif_cardPlayed: function( notif )
+            {
+                console.log( 'notif_cardPlayed' );
+                console.log( notif );
 
-                }, function( is_error) {
-                    console.log('error result: ', is_error);
-                    // What to do after the server call in anyway (success or failure)
-                    // (most of the time: nothing)
+                // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 
-                } );
-        },
+                // TODO: play the card in the user interface.
+            },   */
 
+            notif_selectPattern: function (notif) {
+                console.log('notif_selectPattern');
+                console.log(notif);
 
-        ///////////////////////////////////////////////////
-        //// Reaction to cometD notifications
+                // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 
-        /*
-            setupNotifications:
-            
-            In this method, you associate each of your game notifications with your local method to handle it.
-            
-            Note: game notification names correspond to "notifyAllPlayers" and "notifyPlayer" calls in
-                  your sagrada.game.php file.
-        
-        */
-        setupNotifications: function()
-        {
-            console.log( 'notifications subscriptions setup' );
-            
-            // TODO: here, associate your game notifications with local methods
-            
-            // Example 1: standard notification handling
-            // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
-            dojo.subscribe( 'selectPattern', this, "notif_selectPattern" );
-            dojo.subscribe( 'playerTurn', this, "notif_playerTurn" );
+                // TODO: play the card in the user interface.
+            },
 
-            // Example 2: standard notification handling + tell the user interface to wait
-            //            during 3 seconds after calling the method in order to let the players
-            //            see what is happening in the game.
-            // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
-            // this.notifqueue.setSynchronous( 'cardPlayed', 3000 );
-            // 
-        },  
-        
-        // TODO: from this point and below, you can write your game notifications handling methods
-        
-        /*
-        Example:
-        
-        notif_cardPlayed: function( notif )
-        {
-            console.log( 'notif_cardPlayed' );
-            console.log( notif );
-            
-            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-            
-            // TODO: play the card in the user interface.
-        },   */
+            notif_playerTurn: function (notif) {
+                console.log('notif_playerTurn');
+                console.log(notif);
+                this.updateDraftPool(notif.args.draftPool);
 
-        notif_selectPattern: function( notif )
-        {
-            console.log( 'notif_selectPattern' );
-            console.log( notif );
+                // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 
-            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-
-            // TODO: play the card in the user interface.
-        },
-
-        notif_playerTurn: function( notif )
-        {
-            console.log( 'notif_playerTurn' );
-            console.log( notif );
-            this.updateDraftPool(notif.args.draftPool);
-
-            // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
-
-            // TODO: play the card in the user interface.
-        },
+                // TODO: play the card in the user interface.
+            },
+        });
     });
-});

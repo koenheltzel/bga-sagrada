@@ -16,7 +16,7 @@
  *
  */
 
-$sagradaNamespaceAutoload = function($class) {
+$sagradaNamespaceAutoload = function ($class) {
     $classParts = explode('\\', $class);
     if ($classParts[0] == 'Sag') {
         array_shift($classParts);
@@ -35,6 +35,7 @@ if (0) require_once '_bga_ide_helper.php';
 //print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
 
 class Sagrada extends Table {
+
     use Sag\States\GameSetupTrait;
     use Sag\States\SelectPatternTrait;
     use Sag\States\NextRoundTrait;
@@ -63,7 +64,6 @@ class Sagrada extends Table {
             //      ...
         ]);
     }
-
 
 
     /**
@@ -256,7 +256,6 @@ class Sagrada extends Table {
         );
     }
     */
-
 
 
 //////////////////////////////////////////////////////////////////////////////
