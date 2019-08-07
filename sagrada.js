@@ -58,14 +58,14 @@ define([
 
                 }
 
-                let colors = ['R', 'G', 'B', 'Y', 'P'];
-                for (let x = 1; x <= 5; x++) {
-                    for (let y = 1; y <= 4; y++) {
-                        let color = colors[Math.floor(Math.random() * colors.length)];
-                        let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-                        this.addDieToBoard(x, y, color, value, [player_id]);
-                    }
-                }
+                // let colors = ['R', 'G', 'B', 'Y', 'P'];
+                // for (let x = 1; x <= 5; x++) {
+                //     for (let y = 1; y <= 4; y++) {
+                //         let color = colors[Math.floor(Math.random() * colors.length)];
+                //         let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+                //         this.addDieToBoard(x, y, color, value, [player_id]);
+                //     }
+                // }
                 let patterns = dojo.query('.pattern-sprite');
                 for (let i = 0; i < patterns.length; i++) {
                     dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
@@ -192,6 +192,7 @@ define([
                         i: i,
                         left: i * 30 + 10,
                         id: die.draftPoolId,
+                        legalPositions: JSON.stringify(die.draftLegalPositions),
                         color: die.color.char,
                         value: die.value,
                     }), 'draftpool');
@@ -295,6 +296,21 @@ define([
                 // Preventing default browser reaction
                 dojo.stopEvent(e);
 
+                // Deselect previous selection.
+                dojo.query("#draftpool .active_die").removeClass("active_die");
+
+                // Select die
+                dojo.addClass(e.target.id, 'active_die');
+
+                let die = dojo.query(e.target);
+                let legalPositions = JSON.parse(die.attr('data-legal-positions'));
+                console.log();
+            },
+
+            onBoardSpaceClick: function (e) {
+                // Preventing default browser reaction
+                dojo.stopEvent(e);
+
                 let die = dojo.query(e.target);
                 console.log('die ', die);
                 console.log('data-id ', die.attr('data-id').pop());
@@ -305,6 +321,8 @@ define([
                 if (!this.checkAction('actionDraftDie')) {
                     return;
                 }
+
+                this.addDieToBoard(x, y, color, value, [player_id]);
 
                 this.ajaxcall("/sagrada/sagrada/actionDraftDie.html", {
                         id: die.attr('data-id'),

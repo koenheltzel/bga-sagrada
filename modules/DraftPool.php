@@ -43,14 +43,24 @@ class DraftPool {
             Sagrada::db("UPDATE sag_game_state SET dice_bag_{$color->char} = dice_bag_{$color->char} - 1");
         }
         $this->save();
+        $this->load(); // Load again, so ids and legal positions are filled as well.
     }
 
     public function load() {
+        $this->dice = [];
         $results = Sagrada::db("SELECT * FROM sag_draftpool ORDER BY id")->fetch_all(MYSQLI_ASSOC);
         if (count($results) > 0) {
             foreach ($results as $result) {
                 $die = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
                 $die->draftPoolId = $result['id'];
+                $die->draftLegalPositions = [];
+                for($y = 0; $y <= 4; $y++) {
+                    for($x = 0; $x <= 5; $x++) {
+                        if ($x == 0 || $y == 0 || $x == 5 || $y == 4) {
+                            $die->draftLegalPositions[] = [$x, $y];
+                        }
+                    }
+                }
                 $this->dice[] = $die;
             }
         }

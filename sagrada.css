@@ -73,6 +73,11 @@
     background-image: url('img/dice.png');
 }
 
+.active_die {
+    border-radius: 5px;
+    border: 2px solid #73AD21;
+}
+
 .die_R_1 {
     background-position: -0px -0px;
 }
