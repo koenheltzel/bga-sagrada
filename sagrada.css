@@ -212,6 +212,15 @@
     }
 */
  
+#draftpool-container {
+    height: 60px;
+}
+
+.draftpool-die {
+    cursor: pointer;
+    display: block;
+}
+
 .pattern-sprite {
     background-image: url('img/patterns.png');
     background-repeat: no-repeat;

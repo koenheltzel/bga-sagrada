@@ -53,8 +53,11 @@
     </div>
 </div>
 
-<div id="draftpool">
+<div class="whiteblock" id="draftpool-container">
+    <h3>Draft pool:</h3>
+    <div id="draftpool">
 
+    </div>
 </div>
 
 
@@ -69,7 +72,7 @@
     */
 
     var jstpl_die = '<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
-    var jstpl_draftpool_die = '<div class="die die_${color}_${value} draftpool_die" id="die_${i}" style="left: ${left}px;"></div>';
+    var jstpl_draftpool_die = '<div class="die die_${color}_${value} draftpool-die" id="die_${i}" data-color="${color}" data-value="${value}" style="left: ${left}px;"></div>';
 
 </script>
 

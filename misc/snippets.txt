@@ -1,0 +1,3 @@
+
+// Future click handler, keeping "this" context: https://dojotoolkit.org/reference-guide/1.9/dojo/on.html#event-delegation
+on(dojo.query('#draftpool'), ".draftpool-die:click", lang.hitch(this, "onDraftPoolDieClick"));

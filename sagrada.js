@@ -16,11 +16,14 @@
  */
 
 define([
-        "dojo", "dojo/_base/declare",
+        "dojo",
+        "dojo/_base/declare",
+        "dojo/on",
+        "dojo/_base/lang",
         "ebg/core/gamegui",
         "ebg/counter"
     ],
-    function (dojo, declare) {
+    function (dojo, declare, on, lang) {
         return declare("bgagame.sagrada", ebg.core.gamegui, {
             constructor: function () {
                 console.log('sagrada constructor');
@@ -63,15 +66,15 @@ define([
                         this.addDieToBoard(x, y, color, value, [player_id]);
                     }
                 }
-
                 let patterns = dojo.query('.pattern-sprite');
                 for (let i = 0; i < patterns.length; i++) {
                     dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
                 }
 
+                on(dojo.query('#draftpool'), ".draftpool-die:click", lang.hitch(this, "onDraftPoolDieClick"));
+
                 this.selectPatternSetup(gamedatas);
                 // TODO: Set up your game interface here, according to "gamedatas"
-
 
                 // Setup game notifications to handle (see "setupNotifications" method below)
                 this.setupNotifications();
@@ -187,13 +190,14 @@ define([
                     var die = draftPool[i];
                     dojo.place(this.format_block('jstpl_draftpool_die', {
                         i: i,
-                        left: i * 30,
+                        left: i * 30 + 10,
                         color: die.color.char.toLowerCase(),
                         value: die.value,
                     }), 'draftpool');
                 }
+                // dojo.query('#draftpool .draftpool-die').connect( 'onclick', this, this.onDraftPoolDieClick);
 
-                dojo.style('draftpool', 'display', 'block');
+                dojo.style('draftpool-container', 'display', 'block');
             },
 
 
@@ -285,6 +289,40 @@ define([
                         // (most of the time: nothing)
 
                     });
+            },
+
+            onDraftPoolDieClick: function (e) {
+                // Preventing default browser reaction
+                dojo.stopEvent(e);
+
+                let die = dojo.query(e.target);
+                console.log('die ', die);
+                console.log('data-id ', die.attr('data-id').pop());
+                console.log('data-color ', die.attr('data-color').pop());
+                console.log('data-value ', die.attr('data-value').pop());
+
+                // Check that this action is possible (see "possibleactions" in states.inc.php)
+                if (!this.checkAction('actionDraftDie')) {
+                    return;
+                }
+
+                // this.ajaxcall("/sagrada/sagrada/actionSelectPattern.html", {
+                //         pattern: pattern.attr('data-id')
+                //     },
+                //     this, function (result) {
+                //         console.log('success result: ', result);
+                //         // What to do after the server call if it succeeded
+                //         // (most of the time: nothing)
+                //
+                //         // Hide pattern selection
+                //         dojo.style('pattern_selection', 'display', 'none');
+                //
+                //     }, function (is_error) {
+                //         console.log('error result: ', is_error);
+                //         // What to do after the server call in anyway (success or failure)
+                //         // (most of the time: nothing)
+                //
+                //     });
             },
 
 
