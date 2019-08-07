@@ -58,7 +58,7 @@ define([
 
                 }
 
-                let colors = ['r', 'g', 'b', 'y', 'p'];
+                let colors = ['R', 'G', 'B', 'Y', 'P'];
                 for (let x = 1; x <= 5; x++) {
                     for (let y = 1; y <= 4; y++) {
                         let color = colors[Math.floor(Math.random() * colors.length)];
