@@ -40,8 +40,7 @@ class DraftPool {
             $value = bga_rand(1, 6);
             $this->dice[] = new Die_($color, $value);
 
-            $lowerChar = strtolower($color->char);
-            Sagrada::db("UPDATE sag_game_state SET dice_bag_{$lowerChar} = dice_bag_{$lowerChar} - 1");
+            Sagrada::db("UPDATE sag_game_state SET dice_bag_{$color->char} = dice_bag_{$color->char} - 1");
         }
         $this->save();
     }
@@ -50,7 +49,9 @@ class DraftPool {
         $results = Sagrada::db("SELECT * FROM sag_draftpool ORDER BY id")->fetch_all(MYSQLI_ASSOC);
         if (count($results) > 0) {
             foreach ($results as $result) {
-                $this->dice[] = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
+                $die = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
+                $die->draftPoolId = $result['id'];
+                $this->dice[] = $die;
             }
         }
     }

@@ -77,7 +77,7 @@ class GameState {
         if (count($result) > 0) {
             $result = array_shift($result);
             foreach (Colors::get()->colors as $char => $color) {
-                $this->{"diceBag$char"} = $result['dice_bag_' . strtolower($char)];
+                $this->{"diceBag$char"} = $result["dice_bag_{$char}"];
             }
             $this->publicObjectiveIds = explode(',', $result['public_objectives']);
         }
@@ -87,11 +87,11 @@ class GameState {
         $publicObjectivesIdsString = implode(',',$this->publicObjectiveIds);
         $sql = "            
             UPDATE sag_game_state
-            SET dice_bag_r        = {$this->diceBagR},
-                dice_bag_g        = {$this->diceBagG},
-                dice_bag_b        = {$this->diceBagB},
-                dice_bag_y        = {$this->diceBagY},
-                dice_bag_p        = {$this->diceBagP},
+            SET dice_bag_R        = {$this->diceBagR},
+                dice_bag_G        = {$this->diceBagG},
+                dice_bag_B        = {$this->diceBagB},
+                dice_bag_Y        = {$this->diceBagY},
+                dice_bag_P        = {$this->diceBagP},
                 public_objectives = '{$publicObjectivesIdsString}'
         ";
         Sagrada::db($sql);

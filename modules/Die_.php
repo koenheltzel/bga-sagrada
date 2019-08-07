@@ -14,6 +14,11 @@ class Die_ {
      */
     public $value;
 
+    /**
+     * @var int
+     */
+    public $draftPoolId;
+
     public function __construct($color, $value) {
         $this->color = $color;
         $this->value = $value;

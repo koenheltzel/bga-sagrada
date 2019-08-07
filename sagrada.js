@@ -191,11 +191,11 @@ define([
                     dojo.place(this.format_block('jstpl_draftpool_die', {
                         i: i,
                         left: i * 30 + 10,
-                        color: die.color.char.toLowerCase(),
+                        id: die.draftPoolId,
+                        color: die.color.char,
                         value: die.value,
                     }), 'draftpool');
                 }
-                // dojo.query('#draftpool .draftpool-die').connect( 'onclick', this, this.onDraftPoolDieClick);
 
                 dojo.style('draftpool-container', 'display', 'block');
             },
@@ -306,23 +306,25 @@ define([
                     return;
                 }
 
-                // this.ajaxcall("/sagrada/sagrada/actionSelectPattern.html", {
-                //         pattern: pattern.attr('data-id')
-                //     },
-                //     this, function (result) {
-                //         console.log('success result: ', result);
-                //         // What to do after the server call if it succeeded
-                //         // (most of the time: nothing)
-                //
-                //         // Hide pattern selection
-                //         dojo.style('pattern_selection', 'display', 'none');
-                //
-                //     }, function (is_error) {
-                //         console.log('error result: ', is_error);
-                //         // What to do after the server call in anyway (success or failure)
-                //         // (most of the time: nothing)
-                //
-                //     });
+                this.ajaxcall("/sagrada/sagrada/actionDraftDie.html", {
+                        id: die.attr('data-id'),
+                        color: die.attr('data-color'),
+                        value: die.attr('data-value')
+                    },
+                    this, function (result) {
+                        console.log('success result: ', result);
+                        // What to do after the server call if it succeeded
+                        // (most of the time: nothing)
+
+                        // Hide pattern selection
+                        // dojo.style('pattern_selection', 'display', 'none');
+
+                    }, function (is_error) {
+                        console.log('error result: ', is_error);
+                        // What to do after the server call in anyway (success or failure)
+                        // (most of the time: nothing)
+
+                    });
             },
 
 

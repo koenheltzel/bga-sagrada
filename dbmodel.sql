@@ -267,10 +267,10 @@ ALTER TABLE `sag_draftpool`
 --
 
 CREATE TABLE `sag_game_state` (
-                                  `dice_bag_r` int(11) DEFAULT NULL,
-                                  `dice_bag_g` int(11) DEFAULT NULL,
-                                  `dice_bag_b` int(11) DEFAULT NULL,
-                                  `dice_bag_y` int(11) DEFAULT NULL,
-                                  `dice_bag_p` int(11) DEFAULT NULL,
+                                  `dice_bag_R` int(11) DEFAULT NULL,
+                                  `dice_bag_G` int(11) DEFAULT NULL,
+                                  `dice_bag_B` int(11) DEFAULT NULL,
+                                  `dice_bag_Y` int(11) DEFAULT NULL,
+                                  `dice_bag_P` int(11) DEFAULT NULL,
                                   `public_objectives` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

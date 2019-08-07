@@ -22,6 +22,8 @@ trait SelectPatternTrait {
     }
 
     public function actionSelectPattern($patternId){
+        $this->checkAction('actionSelectPattern');
+
         $playerId = self::getCurrentPlayerId();
 
         $pattern = Patterns::getPattern($patternId);

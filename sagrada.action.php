@@ -22,34 +22,40 @@
  */
 
 
-  class action_sagrada extends APP_GameAction
-  {
+class action_sagrada extends APP_GameAction {
+
     // Constructor: please do not modify
-   	public function __default()
-  	{
-  	    if( self::isArg( 'notifwindow') )
-  	    {
+    public function __default() {
+        if (self::isArg('notifwindow')) {
             $this->view = "common_notifwindow";
-  	        $this->viewArgs['table'] = self::getArg( "table", AT_posint, true );
-  	    }
-  	    else
-  	    {
+            $this->viewArgs['table'] = self::getArg("table", AT_posint, true);
+        } else {
             $this->view = "sagrada_sagrada";
-            self::trace( "Complete reinitialization of board game" );
-      }
-  	}
+            self::trace("Complete reinitialization of board game");
+        }
+    }
 
-  	// TODO: defines your action entry points there
+    // TODO: defines your action entry points there
 
-      public function actionSelectPattern()
-      {
-          self::setAjaxMode();
+    public function actionSelectPattern() {
+        self::setAjaxMode();
 
-          $pattern = self::getArg( "pattern", AT_posint, true );
-          $this->game->actionSelectPattern( $pattern );
+        $pattern = self::getArg("pattern", AT_posint, true);
+        $this->game->actionSelectPattern($pattern);
 
-          self::ajaxResponse( );
-      }
+        self::ajaxResponse();
+    }
+
+    public function actionDraftDie() {
+        self::setAjaxMode();
+
+        $id = self::getArg("id", AT_posint, true);
+        $color = self::getArg("color", AT_alphanum, true);
+        $value = self::getArg("value", AT_posint, true);
+        $this->game->actionDraftDie($id, $color, $value);
+
+        self::ajaxResponse();
+    }
 
     /*
     
@@ -72,6 +78,6 @@
     
     */
 
-  }
+}
   
 
