@@ -7,28 +7,21 @@ use Sagrada;
 
 trait DraftDieTrait {
 
-    public function actionDraftDie($id, $color, $value){
+    public function actionDraftDie($draftPoolId, $color, $value, $x, $y){
         $this->checkAction('actionDraftDie');
 
         $playerId = self::getCurrentPlayerId();
 
+        // Delete the specified die from the draftpool.
         $sql = "
-            SELECT *
-            FROM sag_draftpool
-            WHERE
-                 id = {$id} 
+            DELETE FROM sag_draftpool WHERE id = {$draftPoolId} 
                  AND die_color = '{$color}' 
                  AND die_value = {$value}
         ";
-        $result = Sagrada::db($sql);
-        if ($result->num_rows == 0) {
-            throw new BgaUserException('Die is not in draft pool.');
-        }
-
-        $sql = "
-            DELETE FROM sag_draftpool WHERE id = {$id}
-        ";
         Sagrada::db($sql);
+        if ($this->DbAffectedRow() == 0) {
+            throw new BgaUserException('The selected die is not actually in the draft pool.');
+        }
 
 //        $this->notifyAllPlayers(
 //            'patternSelected',

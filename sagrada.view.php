@@ -45,13 +45,13 @@ class view_sagrada_sagrada extends game_view {
 
         $hor_scale = 21;
         $ver_scale = 21;
-        for ($x = 1; $x <= 5; $x++) {
-            for ($y = 1; $y <= 4; $y++) {
+        for ($x = 0; $x < 5; $x++) {
+            for ($y = 0; $y < 4; $y++) {
                 $this->page->insert_block("square", [
                     'X' => $x,
                     'Y' => $y,
-                    'LEFT' => round(15 + ($x - 1) * ($hor_scale + 10)),
-                    'TOP' => round(78 + ($y - 1) * ($ver_scale + 10))
+                    'LEFT' => round(15 + $x * ($hor_scale + 10)),
+                    'TOP' => round(78 + $y * ($ver_scale + 10))
                 ]);
             }
         }

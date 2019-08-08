@@ -49,10 +49,12 @@ class action_sagrada extends APP_GameAction {
     public function actionDraftDie() {
         self::setAjaxMode();
 
-        $id = self::getArg("id", AT_posint, true);
+        $draftPoolId = self::getArg("draftPoolId", AT_posint, true);
         $color = self::getArg("color", AT_alphanum, true);
         $value = self::getArg("value", AT_posint, true);
-        $this->game->actionDraftDie($id, $color, $value);
+        $x = self::getArg("x", AT_posint, true);
+        $y = self::getArg("y", AT_posint, true);
+        $this->game->actionDraftDie($draftPoolId, $color, $value, $x, $y);
 
         self::ajaxResponse();
     }

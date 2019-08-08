@@ -54,9 +54,9 @@ class DraftPool {
                 $die = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
                 $die->draftPoolId = $result['id'];
                 $die->draftLegalPositions = [];
-                for($y = 0; $y <= 4; $y++) {
-                    for($x = 0; $x <= 5; $x++) {
-                        if ($x == 0 || $y == 0 || $x == 5 || $y == 4) {
+                for($y = 0; $y < 4; $y++) {
+                    for($x = 0; $x < 5; $x++) {
+                        if ($x == 0 || $y == 0 || $x == 4 || $y == 3) {
                             $die->draftLegalPositions[] = [$x, $y];
                         }
                     }

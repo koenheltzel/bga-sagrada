@@ -20,14 +20,18 @@ define([
         "dojo/_base/declare",
         "dojo/on",
         "dojo/_base/lang",
+        "dojo/dom-attr",
+        "dojo/NodeList-dom",
         "ebg/core/gamegui",
         "ebg/counter"
     ],
-    function (dojo, declare, on, lang) {
+    function (dojo, declare, on, lang, domAttr) {
         return declare("bgagame.sagrada", ebg.core.gamegui, {
             constructor: function () {
                 console.log('sagrada constructor');
 
+                this.activeDie = null;
+                this.draftPool = null;
                 // Here, you can init the global variables of your user interface
                 // Example:
                 // this.myGlobalValue = 0;
@@ -184,7 +188,16 @@ define([
 
             */
 
+            getDieFromDraftPool: function (id) {
+                for (let i = 0; i < this.draftPool.length; i++) {
+                    if(id == this.draftPool[i].draftPoolId) {
+                        return this.draftPool[i];
+                    }
+                }
+            },
+
             updateDraftPool: function (draftPool) {
+                this.draftPool = draftPool;
                 dojo.empty("draftpool");
                 for (var i = 0; i < draftPool.length; i++) {
                     var die = draftPool[i];
@@ -216,14 +229,14 @@ define([
 
             */
 
-            addDieToBoard: function (x, y, color, value, player) {
+            addDieToBoard: function (draftPoolId, x, y, color, value, player) {
                 dojo.place(this.format_block('jstpl_die', {
                     x_y: x + '_' + y,
                     color: color,
                     value: value,
                 }), 'dice');
 
-                this.placeOnObject('die_' + x + '_' + y, 'overall_player_board_' + player);
+                this.placeOnObject('die_' + x + '_' + y, 'die_' + draftPoolId);
                 this.slideToObject('die_' + x + '_' + y, 'square_' + x + '_' + y).play();
             },
 
@@ -302,32 +315,47 @@ define([
                 // Select die
                 dojo.addClass(e.target.id, 'active_die');
 
-                let die = dojo.query(e.target);
-                let legalPositions = JSON.parse(die.attr('data-legal-positions'));
-                console.log();
+                this.activeDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
+
+                for (let i = 0; i < this.activeDie.draftLegalPositions.length; i++) {
+                    let id = "square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
+                    let boardSpace = dojo.query("#" + id)[0];
+                    boardSpace._connectHandlers = [];
+                    boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
+                    dojo.addClass(id, 'legalPosition');
+                }
+
             },
 
             onBoardSpaceClick: function (e) {
                 // Preventing default browser reaction
                 dojo.stopEvent(e);
 
-                let die = dojo.query(e.target);
-                console.log('die ', die);
-                console.log('data-id ', die.attr('data-id').pop());
-                console.log('data-color ', die.attr('data-color').pop());
-                console.log('data-value ', die.attr('data-value').pop());
+                console.log('onBoardSpaceClick');
+
+                let boardSpace = dojo.query(e.target);
 
                 // Check that this action is possible (see "possibleactions" in states.inc.php)
                 if (!this.checkAction('actionDraftDie')) {
                     return;
                 }
 
-                this.addDieToBoard(x, y, color, value, [player_id]);
+                // TODO: Move this block to a player notification (I think), so it happens on all clients and is checked by server side.
+                this.addDieToBoard(this.activeDie.draftPoolId, boardSpace.attr('data-x'), boardSpace.attr('data-y'), this.activeDie.color.char, this.activeDie.value, this.getActivePlayerId());
+                dojo.destroy("die_" + this.activeDie.draftPoolId);
+                dojo.query('#board .square').removeClass('legalPosition');
+                dojo.query("#board .square").forEach(function(node){
+                    if (typeof node._connectHandlers!="undefined"){
+                        dojo.forEach(node._connectHandlers, "dojo.disconnect(item)");
+                    }
+                });
 
                 this.ajaxcall("/sagrada/sagrada/actionDraftDie.html", {
-                        id: die.attr('data-id'),
-                        color: die.attr('data-color'),
-                        value: die.attr('data-value')
+                        draftPoolId: this.activeDie.draftPoolId,
+                        color: this.activeDie.color.char,
+                        value: this.activeDie.value,
+                        x: boardSpace.attr('data-x'),
+                        y: boardSpace.attr('data-y')
                     },
                     this, function (result) {
                         console.log('success result: ', result);
