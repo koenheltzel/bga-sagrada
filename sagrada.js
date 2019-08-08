@@ -340,9 +340,6 @@ define([
                     return;
                 }
 
-                // TODO: Move this block to a player notification (I think), so it happens on all clients and is checked by server side.
-                this.addDieToBoard(this.activeDie.draftPoolId, boardSpace.attr('data-x'), boardSpace.attr('data-y'), this.activeDie.color.char, this.activeDie.value, this.getActivePlayerId());
-                dojo.destroy("die_" + this.activeDie.draftPoolId);
                 dojo.query('#board .square').removeClass('legalPosition');
                 dojo.query("#board .square").forEach(function(node){
                     if (typeof node._connectHandlers!="undefined"){
@@ -395,6 +392,7 @@ define([
                 // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
                 dojo.subscribe('selectPattern', this, "notif_selectPattern");
                 dojo.subscribe('playerTurn', this, "notif_playerTurn");
+                dojo.subscribe('dieDrafted', this, "notif_dieDrafted");
 
                 // Example 2: standard notification handling + tell the user interface to wait
                 //            during 3 seconds after calling the method in order to let the players
@@ -437,5 +435,16 @@ define([
 
                 // TODO: play the card in the user interface.
             },
+
+            notif_dieDrafted: function (notif) {
+                let die = this.getDieFromDraftPool(notif.args.draftPoolId);
+                this.addDieToBoard(notif.args.draftPoolId, notif.args.x, notif.args.y, die.color.char, die.value, notif.args.playerId);
+
+                dojo.destroy("die_" + die.draftPoolId);
+
+                this.updateDraftPool(notif.args.draftPool);
+                // TODO: update draftpool here
+
+            }
         });
     });

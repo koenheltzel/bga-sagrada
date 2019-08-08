@@ -1,4 +1,7 @@
 <?php
+
+use Sag\Colors;
+
 /**
  *------
  * BGA framework: © Gregory Isabelli <gisabelli@boardgamearena.com> & Emmanuel Colin <ecolin@boardgamearena.com>
@@ -50,7 +53,7 @@ class action_sagrada extends APP_GameAction {
         self::setAjaxMode();
 
         $draftPoolId = self::getArg("draftPoolId", AT_posint, true);
-        $color = self::getArg("color", AT_alphanum, true);
+        $color = Colors::get()->getColor(self::getArg("color", AT_alphanum, true));
         $value = self::getArg("value", AT_posint, true);
         $x = self::getArg("x", AT_posint, true);
         $y = self::getArg("y", AT_posint, true);

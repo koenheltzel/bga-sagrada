@@ -81,4 +81,18 @@ class DraftPool {
         Sagrada::db($sql);
     }
 
+    public function deleteDie($id, $color, $value) {
+        // Delete the specified die from the draftpool.
+        $sql = "
+            DELETE FROM sag_draftpool WHERE id = {$id} 
+                 AND die_color = '{$color->char}' 
+                 AND die_value = {$value}
+        ";
+        Sagrada::db($sql);
+        if (Sagrada::get()->dbAffectedRows() == 0) {
+            throw new BgaUserException('The selected die is not actually in the draft pool.');
+        }
+        $this->load();
+    }
+
 }

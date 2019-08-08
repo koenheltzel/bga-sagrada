@@ -49,7 +49,18 @@ class Sagrada extends Table {
     const STATE_NEXT_ROUND = 5;
     const STATE_PLAYER_TURN = 10;
 
+    private static $instance;
+
+    /**
+     * @return Sagrada
+     */
+    public static function get() {
+        return self::$instance;
+    }
+
     function __construct() {
+        self::$instance = $this;
+
         // Your global variables labels:
         //  Here, you can assign labels to global variables you are using for this game.
         //  You can use any number of global variables with IDs between 10 and 99.
@@ -77,6 +88,10 @@ class Sagrada extends Table {
      */
     public static function db($sql) {
         return self::DbQuery($sql);
+    }
+
+    public function dbAffectedRows() {
+        return $this->DbAffectedRow();
     }
 
     protected function getGameName() {

@@ -2,7 +2,7 @@
 
 namespace Sag\States;
 
-use Sag\Patterns;
+use Sag\DraftPool;
 use Sagrada;
 
 trait DraftDieTrait {
@@ -12,41 +12,26 @@ trait DraftDieTrait {
 
         $playerId = self::getCurrentPlayerId();
 
-        // Delete the specified die from the draftpool.
-        $sql = "
-            DELETE FROM sag_draftpool WHERE id = {$draftPoolId} 
-                 AND die_color = '{$color}' 
-                 AND die_value = {$value}
-        ";
-        Sagrada::db($sql);
-        if ($this->DbAffectedRow() == 0) {
-            throw new BgaUserException('The selected die is not actually in the draft pool.');
-        }
+        DraftPool::get()->deleteDie($draftPoolId, $color, $value);
 
         // Add the die to the player's board
         $sql = "
-            INSERT INTO sag_boardspace (player_id, x, y, die_color, die_value) VALUES ({$playerId},{$x},{$y},'{$color}',{$value})
+            INSERT INTO sag_boardspace (player_id, x, y, die_color, die_value) VALUES ({$playerId},{$x},{$y},'{$color->char}',{$value})
         ";
         Sagrada::db($sql);
 
-//        $this->notifyAllPlayers(
-//            'patternSelected',
-//            clienttranslate('${playerName} selected pattern ${patternName} (${difficulty})'),
-//            [
-//                'patternName' => $pattern->name,
-//                'difficulty' => substr('**********', 0, $pattern->difficulty),
-//                'playerName' => $this->getCurrentPlayerName(),
-//                'playerColor' => $this->getCurrentPlayerColor(),
-//                'playerId' => $playerId
-//            ]
-//        );
-//
-//        $this->notifyPlayer(
-//            $playerId,
-//            'iReturnedToDeck',
-//            '',
-//            ['cardIds' => $cardIds]
-//        );
+        $playerName = $this->getCurrentPlayerName();
+        $this->notifyAllPlayers(
+            'dieDrafted',
+            clienttranslate("${playerName} drafted die {$color->char}{$value}"),
+            [
+                'draftPool' => DraftPool::get()->dice,
+                'draftPoolId' => $draftPoolId,
+                'x' => $x,
+                'y' => $y,
+                'playerId' => $playerId
+            ]
+        );
 
 //        $this->giveExtraTime($playerId);
 //        $this->gamestate->setPlayerNonMultiactive($playerId, 'allPatternsSelected');
