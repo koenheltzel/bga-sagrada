@@ -44,14 +44,19 @@
     <!-- END pattern_selection_pattern -->
 </div>
 
-<div class="board">
-    <!-- BEGIN square -->
-    <div id="square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
-    <!-- END square -->
+<!-- BEGIN board -->
+<div class="whiteblock">
+    <h3 style="color: #{playerColor}">{playerName}:</h3>
+    <div id="board-{playerId}" class="board">
+        <!-- BEGIN square -->
+        <div id="square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
+        <!-- END square -->
 
-    <div id="dice">
+        <div id="dice">
+        </div>
     </div>
 </div>
+<!-- END board -->
 
 <div class="whiteblock" id="draftpool-container">
     <h3>Draft pool:</h3>

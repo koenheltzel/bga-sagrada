@@ -37,24 +37,38 @@ class view_sagrada_sagrada extends game_view {
 //        print str_repeat("<br/>", 100);
 
         // Get players & players number
-        $players = $this->game->loadPlayersBasicInfos(); 
+        $players = $this->game->loadPlayersBasicInfos();
+
         $players_nbr = count($players);
 
         /*********** Place your code below:  ************/
         $this->page->begin_block("sagrada_sagrada", "square");
+        $this->page->begin_block("sagrada_sagrada", "board");
 
-        $hor_scale = 21;
-        $ver_scale = 21;
-        for ($x = 0; $x < 5; $x++) {
-            for ($y = 0; $y < 4; $y++) {
-                $this->page->insert_block("square", [
-                    'X' => $x,
-                    'Y' => $y,
-                    'LEFT' => round(15 + $x * ($hor_scale + 10)),
-                    'TOP' => round(78 + $y * ($ver_scale + 10))
-                ]);
+        foreach($players as $player) {
+            $this->page->reset_subblocks( 'square' );
+
+            $hor_scale = 21;
+            $ver_scale = 21;
+            for ($x = 0; $x < 5; $x++) {
+                for ($y = 0; $y < 4; $y++) {
+                    $this->page->insert_block("square", [
+                        'X' => $x,
+                        'Y' => $y,
+                        'LEFT' => round(15 + $x * ($hor_scale + 10)),
+                        'TOP' => round(78 + $y * ($ver_scale + 10))
+                    ]);
+                }
             }
+
+            $this->page->insert_block("board", [
+                'playerName' => $player['player_name'],
+                'playerId' => $player['player_id'],
+                'playerColor' => $player['player_color']
+            ]);
         }
+
+
 
         $this->page->begin_block("sagrada_sagrada", "pattern_selection_pattern");
         for ($i = 1; $i <= 4; $i++) {
