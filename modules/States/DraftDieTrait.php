@@ -10,7 +10,7 @@ trait DraftDieTrait {
     public function actionDraftDie($draftPoolId, $color, $value, $x, $y){
         $this->checkAction('actionDraftDie');
 
-        $playerId = self::getCurrentPlayerId();
+        $playerId = $this->getActivePlayerId();
 
         DraftPool::get()->deleteDie($draftPoolId, $color, $value);
 
@@ -20,7 +20,7 @@ trait DraftDieTrait {
         ";
         Sagrada::db($sql);
 
-        $playerName = $this->getCurrentPlayerName();
+        $playerName = $this->getActivePlayerName();
         $this->notifyAllPlayers(
             'dieDrafted',
             clienttranslate("${playerName} drafted die {$color->char}{$value}"),
@@ -33,8 +33,8 @@ trait DraftDieTrait {
             ]
         );
 
-//        $this->giveExtraTime($playerId);
-//        $this->gamestate->setPlayerNonMultiactive($playerId, 'allPatternsSelected');
+        $this->giveExtraTime($playerId);
+        $this->gamestate->nextState('nextPlayer');
     }
 
     public function stDraftDie() {

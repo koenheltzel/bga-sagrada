@@ -236,15 +236,17 @@ define([
 
             */
 
-            addDieToBoard: function (draftPoolId, x, y, color, value, player) {
+            addDieToBoard: function (draftPoolId, x, y, color, value, playerId) {
                 dojo.place(this.format_block('jstpl_die', {
                     x_y: x + '_' + y,
                     color: color,
                     value: value,
-                }), 'dice');
+                    jsPlayerId: playerId,
+                }), playerId + '_dice');
 
-                this.placeOnObject('die_' + x + '_' + y, 'die_' + draftPoolId);
-                this.slideToObject('die_' + x + '_' + y, 'square_' + x + '_' + y).play();
+                console.log('placeOnObject', playerId + '_die_' + x + '_' + y, 'die_' + draftPoolId);
+                this.placeOnObject(playerId + '_die_' + x + '_' + y, 'die_' + draftPoolId);
+                this.slideToObject(playerId + '_die_' + x + '_' + y, playerId + '_square_' + x + '_' + y).play();
             },
 
             /* Example:
@@ -325,12 +327,13 @@ define([
                 this.activeDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
 
                 for (let i = 0; i < this.activeDie.draftLegalPositions.length; i++) {
-                    let id = "square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
+                    let id = this.player_id + "_square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
 
-                    dojo.query('#' + this.getCurrentBoardId() + ' #' + id).addClass('legalPosition');
+                    dojo.query('#' + id).addClass('legalPosition');
 
                     if (this.player_id == this.getActivePlayerId()) {
-                        let boardSpace = dojo.query('#' + this.getActiveBoardId() + " #" + id)[0];
+                        console.log('id: ', id);
+                        let boardSpace = dojo.query("#" + id)[0];
                         boardSpace._connectHandlers = [];
                         boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
                     }

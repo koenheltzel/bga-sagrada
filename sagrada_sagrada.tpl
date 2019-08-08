@@ -49,10 +49,10 @@
     <h3 style="color: #{playerColor}">{playerName}:</h3>
     <div id="board-{playerId}" class="board">
         <!-- BEGIN square -->
-        <div id="square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
+        <div id="{playerId}_square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
         <!-- END square -->
 
-        <div id="dice">
+        <div id="{playerId}_dice">
         </div>
     </div>
 </div>
@@ -76,7 +76,7 @@
 
     */
 
-    var jstpl_die = '<div class="die die_${color}_${value}" id="die_${x_y}"></div>';
+    var jstpl_die = '<div class="die die_${color}_${value}" id="${jsPlayerId}_die_${x_y}"></div>';
     var jstpl_draftpool_die = '<div class="die die_${color}_${value} draftpool-die" id="die_${id}" data-id="${id}" data-color="${color}" data-value="${value}" data-legal-positions="${legalPositions}" style="left: ${left}px;"></div>';
 
 </script>

@@ -56,7 +56,8 @@ class view_sagrada_sagrada extends game_view {
                         'X' => $x,
                         'Y' => $y,
                         'LEFT' => round(15 + $x * ($hor_scale + 10)),
-                        'TOP' => round(78 + $y * ($ver_scale + 10))
+                        'TOP' => round(78 + $y * ($ver_scale + 10)),
+                        'playerId' => $player['player_id']
                     ]);
                 }
             }
