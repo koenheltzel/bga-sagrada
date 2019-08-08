@@ -340,8 +340,8 @@ define([
                     return;
                 }
 
-                dojo.query('#board .square').removeClass('legalPosition');
-                dojo.query("#board .square").forEach(function(node){
+                dojo.query('.board .square').removeClass('legalPosition');
+                dojo.query(".board .square").forEach(function(node){
                     if (typeof node._connectHandlers!="undefined"){
                         dojo.forEach(node._connectHandlers, "dojo.disconnect(item)");
                     }
@@ -358,9 +358,6 @@ define([
                         console.log('success result: ', result);
                         // What to do after the server call if it succeeded
                         // (most of the time: nothing)
-
-                        // Hide pattern selection
-                        // dojo.style('pattern_selection', 'display', 'none');
 
                     }, function (is_error) {
                         console.log('error result: ', is_error);

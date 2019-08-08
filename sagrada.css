@@ -52,7 +52,7 @@
     float: left;
 }
 
-#board {
+.board {
     width: 177px;
     height: 210px;
     background-image: url('img/board.png');

@@ -44,7 +44,7 @@
     <!-- END pattern_selection_pattern -->
 </div>
 
-<div id="board">
+<div class="board">
     <!-- BEGIN square -->
     <div id="square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
     <!-- END square -->
