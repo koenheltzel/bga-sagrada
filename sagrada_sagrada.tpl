@@ -45,7 +45,7 @@
 </div>
 
 <!-- BEGIN board -->
-<div class="whiteblock">
+<div class="board-block whiteblock">
     <h3 style="color: #{playerColor}">{playerName}:</h3>
     <div id="board-{playerId}" class="board">
         <!-- BEGIN square -->

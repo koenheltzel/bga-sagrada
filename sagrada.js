@@ -188,6 +188,14 @@ define([
 
             */
 
+            getActiveBoardId: function() {
+                return 'board-' + this.getActivePlayerId();
+            },
+
+            getCurrentBoardId: function() {
+                return 'board-' + this.player_id;
+            },
+
             getDieFromDraftPool: function (id) {
                 for (let i = 0; i < this.draftPool.length; i++) {
                     if(id == this.draftPool[i].draftPoolId) {
@@ -319,10 +327,14 @@ define([
 
                 for (let i = 0; i < this.activeDie.draftLegalPositions.length; i++) {
                     let id = "square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
-                    let boardSpace = dojo.query("#" + id)[0];
-                    boardSpace._connectHandlers = [];
-                    boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
-                    dojo.addClass(id, 'legalPosition');
+
+                    dojo.query('#' + this.getCurrentBoardId() + ' #' + id).addClass('legalPosition');
+
+                    if (this.player_id == this.getActivePlayerId()) {
+                        let boardSpace = dojo.query('#' + this.getActiveBoardId() + " #" + id)[0];
+                        boardSpace._connectHandlers = [];
+                        boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
+                    }
                 }
 
             },
@@ -340,12 +352,14 @@ define([
                     return;
                 }
 
-                dojo.query('.board .square').removeClass('legalPosition');
-                dojo.query(".board .square").forEach(function(node){
-                    if (typeof node._connectHandlers!="undefined"){
-                        dojo.forEach(node._connectHandlers, "dojo.disconnect(item)");
-                    }
-                });
+                dojo.query('#' + this.getCurrentBoardId() + ' .square').removeClass('legalPosition');
+                if (this.player_id == this.getActivePlayerId()) {
+                    dojo.query('#' + this.getActiveBoardId() + ' .square').forEach(function (node) {
+                        if (typeof node._connectHandlers != "undefined") {
+                            dojo.forEach(node._connectHandlers, "dojo.disconnect(item)");
+                        }
+                    });
+                }
 
                 this.ajaxcall("/sagrada/sagrada/actionDraftDie.html", {
                         draftPoolId: this.activeDie.draftPoolId,

@@ -52,6 +52,11 @@
     float: left;
 }
 
+.board-block {
+    width: 177px;
+    display: inline-block;
+}
+
 .board {
     width: 177px;
     height: 210px;
