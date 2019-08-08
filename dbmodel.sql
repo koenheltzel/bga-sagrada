@@ -54,7 +54,7 @@ ALTER TABLE `global`
 --
 
 CREATE TABLE `sag_boardspace` (
-                                  `player_no` int(10) NOT NULL,
+                                  `player_id` int(10) NOT NULL,
                                   `x` tinyint(1) UNSIGNED NOT NULL,
                                   `y` tinyint(1) UNSIGNED NOT NULL,
                                   `die_color` char(1) DEFAULT NULL,

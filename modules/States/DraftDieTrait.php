@@ -23,6 +23,12 @@ trait DraftDieTrait {
             throw new BgaUserException('The selected die is not actually in the draft pool.');
         }
 
+        // Add the die to the player's board
+        $sql = "
+            INSERT INTO sag_boardspace (player_id, x, y, die_color, die_value) VALUES ({$playerId},{$x},{$y},'{$color}',{$value})
+        ";
+        Sagrada::db($sql);
+
 //        $this->notifyAllPlayers(
 //            'patternSelected',
 //            clienttranslate('${playerName} selected pattern ${patternName} (${difficulty})'),
