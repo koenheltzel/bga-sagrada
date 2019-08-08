@@ -46,6 +46,7 @@
 
 #pattern_selection {
     overflow: hidden;
+    display:none;
 }
 
 .pattern-sprite {
@@ -231,6 +232,7 @@
  
 #draftpool-container {
     height: 60px;
+    display: none;
 }
 
 .draftpool-die {

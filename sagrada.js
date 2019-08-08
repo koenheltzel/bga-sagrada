@@ -218,8 +218,7 @@ define([
                         value: die.value,
                     }), 'draftpool');
                 }
-
-                dojo.style('draftpool-container', 'display', 'block');
+                dojo.style('draftpool-container', 'display', draftPool.length > 0 ? 'block' : 'none');
             },
 
 
