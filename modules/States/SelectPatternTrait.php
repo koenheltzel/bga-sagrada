@@ -13,7 +13,7 @@ trait SelectPatternTrait {
             SELECT sag_patterns, sag_private_objectives
             FROM player
             WHERE player_id = {$playerId}";
-        $playerSagData = Sagrada::db($sql)->fetch_assoc();
+        $playerSagData = Sagrada::DbQuery($sql)->fetch_assoc();
 
         return [
             'patterns' => Patterns::getPatterns(explode(',', $playerSagData['sag_patterns'])),
@@ -35,7 +35,7 @@ trait SelectPatternTrait {
                 sag_tokens          = '{$pattern->difficulty}'
             WHERE player_id = {$playerId}
         ";
-        self::db($sql);
+        self::DbQuery($sql);
 
 
         $this->notifyAllPlayers(

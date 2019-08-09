@@ -19,11 +19,11 @@ trait GameSetupTrait {
         GameState::get()->init($players);
 
         // We select the patterns by the pair, because in the real game the patterns are on double sided cards. Don't know if the creators care about preserving these pairs, but BGA strives for authenticity, so there you go.
-        $pairs = self::db("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
+        $pairs = self::DbQuery("SELECT DISTINCT pair FROM sag_patterns ORDER BY RAND() LIMIT {$pairCount}")->fetch_all();
         $pairIds = implode(',', array_map(function($pair) { return $pair[0] ;}, $pairs));
         // Select the patterns, ordered by the random selected pairs above (and within the pair, sort random).
         $sql = "SELECT * FROM sag_patterns WHERE pair IN ({$pairIds}) ORDER BY FIELD(pair, {$pairIds}), RAND() LIMIT {$patternCount}";
-        $patterns = self::db($sql)->fetch_all(MYSQLI_ASSOC);
+        $patterns = self::DbQuery($sql)->fetch_all(MYSQLI_ASSOC);
 
         // Select private objective colors.
         $randomColors = null;
@@ -48,7 +48,7 @@ trait GameSetupTrait {
                   , sag_private_objectives = '{$privateObjectiveIdsString}'
                 WHERE player_no = {$player_no}
             ";
-            self::db($sql);
+            self::DbQuery($sql);
             $i++;
         }
 

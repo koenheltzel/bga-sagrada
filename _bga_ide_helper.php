@@ -64,7 +64,7 @@ class Table {
      * Note: avoid using this method in a "multiplayer" state because it does not mean anything.
      * @return string
      */
-    protected function getActivePlayerName()
+    function getActivePlayerName()
     {
     }
 
@@ -76,7 +76,7 @@ class Table {
      * player_color (ex: ff0000)
      * @return array
      */
-    protected function loadPlayersBasicInfos()
+    function loadPlayersBasicInfos()
     {
     }
 

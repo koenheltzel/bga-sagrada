@@ -2,6 +2,7 @@
 
 namespace Sag\States;
 
+use Sag\Boards;
 use Sag\DraftPool;
 use Sagrada;
 
@@ -18,7 +19,7 @@ trait DraftDieTrait {
         $sql = "
             INSERT INTO sag_boardspace (player_id, x, y, die_color, die_value) VALUES ({$playerId},{$x},{$y},'{$color->char}',{$value})
         ";
-        Sagrada::db($sql);
+        Sagrada::DbQuery($sql);
 
         $playerName = $this->getActivePlayerName();
         $this->notifyAllPlayers(

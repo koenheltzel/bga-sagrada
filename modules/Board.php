@@ -13,8 +13,8 @@ class Board {
     public $pattern;
     public $rows;
 
-    public function __construct(Pattern $pattern) {
-        $this->pattern = $pattern;
+    public function __construct($playerId) {
+//        $this->pattern = $pattern;
 
         $this->rows = [];
         for ($y = 0; $y < self::HEIGHT; $y++) {

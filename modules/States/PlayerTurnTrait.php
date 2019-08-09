@@ -2,12 +2,14 @@
 
 namespace Sag\States;
 
+use Sag\Boards;
 use Sag\DraftPool;
 
 trait PlayerTurnTrait {
 
     public function getPlayerTurnData() {
         return [
+//            'boards' => Boards::get()->boards,
             'draftPool' => DraftPool::get()->dice
         ];
     }

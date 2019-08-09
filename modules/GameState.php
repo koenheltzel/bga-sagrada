@@ -57,7 +57,7 @@ class GameState {
 
     public function init($players) {
         $sql = "INSERT INTO sag_game_state VALUES ()";
-        Sagrada::db($sql);
+        Sagrada::DbQuery($sql);
 
         $this->diceBagR = 18;
         $this->diceBagG = 18;
@@ -66,14 +66,14 @@ class GameState {
         $this->diceBagP = 18;
 
         $publicObjectivesCount = count($players) > 1 ? 3 : 2; // Normally 3 public objectives are assigned, but in a solo game 2.
-        $publicObjectives = Sagrada::db("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
+        $publicObjectives = Sagrada::DbQuery("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
         $this->publicObjectiveIds = array_map(function($publicObjective) { return $publicObjective['id'] ;}, $publicObjectives);
 
         $this->save();
     }
 
     public function load() {
-        $result = Sagrada::db("SELECT * FROM sag_game_state")->fetch_all(MYSQLI_ASSOC);
+        $result = Sagrada::DbQuery("SELECT * FROM sag_game_state")->fetch_all(MYSQLI_ASSOC);
         if (count($result) > 0) {
             $result = array_shift($result);
             foreach (Colors::get()->colors as $char => $color) {
@@ -94,7 +94,7 @@ class GameState {
                 dice_bag_P        = {$this->diceBagP},
                 public_objectives = '{$publicObjectivesIdsString}'
         ";
-        Sagrada::db($sql);
+        Sagrada::DbQuery($sql);
     }
 
     public function diceBagTotal() {

@@ -40,7 +40,7 @@ class DraftPool {
             $value = bga_rand(1, 6);
             $this->dice[] = new Die_($color, $value);
 
-            Sagrada::db("UPDATE sag_game_state SET dice_bag_{$color->char} = dice_bag_{$color->char} - 1");
+            Sagrada::DbQuery("UPDATE sag_game_state SET dice_bag_{$color->char} = dice_bag_{$color->char} - 1");
         }
         $this->save();
         $this->load(); // Load again, so ids and legal positions are filled as well.
@@ -48,7 +48,7 @@ class DraftPool {
 
     public function load() {
         $this->dice = [];
-        $results = Sagrada::db("SELECT * FROM sag_draftpool ORDER BY id")->fetch_all(MYSQLI_ASSOC);
+        $results = Sagrada::DbQuery("SELECT * FROM sag_draftpool ORDER BY id")->fetch_all(MYSQLI_ASSOC);
         if (count($results) > 0) {
             foreach ($results as $result) {
                 $die = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
@@ -67,7 +67,7 @@ class DraftPool {
     }
 
     public function save() {
-        Sagrada::db('TRUNCATE TABLE sag_draftpool');
+        Sagrada::DbQuery('TRUNCATE TABLE sag_draftpool');
 
         $sql = "
             INSERT INTO sag_draftpool (die_color, die_value)
@@ -78,7 +78,7 @@ class DraftPool {
             $sqlValues[] = "('{$die->color->char}', {$die->value})";
         }
         $sql .= implode(',', $sqlValues);
-        Sagrada::db($sql);
+        Sagrada::DbQuery($sql);
     }
 
     public function deleteDie($id, $color, $value) {
@@ -88,8 +88,8 @@ class DraftPool {
                  AND die_color = '{$color->char}' 
                  AND die_value = {$value}
         ";
-        Sagrada::db($sql);
-        if (Sagrada::get()->dbAffectedRows() == 0) {
+        Sagrada::DbQuery($sql);
+        if (Sagrada::DbAffectedRow() == 0) {
             throw new BgaUserException('The selected die is not actually in the draft pool.');
         }
         $this->load();

@@ -18,7 +18,7 @@ class Patterns {
             WHERE id IN ($idsString)
             ORDER BY FIELD(id, {$idsString})
         ";
-        $result = Sagrada::db($sql);
+        $result = Sagrada::DbQuery($sql);
         $patterns = [];
         while ($pattern = $result->fetch_object("Sag\Pattern")) {
             $patterns[] = $pattern;
