@@ -13,12 +13,12 @@ class Pattern {
     /**
      * @param int $x
      * @param int $y
-     * @return string|bool
+     * @return Color|bool
      */
     public function getColor(int $x, int $y) {
-        $char = $this->pattern[$y][$x];
+        $char = substr($this->pattern, $y * 5 + $x, 1);
         if (strstr("RBGYP", $char)) {
-            return $char;
+            return Colors::get()->getColor($char);
         }
         else {
             return false;
@@ -31,7 +31,7 @@ class Pattern {
      * @return int|bool
      */
     public function getValue(int $x, int $y) {
-        $char = $this->pattern[$y][$x];
+        $char = substr($this->pattern, $y * 5 + $x, 1);
         if (strstr("123456", $char)) {
             return (int)$char;
         }

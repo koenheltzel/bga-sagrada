@@ -123,7 +123,7 @@ class Table {
      * @param $sql
      * @return mysqli_result
      */
-    protected function DbQuery($sql)
+    function DbQuery($sql)
     {
     }
 

@@ -35,10 +35,8 @@ class Boards {
         $this->boards = [];
         foreach (Sagrada::get()->loadPlayersBasicInfos() as $playerId => $player){
             $board = new Board($playerId);
-            $this->boards[] = $board;
+            $this->boards[$playerId] = $board;
         }
-        print "<PRE>" . print_r(Sagrada::get()->loadPlayersBasicInfos(), true) . "</PRE>";
-        exit;
     }
 
 }

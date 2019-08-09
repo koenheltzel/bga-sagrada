@@ -115,6 +115,7 @@ define([
                         break;
                     case 'playerTurn':
                         this.updateDraftPool(args.args.draftPool);
+                        this.updateBoards(args.args.boards);
                         break;
 
                     /* Example:
@@ -219,6 +220,29 @@ define([
                     }), 'draftpool');
                 }
                 dojo.style('draftpool-container', 'display', draftPool.length > 0 ? 'block' : 'none');
+            },
+
+            updateBoards: function (boards) {
+                this.boards = boards;
+                for (var playerId in boards) {
+                    let board = boards[playerId];
+                    for (var y in board.spaces) {
+                        for (var x in board.spaces[y]) {
+                            let boardSpace = board.spaces[y][x];
+                            if (boardSpace.die !== null) {
+                                //TODO: use addDieToBoard here by making that functionit more flebible?
+                                dojo.place(this.format_block('jstpl_die', {
+                                    x_y: x + '_' + y,
+                                    color: boardSpace.die.color.char,
+                                    value: boardSpace.die.value,
+                                    jsPlayerId: playerId,
+                                }), playerId + '_dice');
+
+                                this.placeOnObject(playerId + '_die_' + x + '_' + y, playerId + '_square_' + x + '_' + y);
+                            }
+                        }
+                    }
+                }
             },
 
 
@@ -443,6 +467,7 @@ define([
                 console.log('notif_playerTurn');
                 console.log(notif);
                 this.updateDraftPool(notif.args.draftPool);
+                // this.updateBoards(notif.args.boards);
 
                 // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 
@@ -456,6 +481,7 @@ define([
                 dojo.destroy("die_" + die.draftPoolId);
 
                 this.updateDraftPool(notif.args.draftPool);
+                // this.updateBoards(notif.args.boards);
                 // TODO: update draftpool here
 
             }
