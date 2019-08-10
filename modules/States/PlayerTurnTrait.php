@@ -9,7 +9,6 @@ trait PlayerTurnTrait {
 
     public function getPlayerTurnData() {
         return [
-            'boards' => (Boards::get())->boards,
             'draftPool' => DraftPool::get()->dice
         ];
     }

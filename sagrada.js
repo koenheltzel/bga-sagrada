@@ -52,24 +52,8 @@ define([
             */
 
             setup: function (gamedatas) {
-                console.log("Starting game setup");
+                console.log("Starting game setup", gamedatas);
 
-                // Setting up player boards
-                for (var player_id in gamedatas.players) {
-                    var player = gamedatas.players[player_id];
-
-                    // TODO: Setting up players boards if needed
-
-                }
-
-                // let colors = ['R', 'G', 'B', 'Y', 'P'];
-                // for (let x = 1; x <= 5; x++) {
-                //     for (let y = 1; y <= 4; y++) {
-                //         let color = colors[Math.floor(Math.random() * colors.length)];
-                //         let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
-                //         this.addDieToBoard(x, y, color, value, [player_id]);
-                //     }
-                // }
                 let patterns = dojo.query('.pattern-sprite');
                 for (let i = 0; i < patterns.length; i++) {
                     dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
@@ -79,6 +63,10 @@ define([
 
                 this.selectPatternSetup(gamedatas);
                 // TODO: Set up your game interface here, according to "gamedatas"
+
+                if (gamedatas.boards) {
+                    this.updateBoards(gamedatas.boards);
+                }
 
                 // Setup game notifications to handle (see "setupNotifications" method below)
                 this.setupNotifications();
@@ -115,7 +103,6 @@ define([
                         break;
                     case 'playerTurn':
                         this.updateDraftPool(args.args.draftPool);
-                        this.updateBoards(args.args.boards);
                         break;
 
                     /* Example:
@@ -226,11 +213,12 @@ define([
                 this.boards = boards;
                 for (var playerId in boards) {
                     let board = boards[playerId];
+                    dojo.query('#board-' + playerId + " .die").forEach(dojo.destroy);
                     for (var y in board.spaces) {
                         for (var x in board.spaces[y]) {
                             let boardSpace = board.spaces[y][x];
                             if (boardSpace.die !== null) {
-                                //TODO: use addDieToBoard here by making that functionit more flebible?
+                                //TODO: use addDieToBoard here by making that function more flebible?
                                 dojo.place(this.format_block('jstpl_die', {
                                     x_y: x + '_' + y,
                                     color: boardSpace.die.color.char,
@@ -242,6 +230,23 @@ define([
                             }
                         }
                     }
+
+                    // Add random dice for testing purposes.
+                    // let colors = ['R', 'G', 'B', 'Y', 'P'];
+                    // for (let x = 0; x < 5; x++) {
+                    //     for (let y = 0; y < 4; y++) {
+                    //         let color = colors[Math.floor(Math.random() * colors.length)];
+                    //         let value = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
+                    //         dojo.place(this.format_block('jstpl_die', {
+                    //             x_y: x + '_' + y,
+                    //             color: color,
+                    //             value: value,
+                    //             jsPlayerId: playerId,
+                    //         }), playerId + '_dice');
+                    //
+                    //         this.placeOnObject(playerId + '_die_' + x + '_' + y, playerId + '_square_' + x + '_' + y);
+                    //     }
+                    // }
                 }
             },
 

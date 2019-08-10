@@ -16,6 +16,8 @@
  *
  */
 
+use Sag\Boards;
+
 $sagradaNamespaceAutoload = function ($class) {
     $classParts = explode('\\', $class);
     if ($classParts[0] == 'Sag') {
@@ -166,6 +168,7 @@ class Sagrada extends Table {
                 $result = array_merge($result, $this->getSelectPatternData($current_player_id));
                 break;
         }
+        $result = array_merge($result, ['boards' => (Boards::get())->boards]);
 
         return $result;
     }

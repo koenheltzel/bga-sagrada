@@ -9,7 +9,7 @@ class Boards {
     /**
      * @var Board[]
      */
-    public $boards;
+    public $boards = null;
 
     static private $instance = null;
 
