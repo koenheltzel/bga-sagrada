@@ -55,7 +55,7 @@
         <div id="{playerId}_dice">
         </div>
     </div>
-    <div id="pattern-{playerId}" class="pattern-sprite pattern-sprite-19">
+    <div id="pattern-{playerId}">
     </div>
 </div>
 <!-- END board -->

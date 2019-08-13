@@ -221,6 +221,9 @@ define([
                     if (board.pattern) {
                         dojo.addClass('pattern-' + playerId, 'pattern-sprite pattern-sprite-' + board.pattern.id);
                     }
+                    else {
+                        dojo.addClass('pattern-' + playerId, 'pattern-blank pattern-sprite');
+                    }
 
                     for (var y in board.spaces) {
                         for (var x in board.spaces[y]) {
