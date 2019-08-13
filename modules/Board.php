@@ -16,7 +16,8 @@ class Board {
     public $spaces;
 
     public function __construct($playerId) {
-        $this->pattern = PlayerDatas::get()->getPlayerData($playerId)->patterns[0];
+        $playerPatterns = PlayerDatas::get()->getPlayerData($playerId)->patterns;
+        $this->pattern = count($playerPatterns) == 1 ? $playerPatterns[0] : null;
 
         $boardSpaces = [];
         $boardSpacesTmp = Sagrada::DbQuery("SELECT * FROM sag_boardspace WHERE player_id = {$playerId}")->fetch_all(MYSQLI_ASSOC);

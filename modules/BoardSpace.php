@@ -25,8 +25,8 @@ class BoardSpace {
     public function __construct($x, $y, Board $board) {
         $this->x = $x;
         $this->y = $y;
-        $this->patternColor = $board->pattern->getColor($this->x, $this->y);
-        $this->patternValue = $board->pattern->getValue($this->x, $this->y);
+        $this->patternColor = $board->pattern ? $board->pattern->getColor($this->x, $this->y) : null;
+        $this->patternValue = $board->pattern ? $board->pattern->getValue($this->x, $this->y) : null;
     }
 
 }

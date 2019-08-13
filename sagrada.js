@@ -84,6 +84,7 @@ define([
                         let div = dojo.query('#pattern_selection_' + i);
                         div.addClass('pattern-sprite-' + pattern.id);
                         div.attr('data-id', pattern.id);
+                        div.attr('title', pattern.name + ', difficulty ' + pattern.difficulty);
                     }
                     dojo.style('pattern_selection', 'display', 'block');
                 }
@@ -199,7 +200,7 @@ define([
                     var die = draftPool[i];
                     dojo.place(this.format_block('jstpl_draftpool_die', {
                         i: i,
-                        left: i * 30 + 10,
+                        left: i * 40 + 10,
                         id: die.draftPoolId,
                         legalPositions: JSON.stringify(die.draftLegalPositions),
                         color: die.color.char,
@@ -214,6 +215,13 @@ define([
                 for (var playerId in boards) {
                     let board = boards[playerId];
                     dojo.query('#board-' + playerId + " .die").forEach(dojo.destroy);
+                    // dojo.query('#pattern-' + playerId).forEach(dojo.destroy);
+                    dojo.removeClass('pattern-' + playerId);
+                    console.log('updateBoards player ', playerId, board.pattern)
+                    if (board.pattern) {
+                        dojo.addClass('pattern-' + playerId, 'pattern-sprite pattern-sprite-' + board.pattern.id);
+                    }
+
                     for (var y in board.spaces) {
                         for (var x in board.spaces[y]) {
                             let boardSpace = board.spaces[y][x];
@@ -432,7 +440,7 @@ define([
 
                 // Example 1: standard notification handling
                 // dojo.subscribe( 'cardPlayed', this, "notif_cardPlayed" );
-                dojo.subscribe('selectPattern', this, "notif_selectPattern");
+                dojo.subscribe('patternSelected', this, "notif_selectPattern");
                 dojo.subscribe('playerTurn', this, "notif_playerTurn");
                 dojo.subscribe('dieDrafted', this, "notif_dieDrafted");
 
@@ -462,6 +470,8 @@ define([
             notif_selectPattern: function (notif) {
                 console.log('notif_selectPattern');
                 console.log(notif);
+
+                this.updateBoards(notif.args.boards)
 
                 // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
 

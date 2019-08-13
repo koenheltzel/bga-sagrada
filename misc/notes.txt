@@ -15,6 +15,7 @@ Maxiumum cards onscreen:
         1 to 5 tools (2-2 and 5 in rows)
         Max 9 cards
 
+https://spritegen.website-performance.org/
 
 sagrada.js
 Ajax call in click handler to /sagrada/sagrada/actionSelectPattern.html

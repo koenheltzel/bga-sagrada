@@ -2,6 +2,7 @@
 
 namespace Sag\States;
 
+use Sag\Boards;
 use Sag\Patterns;
 use Sagrada;
 
@@ -42,6 +43,7 @@ trait SelectPatternTrait {
             'patternSelected',
             clienttranslate('${playerName} selected pattern ${patternName} (${difficulty})'),
             [
+                'boards' => Boards::get()->boards,
                 'patternName' => $pattern->name,
                 'difficulty' => substr('**********', 0, $pattern->difficulty),
                 'playerName' => $this->getCurrentPlayerName(),

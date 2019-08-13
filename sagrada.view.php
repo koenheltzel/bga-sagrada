@@ -50,15 +50,15 @@ class view_sagrada_sagrada extends game_view {
         foreach($players as $player) {
             $this->page->reset_subblocks( 'square' );
 
-            $hor_scale = 21;
-            $ver_scale = 21;
+            $hor_scale = 44.5;
+            $ver_scale = 44.5;
             for ($x = 0; $x < 5; $x++) {
                 for ($y = 0; $y < 4; $y++) {
                     $this->page->insert_block("square", [
                         'X' => $x,
                         'Y' => $y,
-                        'LEFT' => round(15 + $x * ($hor_scale + 10)),
-                        'TOP' => round(78 + $y * ($ver_scale + 10)),
+                        'LEFT' => round(20 + $x * ($hor_scale)),
+                        'TOP' => round(380 + $y * ($ver_scale)),
                         'playerId' => $player['player_id']
                     ]);
                 }
