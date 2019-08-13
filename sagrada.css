@@ -54,15 +54,30 @@
 }
 
 .board-block {
-    width: 177px;
+    width: 250px;
     display: inline-block;
 }
 
 .board {
-    width: 177px;
-    height: 210px;
-    background-image: url('img/board.png');
+    width: 250px;
+    height: 567px;
     position: relative;
+}
+
+.board-R {
+    background-image: url('img/board-R.png');
+}
+
+.board-G {
+    background-image: url('img/board-G.png');
+}
+
+.board-B {
+    background-image: url('img/board-B.png');
+}
+
+.board-P {
+    background-image: url('img/board-P.png');
 }
 
 .square {

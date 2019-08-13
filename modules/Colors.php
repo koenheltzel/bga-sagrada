@@ -39,4 +39,21 @@ class Colors {
         return $this->colors[$char];
     }
 
+    public static function getColorByHex($hex) {
+        switch ($hex) {
+            case Color::RED:
+                return Colors::get()->getColor('R');
+                break;
+            case Color::GREEN:
+                return Colors::get()->getColor('G');
+                break;
+            case Color::BLUE:
+                return Colors::get()->getColor('B');
+                break;
+            case Color::PURPLE:
+                return Colors::get()->getColor('P');
+                break;
+        }
+    }
+
 }

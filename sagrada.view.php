@@ -24,6 +24,8 @@
  *
  */
 
+use Sag\Colors;
+
 require_once(APP_BASE_PATH . "view/common/game.view.php");
 
 class view_sagrada_sagrada extends game_view {
@@ -65,7 +67,8 @@ class view_sagrada_sagrada extends game_view {
             $this->page->insert_block("board", [
                 'playerName' => $player['player_name'],
                 'playerId' => $player['player_id'],
-                'playerColor' => $player['player_color']
+                'playerColor' => $player['player_color'],
+                'playerColorChar' => Colors::getColorByHex($player['player_color'])->char,
             ]);
         }
 

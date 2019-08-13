@@ -10,7 +10,9 @@
 
 */
 
-$gameinfos = array( 
+use Sag\Color;
+
+$gameinfos = array(
 
 // Name of the game in English (will serve as the basis for translation) 
 'game_name' => "Sagrada",
@@ -92,10 +94,15 @@ $gameinfos = array(
 'diplomacy' => 1,
 
 // Colors attributed to players
-'player_colors' => array( "ff0000", "008000", "0000ff", "ffa500", "773300" ),
+'player_colors' => array(
+    Color::RED, // Sagrada Red
+    Color::GREEN, // Sagrada Green
+    Color::BLUE, // Sagrada Blue
+    Color::PURPLE, // Sagrada Purple
+),
 
 // Favorite colors support : if set to "true", support attribution of favorite colors based on player's preferences (see reattributeColorsBasedOnPreferences PHP method)
-'favorite_colors_support' => true,
+'favorite_colors_support' => false,
 
 // Game interface width range (pixels)
 // Note: game interface = space on the left side, without the column on the right
