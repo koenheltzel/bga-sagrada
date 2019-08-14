@@ -27,16 +27,11 @@ $sagradaNamespaceAutoload = function ($class) {
             require_once($file);
         }
     }
-
 };
 spl_autoload_register($sagradaNamespaceAutoload, true, true);
 
 require_once(APP_GAMEMODULE_PATH . 'module/table/table.game.php');
 if (0) require_once '_bga_ide_helper.php';
-//print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
-//print "<PRE>" . print_r(file_get_contents('/var/tournoi/release/tournoi-190710-1156-gs/www/game/module/gamestate/gamestate.game.php'), true) . "</PRE>";exit;
-//print (new ReflectionClass('\GameState'))->getFileName() . PHP_EOL;
-//print file_get_contents((new ReflectionClass('\GameState'))->getFileName());exit;
 
 class Sagrada extends Table {
 

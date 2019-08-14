@@ -1,3 +1,9 @@
 
 // Future click handler, keeping "this" context: https://dojotoolkit.org/reference-guide/1.9/dojo/on.html#event-delegation
 on(dojo.query('#draftpool'), ".draftpool-die:click", lang.hitch(this, "onDraftPoolDieClick"));
+
+
+//print "<PRE>" . print_r(file_get_contents('/home/tilalilalou/tzolkin/tzolkin.js'), true) . "</PRE>";exit;
+//print "<PRE>" . print_r(file_get_contents('/var/tournoi/release/tournoi-190710-1156-gs/www/game/module/gamestate/gamestate.game.php'), true) . "</PRE>";exit;
+//print (new ReflectionClass('\GameState'))->getFileName() . PHP_EOL;
+//print file_get_contents((new ReflectionClass('\GameState'))->getFileName());exit;
