@@ -53,17 +53,16 @@ class DraftPool {
             foreach ($results as $result) {
                 $die = new Die_(Colors::get()->getColor($result['die_color']), $result['die_value']);
                 $die->draftPoolId = $result['id'];
-                $die->draftLegalPositions = [];
-                for($y = 0; $y < 4; $y++) {
-                    for($x = 0; $x < 5; $x++) {
-                        if ($x == 0 || $y == 0 || $x == 4 || $y == 3) {
-                            $die->draftLegalPositions[] = [$x, $y];
-                        }
-                    }
-                }
                 $this->dice[] = $die;
             }
         }
+    }
+
+    public function getDiceWithLegalPositions($playerId) {
+        foreach($this->dice as &$die) {
+            $die->draftLegalPositions = Boards::get()->boards[$playerId]->getLegalPositions($die);
+        }
+        return $this->dice;
     }
 
     public function save() {

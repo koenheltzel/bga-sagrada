@@ -162,6 +162,9 @@ class Sagrada extends Table {
             case 'selectPattern':
                 $result = array_merge($result, $this->getSelectPatternData($current_player_id));
                 break;
+            case 'playerTurn':
+                $result = array_merge($result, $this->getPlayerTurnData($current_player_id));
+                break;
         }
         $result = array_merge($result, ['boards' => (Boards::get())->boards]);
 
@@ -355,5 +358,9 @@ class Sagrada extends Table {
 //
 
 
+    }
+
+    public function getCurrentPlayerId($bReturnNullIfNotLogged = false) {
+        return parent::getCurrentPlayerId($bReturnNullIfNotLogged);
     }
 }

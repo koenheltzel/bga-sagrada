@@ -106,8 +106,7 @@ $machinestates = array(
         "type" => "activeplayer",
         "action" => "stPlayerTurn",
         "possibleactions" => array( "actionDraftDie", "actionUseTool", "actionPass" ),
-        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50, "nextPlayer" => 50 ),
-        "args" => 'argPlayerTurn'
+        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50, "nextPlayer" => 50 )
     ),
 
     20 => array(

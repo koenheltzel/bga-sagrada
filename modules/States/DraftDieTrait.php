@@ -34,6 +34,8 @@ trait DraftDieTrait {
             ]
         );
 
+        $this->notifyPlayersOfDraftPool();
+
         $this->giveExtraTime($playerId);
         $this->gamestate->nextState('nextPlayer');
     }

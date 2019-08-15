@@ -7,21 +7,33 @@ use Sag\DraftPool;
 
 trait PlayerTurnTrait {
 
-    public function getPlayerTurnData() {
+    public function getPlayerTurnData($playerId) {
         return [
-            'draftPool' => DraftPool::get()->dice
+            'draftPool' => DraftPool::get()->getDiceWithLegalPositions($playerId)
         ];
     }
 
-    public function argPlayerTurn() {
-        return $this->getPlayerTurnData();
+    public function notifyPlayersOfDraftPool() {
+        $players = $this->loadPlayersBasicInfos();
+        foreach ($players AS $playerId => $player) {
+            $this->notifyPlayer(
+                $playerId,
+                'updateDraftPool',
+                '',
+                [
+                    'draftPool' => DraftPool::get()->getDiceWithLegalPositions($playerId)
+                ]
+            );
+        }
     }
 
     public function stPlayerTurn() {
-        $this->notifyAllPlayers(
-            'playerTurn',
-            "playerTurn notification log",
-            $this->getPlayerTurnData()
-        );
+//        $this->notifyAllPlayers(
+//            'playerTurn',
+//            "playerTurn notification log",
+//            []
+//        );
+
+        $this->notifyPlayersOfDraftPool();
     }
 }

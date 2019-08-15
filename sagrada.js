@@ -68,6 +68,10 @@ define([
                     this.updateBoards(gamedatas.boards);
                 }
 
+                if (gamedatas.draftPool) {
+                    this.updateDraftPool(gamedatas.draftPool);
+                }
+
                 // Setup game notifications to handle (see "setupNotifications" method below)
                 this.setupNotifications();
 
@@ -103,7 +107,6 @@ define([
                     case 'selectPattern':
                         break;
                     case 'playerTurn':
-                        this.updateDraftPool(args.args.draftPool);
                         break;
 
                     /* Example:
@@ -194,6 +197,7 @@ define([
             },
 
             updateDraftPool: function (draftPool) {
+                console.log('updateDraftPool, ', draftPool);
                 this.draftPool = draftPool;
                 dojo.empty("draftpool");
                 for (var i = 0; i < draftPool.length; i++) {
@@ -446,6 +450,7 @@ define([
                 dojo.subscribe('patternSelected', this, "notif_selectPattern");
                 dojo.subscribe('playerTurn', this, "notif_playerTurn");
                 dojo.subscribe('dieDrafted', this, "notif_dieDrafted");
+                dojo.subscribe('updateDraftPool', this, "notif_updateDraftPool");
 
                 // Example 2: standard notification handling + tell the user interface to wait
                 //            during 3 seconds after calling the method in order to let the players
@@ -482,9 +487,9 @@ define([
             },
 
             notif_playerTurn: function (notif) {
-                console.log('notif_playerTurn');
-                console.log(notif);
-                this.updateDraftPool(notif.args.draftPool);
+                // console.log('notif_playerTurn');
+                // console.log(notif);
+                // this.updateDraftPool(notif.args.draftPool);
                 // this.updateBoards(notif.args.boards);
 
                 // Note: notif.args contains the arguments specified during you "notifyAllPlayers" / "notifyPlayer" PHP call
@@ -498,10 +503,14 @@ define([
 
                 dojo.destroy("die_" + die.draftPoolId);
 
-                this.updateDraftPool(notif.args.draftPool);
+                // this.updateDraftPool(notif.args.draftPool);
                 // this.updateBoards(notif.args.boards);
                 // TODO: update draftpool here
 
+            },
+
+            notif_updateDraftPool: function (notif) {
+                this.updateDraftPool(notif.args.draftPool);
             }
         });
     });
