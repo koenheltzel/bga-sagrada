@@ -510,6 +510,7 @@ define([
             },
 
             notif_updateDraftPool: function (notif) {
+                console.log('notif_updateDraftPool', notif);
                 this.updateDraftPool(notif.args.draftPool);
             }
         });

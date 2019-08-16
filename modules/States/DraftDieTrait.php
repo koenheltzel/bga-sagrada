@@ -26,7 +26,6 @@ trait DraftDieTrait {
             'dieDrafted',
             clienttranslate("${playerName} drafted die {$color->char}{$value}"),
             [
-                'draftPool' => DraftPool::get()->dice,
                 'draftPoolId' => $draftPoolId,
                 'x' => $x,
                 'y' => $y,

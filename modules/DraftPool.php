@@ -62,7 +62,7 @@ class DraftPool {
         foreach($this->dice as &$die) {
             $die->draftLegalPositions = Boards::get()->boards[$playerId]->getLegalPositions($die);
         }
-        return $this->dice;
+        return unserialize(serialize($this->dice));
     }
 
     public function save() {

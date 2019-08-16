@@ -54,6 +54,10 @@ class Board {
         return $totalDice;
     }
 
+    public function getDie($x, $y) {
+        return $this->spaces[$y][$x]->die ? $this->spaces[$y][$x] : false;
+    }
+
     /**
      * @param $die Die_
      * @return array
@@ -70,7 +74,26 @@ class Board {
             }
         }
         else {
-            $positions = [[0,0], [1,1],[2,2], [3,3]];
+            for($y = 0; $y < self::HEIGHT; $y++) {
+                for ($x = 0; $x < self::WIDTH; $x++) {
+                    // Check if already occupied by die.
+                    if ($this->getDie($x, $y)) {
+                        continue;
+                    }
+                    // Check pattern color
+                    $patternColor = $this->pattern->getColor($x, $y);
+                    if ($patternColor && $patternColor <> $die->color) {
+                        continue;
+                    }
+                    // Check pattern value
+                    $patternValue = $this->pattern->getValue($x, $y);
+                    if (is_numeric($patternValue) && $patternValue <> $die->value) {
+                        continue;
+                    }
+                    // All restrictions passed, add position as legal
+                    $positions[] = [$x, $y];
+                }
+            }
         }
         return $positions;
     }
