@@ -64,18 +64,9 @@ class Board {
      */
     public function getLegalPositions($die, $ignoreRestrictions=null) {
         $positions = [];
-        if ($this->totalDice() == 0) {
-            for($y = 0; $y < self::HEIGHT; $y++) {
-                for($x = 0; $x < self::WIDTH; $x++) {
-                    if ($x == 0 || $y == 0 || $x == (self::WIDTH - 1) || $y == (self::HEIGHT - 1)) {
-                        $positions[] = [$x, $y];
-                    }
-                }
-            }
-        }
-        else {
-            for($y = 0; $y < self::HEIGHT; $y++) {
-                for ($x = 0; $x < self::WIDTH; $x++) {
+        for($y = 0; $y < self::HEIGHT; $y++) {
+            for($x = 0; $x < self::WIDTH; $x++) {
+                if ($this->totalDice() > 0 || ($x == 0 || $y == 0 || $x == (self::WIDTH - 1) || $y == (self::HEIGHT - 1))) {
                     if ($this->isLegalPosition($x, $y, $die, $ignoreRestrictions)) {
                         // All restrictions passed, add position as legal
                         $positions[] = [$x, $y];
@@ -104,29 +95,32 @@ class Board {
 
         $boardSpaces = $this->getNeighbouringBoardSpaces($x, $y, true);
 
-        $neightbourDieFound = false;
-        foreach ($boardSpaces as $boardSpace){
-            if ($boardSpace->die) {
-                // There is a populated field adjacent, so this is a legal boardspace if all other restrictions are passed.
-                $neightbourDieFound = true;
+        if ($this->totalDice() > 0) {
+            $neightbourDieFound = false;
+            foreach ($boardSpaces as $boardSpace){
+                if ($boardSpace->die) {
+                    // There is a populated field adjacent, so this is a legal boardspace if all other restrictions are passed.
+                    $neightbourDieFound = true;
+                }
             }
-        }
-        if (!$neightbourDieFound) {
-            return false;
+            if (!$neightbourDieFound) {
+                return false;
+            }
+
+            $boardSpaces = $this->getNeighbouringBoardSpaces($x, $y, false);
+            foreach ($boardSpaces as $boardSpace){
+                if ($boardSpace->die){
+                    if ($boardSpace->die->color == $die->color) {
+                        return false;
+                    }
+                    if ($boardSpace->die->value == $die->value) {
+                        $positionLegal = false;
+                        return false;
+                    }
+                }
+            }
         }
 
-        $boardSpaces = $this->getNeighbouringBoardSpaces($x, $y, false);
-        foreach ($boardSpaces as $boardSpace){
-            if ($boardSpace->die){
-                if ($boardSpace->die->color == $die->color) {
-                    return false;
-                }
-                if ($boardSpace->die->value == $die->value) {
-                    $positionLegal = false;
-                    return false;
-                }
-            }
-        }
         return true;
     }
 
