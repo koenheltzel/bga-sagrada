@@ -200,12 +200,22 @@ define([
                 console.log('updateDraftPool, ', draftPool);
                 this.draftPool = draftPool;
                 dojo.empty("draftpool");
+
                 for (var i = 0; i < draftPool.length; i++) {
                     var die = draftPool[i];
+                    var legalPositionsString = die.draftLegalPositions.length + ' placement options';
+                    if (die.draftLegalPositions.length == 0){
+                        legalPositionsString = 'No placement options';
+                    }
+                    else if (die.draftLegalPositions.length == 1){
+                        legalPositionsString = '1 placement option';
+                    }
+
                     dojo.place(this.format_block('jstpl_draftpool_die', {
                         i: i,
                         left: i * 40 + 10,
                         id: die.draftPoolId,
+                        legalPositionsString: legalPositionsString,
                         legalPositions: JSON.stringify(die.draftLegalPositions),
                         color: die.color.char,
                         value: die.value,

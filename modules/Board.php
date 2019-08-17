@@ -76,26 +76,88 @@ class Board {
         else {
             for($y = 0; $y < self::HEIGHT; $y++) {
                 for ($x = 0; $x < self::WIDTH; $x++) {
-                    // Check if already occupied by die.
-                    if ($this->getDie($x, $y)) {
-                        continue;
+                    if ($this->isLegalPosition($x, $y, $die, $ignoreRestrictions)) {
+                        // All restrictions passed, add position as legal
+                        $positions[] = [$x, $y];
                     }
-                    // Check pattern color
-                    $patternColor = $this->pattern->getColor($x, $y);
-                    if ($patternColor && $patternColor <> $die->color) {
-                        continue;
-                    }
-                    // Check pattern value
-                    $patternValue = $this->pattern->getValue($x, $y);
-                    if (is_numeric($patternValue) && $patternValue <> $die->value) {
-                        continue;
-                    }
-                    // All restrictions passed, add position as legal
-                    $positions[] = [$x, $y];
                 }
             }
         }
         return $positions;
+    }
+
+    public function isLegalPosition($x, $y, $die, $ignoreRestrictions=null) {
+        // Check if already occupied by die.
+        if ($this->getDie($x, $y)) {
+            return false;
+        }
+        // Check pattern color
+        $patternColor = $this->pattern->getColor($x, $y);
+        if ($patternColor && $patternColor != $die->color) {
+            return false;
+        }
+        // Check pattern value
+        $patternValue = $this->pattern->getValue($x, $y);
+        if (is_numeric($patternValue) && $patternValue != $die->value) {
+            return false;
+        }
+
+        $boardSpaces = $this->getNeighbouringBoardSpaces($x, $y, true);
+
+        $neightbourDieFound = false;
+        foreach ($boardSpaces as $boardSpace){
+            if ($boardSpace->die) {
+                // There is a populated field adjacent, so this is a legal boardspace if all other restrictions are passed.
+                $neightbourDieFound = true;
+            }
+        }
+        if (!$neightbourDieFound) {
+            return false;
+        }
+
+        $boardSpaces = $this->getNeighbouringBoardSpaces($x, $y, false);
+        foreach ($boardSpaces as $boardSpace){
+            if ($boardSpace->die){
+                if ($boardSpace->die->color == $die->color) {
+                    return false;
+                }
+                if ($boardSpace->die->value == $die->value) {
+                    $positionLegal = false;
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * @param $x
+     * @param $y
+     * @param $includeDiagonal
+     * @return BoardSpace[]
+     */
+    public function getNeighbouringBoardSpaces($x, $y, $includeDiagonal) {
+        $boardSpaces = [];
+        for($xDif = -1; $xDif <= 1; $xDif++) {
+            for($yDif = -1; $yDif <= 1; $yDif++) {
+                if ($xDif == 0 && $yDif == 0){
+                    continue;
+                }
+                if (!$includeDiagonal && ($xDif != 0 && $yDif != 0)) {
+                    continue;
+                }
+                if ($x + $xDif < 0 || $x + $xDif > self::WIDTH - 1) {
+                    continue;
+                }
+                if ($y + $yDif < 0 || $y + $yDif > self::HEIGHT - 1) {
+                    continue;
+                }
+                $boardSpaces[] = $this->spaces[$y + $yDif][$x + $xDif];
+            }
+        }
+        return $boardSpaces;
+
+        if ($x > 0) $boardSpaces[] = [$x - 1];
     }
 
 }

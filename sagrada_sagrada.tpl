@@ -79,7 +79,7 @@
     */
 
     var jstpl_die = '<div class="die die_${color}_${value}" id="${jsPlayerId}_die_${x_y}"></div>';
-    var jstpl_draftpool_die = '<div class="die die_${color}_${value} draftpool-die" id="die_${id}" data-id="${id}" data-color="${color}" data-value="${value}" data-legal-positions="${legalPositions}" style="left: ${left}px;"></div>';
+    var jstpl_draftpool_die = '<div class="die die_${color}_${value} draftpool-die" id="die_${id}" title="${legalPositionsString}" data-id="${id}" data-color="${color}" data-value="${value}" data-legal-positions="${legalPositions}" style="left: ${left}px;"></div>';
 
 </script>
 
