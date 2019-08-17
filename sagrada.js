@@ -372,27 +372,42 @@ define([
                 // Preventing default browser reaction
                 dojo.stopEvent(e);
 
+                let selectedDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
+
                 // Deselect previous selection.
                 dojo.query("#draftpool .active_die").removeClass("active_die");
 
-                // Select die
-                dojo.addClass(e.target.id, 'active_die');
+                // Remove previous click handlers and legalPositon borders.
+                dojo.query('#' + this.getCurrentBoardId() + ' .square').removeClass('legalPosition');
+                dojo.query('#' + this.getCurrentBoardId() + ' .square').forEach(function (node) {
+                    // node.removeClass('legalPosition');
+                    if (typeof node._connectHandlers != "undefined") {
+                        dojo.forEach(node._connectHandlers, "dojo.disconnect(item)");
+                    }
+                });
 
-                this.activeDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
+                if (selectedDie == this.activeDie) {
+                    this.activeDie = null;
+                }
+                else {
+                    // Select die
+                    dojo.addClass(e.target.id, 'active_die');
 
-                for (let i = 0; i < this.activeDie.draftLegalPositions.length; i++) {
-                    let id = this.player_id + "_square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
+                    this.activeDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
 
-                    dojo.query('#' + id).addClass('legalPosition');
+                    for (let i = 0; i < this.activeDie.draftLegalPositions.length; i++) {
+                        let id = this.player_id + "_square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
 
-                    if (this.player_id == this.getActivePlayerId()) {
-                        console.log('id: ', id);
-                        let boardSpace = dojo.query("#" + id)[0];
-                        boardSpace._connectHandlers = [];
-                        boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
+                        dojo.query('#' + id).addClass('legalPosition');
+
+                        if (this.player_id == this.getActivePlayerId()) {
+                            console.log('id: ', id);
+                            let boardSpace = dojo.query("#" + id)[0];
+                            boardSpace._connectHandlers = [];
+                            boardSpace._connectHandlers.push(dojo.connect(boardSpace, 'onclick', this, this.onBoardSpaceClick));
+                        }
                     }
                 }
-
             },
 
             onBoardSpaceClick: function (e) {
