@@ -23,11 +23,11 @@ class Colors {
 
     public function __construct() {
         $this->colors = [
-            'R' => new Color('R', 'Red'),
-            'G' => new Color('G', 'Green'),
-            'B' => new Color('B', 'Blue'),
-            'Y' => new Color('Y', 'Yellow'),
-            'P' => new Color('P', 'Purple'),
+            'R' => new Color('R', 'Red', Color::RED),
+            'G' => new Color('G', 'Green', Color::GREEN),
+            'B' => new Color('B', 'Blue', Color::BLUE),
+            'Y' => new Color('Y', 'Yellow', Color::YELLOW),
+            'P' => new Color('P', 'Purple', Color::PURPLE),
         ];
     }
 

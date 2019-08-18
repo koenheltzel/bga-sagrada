@@ -21,11 +21,12 @@ define([
         "dojo/on",
         "dojo/_base/lang",
         "dojo/dom-attr",
+        "dojo/dom-style",
         "dojo/NodeList-dom",
         "ebg/core/gamegui",
         "ebg/counter"
     ],
-    function (dojo, declare, on, lang, domAttr) {
+    function (dojo, declare, on, lang, domAttr, domStyle) {
         return declare("bgagame.sagrada", ebg.core.gamegui, {
             constructor: function () {
                 console.log('sagrada constructor');
@@ -379,6 +380,7 @@ define([
 
                 // Remove previous click handlers and legalPositon borders.
                 dojo.query('#' + this.getCurrentBoardId() + ' .square').removeClass('legalPosition');
+                dojo.query('#' + this.getCurrentBoardId() + ' .square').style('border-color', 'none');
                 dojo.query('#' + this.getCurrentBoardId() + ' .square').forEach(function (node) {
                     // node.removeClass('legalPosition');
                     if (typeof node._connectHandlers != "undefined") {
@@ -399,6 +401,7 @@ define([
                         let id = this.player_id + "_square_" + this.activeDie.draftLegalPositions[i][0] + "_" + this.activeDie.draftLegalPositions[i][1];
 
                         dojo.query('#' + id).addClass('legalPosition');
+                        dojo.query('#' + id).style('border-color', '#' + selectedDie.color.hexColor);
 
                         if (this.player_id == this.getActivePlayerId()) {
                             console.log('id: ', id);
