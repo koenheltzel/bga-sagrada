@@ -394,6 +394,7 @@ define([
                 else {
                     // Select die
                     dojo.addClass(e.target.id, 'active_die');
+                    dojo.style(e.target.id, "border-color", '#' + selectedDie.color.hexColor);
 
                     this.activeDie = this.getDieFromDraftPool(domAttr.get(e.target, 'data-id'));
 
