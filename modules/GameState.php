@@ -105,11 +105,4 @@ class GameState {
         return $total;
     }
 
-    /**
-     * @return PublicObjective[]
-     */
-    public function getPublicObjectives() {
-        return PublicObjectives::getPublicObjectives($this->publicObjectiveIds);
-    }
-
 }

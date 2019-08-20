@@ -10,7 +10,10 @@ class PublicObjectives {
      * @param Array $ids
      * @return PublicObjective[]
      */
-    public static function getPublicObjectives($ids) {
+    public static function getPublicObjectives($ids=null) {
+        if (is_null($ids)) {
+            $ids = GameState::get()->publicObjectiveIds;
+        }
         $idsString = implode(',', $ids);
         $sql = "
             SELECT *

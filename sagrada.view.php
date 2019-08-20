@@ -25,6 +25,7 @@
  */
 
 use Sag\Colors;
+use Sag\PublicObjectives;
 
 require_once(APP_BASE_PATH . "view/common/game.view.php");
 
@@ -73,7 +74,7 @@ class view_sagrada_sagrada extends game_view {
         }
 
         $this->page->begin_block("sagrada_sagrada", "publicobjective");
-        foreach (\Sag\GameState::get()->getPublicObjectives() as $publicObjective) {
+        foreach (PublicObjectives::getPublicObjectives() as $publicObjective) {
             $this->page->insert_block("publicobjective", [
                 'name' => $publicObjective->name,
                 'description' => $publicObjective->description,
