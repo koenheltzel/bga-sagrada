@@ -74,6 +74,17 @@
     </div>
 </div>
 
+<div class="whiteblock" id="publicobjectives-container">
+    <h3>Public objectives:</h3>
+    <span id="publicobjectives">
+        <ul>
+            <!-- BEGIN publicobjective -->
+            <li><strong>{name}:</strong> {description} ({points} points)</li>
+            <!-- END publicobjective -->
+        </ul>
+    </div>
+</div>
+
 
 <script type="text/javascript">
 

@@ -31,7 +31,7 @@ class Patterns {
      * @return Pattern
      */
     public static function getPattern($id) {
-        return Patterns::getPatterns([$id])[0];
+        return self::getPatterns([$id])[0];
     }
 
 }

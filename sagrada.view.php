@@ -72,6 +72,15 @@ class view_sagrada_sagrada extends game_view {
             ]);
         }
 
+        $this->page->begin_block("sagrada_sagrada", "publicobjective");
+        foreach (\Sag\GameState::get()->getPublicObjectives() as $publicObjective) {
+            $this->page->insert_block("publicobjective", [
+                'name' => $publicObjective->name,
+                'description' => $publicObjective->description,
+                'points' => $publicObjective->points
+            ]);
+        }
+
 
 
         $this->page->begin_block("sagrada_sagrada", "pattern_selection_pattern");
