@@ -25,6 +25,9 @@
  */
 
 use Sag\Colors;
+use Sag\PlayerData;
+use Sag\PlayerDatas;
+use Sag\PrivateObjectives;
 use Sag\PublicObjectives;
 
 require_once(APP_BASE_PATH . "view/common/game.view.php");
@@ -82,7 +85,15 @@ class view_sagrada_sagrada extends game_view {
             ]);
         }
 
+        $playerData = PlayerDatas::get()->getPlayerData($this->game->getCurrentPlayerId());
 
+        $this->page->begin_block("sagrada_sagrada", "privateobjective");
+        foreach ($playerData->privateObjectives as $privateObjective) {
+            $this->page->insert_block("privateobjective", [
+                'color' => $privateObjective->color->name,
+                'hex' => $privateObjective->color->hexColor
+            ]);
+        }
 
         $this->page->begin_block("sagrada_sagrada", "pattern_selection_pattern");
         for ($i = 1; $i <= 4; $i++) {

@@ -85,6 +85,15 @@
     </div>
 </div>
 
+<div class="whiteblock" id="privateobjectives-container">
+    <h3>Private objective(s):</h3>
+    <div id="privateobjectives">
+        <!-- BEGIN privateobjective -->
+        <strong style="color: #{hex}">{color}:</strong>
+        <!-- END privateobjective -->
+    </div>
+</div>
+
 
 <script type="text/javascript">
 

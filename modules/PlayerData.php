@@ -11,6 +11,9 @@ class PlayerData {
      */
     public $patterns;
 
+    /**
+     * @var PrivateObjective[]
+     */
     public $privateObjectives;
 
     public $tokens;
@@ -18,7 +21,7 @@ class PlayerData {
     public function __construct($data) {
         $this->playerId = $data['player_id'];
         $this->patterns = Patterns::getPatterns(explode(',', $data['sag_patterns']));
-        $this->privateObjectives = $data['sag_private_objectives'];
+        $this->privateObjectives = PrivateObjectives::getPrivateObjectives(explode(',', $data['sag_private_objectives']));
         $this->tokens = $data['sag_tokens'];
     }
 
