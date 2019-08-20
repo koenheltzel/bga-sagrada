@@ -218,7 +218,7 @@ define([
                         id: die.draftPoolId,
                         legalPositionsString: legalPositionsString,
                         legalPositions: JSON.stringify(die.draftLegalPositions),
-                        color: die.color.char,
+                        jsColor: die.color.char,
                         value: die.value,
                     }), 'draftpool');
                 }
@@ -247,7 +247,7 @@ define([
                                 //TODO: use addDieToBoard here by making that function more flebible?
                                 dojo.place(this.format_block('jstpl_die', {
                                     x_y: x + '_' + y,
-                                    color: boardSpace.die.color.char,
+                                    jsColor: boardSpace.die.color.char,
                                     value: boardSpace.die.value,
                                     jsPlayerId: playerId,
                                 }), playerId + '_dice');
