@@ -17,6 +17,8 @@ Maxiumum cards onscreen:
 
 https://spritegen.website-performance.org/
 
+https://thetascript.com/jqueryvsdojo/
+
 sagrada.js
 Ajax call in click handler to /sagrada/sagrada/actionSelectPattern.html
 
