@@ -284,7 +284,7 @@
     background-color: #222222;
 }
 .pattern-sprite {
-    background-image: url('img/patterns.png');
+    background-image: url('img/patterns.jpg');
     background-repeat: no-repeat;
     display: block;
     cursor: pointer;
@@ -295,144 +295,213 @@
 
 .pattern-sprite-1 {
     width: 233px;
-    height: 205px;
+    height: 206px;
     background-position: 0 0;
 }
 
 .pattern-sprite-10 {
     width: 233px;
-    height: 205px;
+    height: 206px;
     background-position: -233px 0;
 }
 
 .pattern-sprite-11 {
     width: 233px;
-    height: 205px;
+    height: 206px;
     background-position: -466px 0;
 }
 
 .pattern-sprite-12 {
     width: 233px;
-    height: 205px;
+    height: 206px;
     background-position: -699px 0;
 }
 
 .pattern-sprite-13 {
     width: 233px;
-    height: 205px;
-    background-position: -932px 0;
+    height: 206px;
+    background-position: 0 -206px;
 }
 
 .pattern-sprite-14 {
     width: 233px;
-    height: 205px;
-    background-position: -1165px 0;
+    height: 206px;
+    background-position: -233px -206px;
 }
 
 .pattern-sprite-15 {
     width: 233px;
-    height: 205px;
-    background-position: -1398px 0;
+    height: 206px;
+    background-position: -466px -206px;
 }
 
 .pattern-sprite-16 {
     width: 233px;
-    height: 205px;
-    background-position: -1631px 0;
+    height: 206px;
+    background-position: -699px -206px;
 }
 
 .pattern-sprite-17 {
     width: 233px;
-    height: 205px;
-    background-position: -1864px 0;
+    height: 206px;
+    background-position: 0 -412px;
 }
 
 .pattern-sprite-18 {
     width: 233px;
-    height: 205px;
-    background-position: -2097px 0;
+    height: 206px;
+    background-position: -233px -412px;
 }
 
 .pattern-sprite-19 {
     width: 233px;
-    height: 205px;
-    background-position: -2330px 0;
+    height: 206px;
+    background-position: -466px -412px;
 }
 
 .pattern-sprite-2 {
     width: 233px;
-    height: 205px;
-    background-position: -2563px 0;
+    height: 206px;
+    background-position: -699px -412px;
 }
 
 .pattern-sprite-20 {
     width: 233px;
-    height: 205px;
-    background-position: -2796px 0;
+    height: 206px;
+    background-position: 0 -618px;
 }
 
 .pattern-sprite-21 {
     width: 233px;
-    height: 205px;
-    background-position: -3029px 0;
+    height: 206px;
+    background-position: -233px -618px;
 }
 
 .pattern-sprite-22 {
     width: 233px;
-    height: 205px;
-    background-position: -3262px 0;
+    height: 206px;
+    background-position: -466px -618px;
 }
 
 .pattern-sprite-23 {
     width: 233px;
-    height: 205px;
-    background-position: -3495px 0;
+    height: 206px;
+    background-position: -699px -618px;
 }
 
 .pattern-sprite-24 {
     width: 233px;
-    height: 205px;
-    background-position: -3728px 0;
+    height: 206px;
+    background-position: 0 -824px;
 }
 
 .pattern-sprite-3 {
     width: 233px;
-    height: 205px;
-    background-position: -3961px 0;
+    height: 206px;
+    background-position: -233px -824px;
 }
 
 .pattern-sprite-4 {
     width: 233px;
-    height: 205px;
-    background-position: -4194px 0;
+    height: 206px;
+    background-position: -466px -824px;
 }
 
 .pattern-sprite-5 {
     width: 233px;
-    height: 205px;
-    background-position: -4427px 0;
+    height: 206px;
+    background-position: -699px -824px;
 }
 
 .pattern-sprite-6 {
     width: 233px;
-    height: 205px;
-    background-position: -4660px 0;
+    height: 206px;
+    background-position: -932px 0;
 }
 
 .pattern-sprite-7 {
     width: 233px;
-    height: 205px;
-    background-position: -4893px 0;
+    height: 206px;
+    background-position: -932px -206px;
 }
 
 .pattern-sprite-8 {
     width: 233px;
-    height: 205px;
-    background-position: -5126px 0;
+    height: 206px;
+    background-position: -932px -412px;
 }
 
 .pattern-sprite-9 {
     width: 233px;
-    height: 205px;
-    background-position: -5359px 0;
+    height: 206px;
+    background-position: -932px -618px;
+}
+
+.publicobjective-sprite {
+    background-image: url('img/publicobjectives.png');
+    background-repeat: no-repeat;
+    display: block;
+    border-radius: 10px;
+    margin-right:10px;
+    margin-bottom:10px;
+}
+
+.publicobjective-sprite-1 {
+    width: 191px;
+    height: 265px;
+    background-position: 0 0;
+}
+
+.publicobjective-sprite-10 {
+    width: 191px;
+    height: 265px;
+    background-position: -191px 0;
+}
+
+.publicobjective-sprite-2 {
+    width: 191px;
+    height: 265px;
+    background-position: -382px 0;
+}
+
+.publicobjective-sprite-3 {
+    width: 191px;
+    height: 265px;
+    background-position: 0 -265px;
+}
+
+.publicobjective-sprite-4 {
+    width: 191px;
+    height: 265px;
+    background-position: -191px -265px;
+}
+
+.publicobjective-sprite-5 {
+    width: 191px;
+    height: 265px;
+    background-position: -382px -265px;
+}
+
+.publicobjective-sprite-6 {
+    width: 191px;
+    height: 265px;
+    background-position: -573px 0;
+}
+
+.publicobjective-sprite-7 {
+    width: 191px;
+    height: 265px;
+    background-position: -573px -265px;
+}
+
+.publicobjective-sprite-8 {
+    width: 191px;
+    height: 265px;
+    background-position: 0 -530px;
+}
+
+.publicobjective-sprite-9 {
+    width: 191px;
+    height: 265px;
+    background-position: -191px -530px;
 }

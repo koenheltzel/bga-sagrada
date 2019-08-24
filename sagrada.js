@@ -213,13 +213,13 @@ define([
                     }
 
                     dojo.place(this.format_block('jstpl_draftpool_die', {
-                        i: i,
-                        left: i * 40 + 10,
-                        id: die.draftPoolId,
-                        legalPositionsString: legalPositionsString,
-                        legalPositions: JSON.stringify(die.draftLegalPositions),
+                        jsI: i,
+                        jsLeft: i * 40 + 10,
+                        jsId: die.draftPoolId,
+                        jsLegalPositionsString: legalPositionsString,
+                        jsLegalPositions: JSON.stringify(die.draftLegalPositions),
                         jsColor: die.color.char,
-                        value: die.value,
+                        jsValue: die.value,
                     }), 'draftpool');
                 }
                 dojo.style('draftpool-container', 'display', draftPool.length > 0 ? 'block' : 'none');
@@ -246,9 +246,9 @@ define([
                             if (boardSpace.die !== null) {
                                 //TODO: use addDieToBoard here by making that function more flebible?
                                 dojo.place(this.format_block('jstpl_die', {
-                                    x_y: x + '_' + y,
+                                    jsXY: x + '_' + y,
                                     jsColor: boardSpace.die.color.char,
-                                    value: boardSpace.die.value,
+                                    jsValue: boardSpace.die.value,
                                     jsPlayerId: playerId,
                                 }), playerId + '_dice');
 
@@ -293,9 +293,9 @@ define([
 
             addDieToBoard: function (draftPoolId, x, y, color, value, playerId) {
                 dojo.place(this.format_block('jstpl_die', {
-                    x_y: x + '_' + y,
-                    color: color,
-                    value: value,
+                    jsXY: x + '_' + y,
+                    jsColor: color,
+                    jsValue: value,
                     jsPlayerId: playerId,
                 }), playerId + '_dice');
 

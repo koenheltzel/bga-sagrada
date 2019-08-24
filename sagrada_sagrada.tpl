@@ -105,8 +105,8 @@
 
     */
 
-    var jstpl_die = '<div class="die die_${jsColor}_${value}" id="${jsPlayerId}_die_${x_y}"></div>';
-    var jstpl_draftpool_die = '<div class="die die_${jsColor}_${value} draftpool-die" id="die_${id}" title="${legalPositionsString}" data-id="${id}" data-color="${jsColor}" data-value="${value}" data-legal-positions="${legalPositions}" style="left: ${left}px;"></div>';
+    var jstpl_die = '<div class="die die_${jsColor}_${jsValue}" id="${jsPlayerId}_die_${jsXY}"></div>';
+    var jstpl_draftpool_die = '<div class="die die_${jsColor}_${jsValue} draftpool-die" id="die_${jsId}" title="${jsLegalPositionsString}" data-id="${jsId}" data-color="${jsColor}" data-value="${jsValue}" data-legal-positions="${jsLegalPositions}" style="left: ${jsLeft}px;"></div>';
 
 </script>
 
