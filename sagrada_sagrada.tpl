@@ -77,12 +77,10 @@
 <div class="whiteblock" id="publicobjectives-container">
     <h3>Public objectives:</h3>
     <span id="publicobjectives">
-        <ul>
-            <!-- BEGIN publicobjective -->
-            <li><strong>{name}:</strong> {description} ({points} points)</li>
-            <!-- END publicobjective -->
-        </ul>
-    </div>
+        <!-- BEGIN publicobjective -->
+        <div id="publicobjective_{id}" class="publicobjective-sprite publicobjective-sprite-{id}" title="{name}: {description} ({points} points)">
+        </div>
+        <!-- END publicobjective -->
 </div>
 
 <div class="whiteblock" id="privateobjectives-container">

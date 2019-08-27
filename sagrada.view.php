@@ -79,6 +79,7 @@ class view_sagrada_sagrada extends game_view {
         $this->page->begin_block("sagrada_sagrada", "publicobjective");
         foreach (PublicObjectives::getPublicObjectives() as $publicObjective) {
             $this->page->insert_block("publicobjective", [
+                'id' => $publicObjective->id,
                 'name' => $publicObjective->name,
                 'description' => $publicObjective->description,
                 'points' => $publicObjective->points
