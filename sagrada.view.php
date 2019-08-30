@@ -91,6 +91,8 @@ class view_sagrada_sagrada extends game_view {
         $this->page->begin_block("sagrada_sagrada", "privateobjective");
         foreach ($playerData->privateObjectives as $privateObjective) {
             $this->page->insert_block("privateobjective", [
+                'description' => $privateObjective->description,
+                'char' => $privateObjective->color->char,
                 'color' => $privateObjective->color->name,
                 'hex' => $privateObjective->color->hexColor
             ]);

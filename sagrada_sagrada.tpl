@@ -35,62 +35,66 @@
     Please REMOVE this comment before publishing your game on BGA
 -->
 
-
-<div class="whiteblock" id="pattern_selection">
-    <h3>Select a window pattern:</h3>
-    <!-- BEGIN pattern_selection_pattern -->
-    <div id="pattern_selection_{number}" class="pattern-sprite">
+<div>
+    <div class="whiteblock" id="pattern_selection">
+        <h3>Select a window pattern:</h3>
+        <!-- BEGIN pattern_selection_pattern -->
+        <div id="pattern_selection_{number}" class="pattern-sprite">
+        </div>
+        <!-- END pattern_selection_pattern -->
     </div>
-    <!-- END pattern_selection_pattern -->
-</div>
 
-<!-- BEGIN board -->
-<div class="board-block whiteblock">
-    <h3 style="color: #{playerColor}">{playerName}:</h3>
-    <div id="board-{playerId}" class="board board-{playerColorChar}">
-        <!-- BEGIN square -->
-        <div id="{playerId}_square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
-        <!-- END square -->
+    <!-- BEGIN board -->
+    <div class="board-block whiteblock">
+        <h3 style="color: #{playerColor}">{playerName}:</h3>
+        <div id="board-{playerId}" class="board board-{playerColorChar}">
+            <!-- BEGIN square -->
+            <div id="{playerId}_square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
+            <!-- END square -->
 
-        <div id="{playerId}_dice">
+            <div id="{playerId}_dice">
+            </div>
+        </div>
+        <div id="pattern-{playerId}">
         </div>
     </div>
-    <div id="pattern-{playerId}">
+    <!-- END board -->
+
+    <div class="whiteblock" id="draftpool-container">
+        <h3>Draft pool:</h3>
+        <div id="draftpool">
+
+        </div>
     </div>
-</div>
-<!-- END board -->
 
-<div class="whiteblock" id="draftpool-container">
-    <h3>Draft pool:</h3>
-    <div id="draftpool">
+    <div class="whiteblock" id="roundtrack-container">
+        <h3>Round track:</h3>
+        <div id="roundtrack">
 
+        </div>
     </div>
-</div>
 
-<div class="whiteblock" id="roundtrack-container">
-    <h3>Round track:</h3>
-    <div id="roundtrack">
-
-    </div>
-</div>
-
-<div class="whiteblock" id="publicobjectives-container">
-    <h3>Public objectives:</h3>
-    <span id="publicobjectives">
+    <div class="whiteblock" id="publicobjectives-container">
+        <h3>Public objectives:</h3>
+        <span id="publicobjectives">
         <!-- BEGIN publicobjective -->
         <div id="publicobjective_{id}" class="publicobjective-sprite publicobjective-sprite-{id}" title="{name}: {description} ({points} points)">
         </div>
-        <!-- END publicobjective -->
-</div>
+            <!-- END publicobjective -->
+    </div>
 
-<div class="whiteblock" id="privateobjectives-container">
-    <h3>Private objective(s):</h3>
-    <div id="privateobjectives">
-        <!-- BEGIN privateobjective -->
-        <strong style="color: #{hex}">{color}:</strong>
-        <!-- END privateobjective -->
+    <div class="whiteblock" id="privateobjectives-container">
+        <h3>Private objective(s):</h3>
+        <div id="privateobjectives">
+            <!-- BEGIN privateobjective -->
+            <div id="privateobjective_{id}" class="privateobjective-sprite privateobjective-sprite-{char}" title="{description}">
+            </div>
+            <!-- END privateobjective -->
+        </div>
     </div>
 </div>
+
+
 
 
 <script type="text/javascript">

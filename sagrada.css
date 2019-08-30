@@ -69,6 +69,11 @@
     padding-bottom: 0px;
 }
 
+#privateobjectives-container {
+    overflow: hidden;
+    padding-bottom: 0px;
+}
+
 #roundtrack {
     width: 477px;
     height: 147px;
@@ -438,6 +443,47 @@
     height: 206px;
     background-position: -932px -618px;
 }
+
+.privateobjective-sprite {
+    background-image: url('img/privateobjectives.png');
+    background-repeat: no-repeat;
+    display: block;
+    float: left;
+    border-radius: 8px;
+    margin-right: 8px;
+    margin-bottom: 8px;
+}
+
+.privateobjective-sprite-B {
+    width: 191px;
+    height: 265px;
+    background-position: 0 0;
+}
+
+.privateobjective-sprite-G {
+    width: 191px;
+    height: 265px;
+    background-position: -191px 0;
+}
+
+.privateobjective-sprite-P {
+    width: 191px;
+    height: 265px;
+    background-position: -382px 0;
+}
+
+.privateobjective-sprite-R {
+    width: 191px;
+    height: 265px;
+    background-position: 0 -265px;
+}
+
+.privateobjective-sprite-Y {
+    width: 191px;
+    height: 265px;
+    background-position: -191px -265px;
+}
+
 
 .publicobjective-sprite {
     background-image: url('img/publicobjectives.png');
