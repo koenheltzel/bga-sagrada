@@ -46,7 +46,15 @@
 
     <!-- BEGIN board -->
     <div class="board-block whiteblock">
-        <h3 style="color: #{playerColor}">{playerName}:</h3>
+        <span class="favor_token_badge">
+                <span>33</span>
+                <div class="favor_token"></div>
+            </span>
+        <h3>
+            <span style="color: #{playerColor}">
+                {playerName}
+            </span>
+        </h3>
         <div id="board-{playerId}" class="board board-{playerColorChar}">
             <!-- BEGIN square -->
             <div id="{playerId}_square_{X}_{Y}" data-x="{X}" data-y="{Y}" class="square" style="left: {LEFT}px; top: {TOP}px;"></div>
