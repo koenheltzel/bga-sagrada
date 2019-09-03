@@ -47,7 +47,7 @@
     <!-- BEGIN board -->
     <div class="board-block whiteblock">
         <span class="favor_token_badge">
-                <span>33</span>
+                <span>0</span>
                 <div class="favor_token"></div>
             </span>
         <h3>
