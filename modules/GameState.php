@@ -37,6 +37,16 @@ class GameState {
     public $publicObjectiveIds;
 
     /**
+     * @var Array
+     */
+    public $roundPlayerTurns;
+
+    /**
+     * @var int
+     */
+    public $nextStartPlayer;
+
+    /**
      * @var GameState
      */
     static private $instance = null;
@@ -65,6 +75,10 @@ class GameState {
         $this->diceBagY = 18;
         $this->diceBagP = 18;
 
+        $this->roundPlayerTurns = [];
+
+        $this->nextStartPlayer = 0;
+
         $publicObjectivesCount = count($players) > 1 ? 3 : 2; // Normally 3 public objectives are assigned, but in a solo game 2.
         $publicObjectives = Sagrada::DbQuery("SELECT * FROM sag_publicobjectives ORDER BY RAND() LIMIT {$publicObjectivesCount}")->fetch_all(MYSQLI_ASSOC);
         $this->publicObjectiveIds = array_map(function($publicObjective) { return $publicObjective['id'] ;}, $publicObjectives);
@@ -80,11 +94,14 @@ class GameState {
                 $this->{"diceBag$char"} = $result["dice_bag_{$char}"];
             }
             $this->publicObjectiveIds = explode(',', $result['public_objectives']);
+            $this->roundPlayerTurns = empty($result['round_player_turns']) ? [] : explode(',', $result['round_player_turns']);
+            $this->nextStartPlayer = $result['next_start_player'];
         }
     }
 
     public function save() {
         $publicObjectivesIdsString = implode(',',$this->publicObjectiveIds);
+        $roundPlayerTurnsString = implode(',',$this->roundPlayerTurns);
         $sql = "            
             UPDATE sag_game_state
             SET dice_bag_R        = {$this->diceBagR},
@@ -92,7 +109,9 @@ class GameState {
                 dice_bag_B        = {$this->diceBagB},
                 dice_bag_Y        = {$this->diceBagY},
                 dice_bag_P        = {$this->diceBagP},
-                public_objectives = '{$publicObjectivesIdsString}'
+                public_objectives = '{$publicObjectivesIdsString}',
+                round_player_turns        = '{$roundPlayerTurnsString}',
+                next_start_player        = {$this->nextStartPlayer}
         ";
         Sagrada::DbQuery($sql);
     }

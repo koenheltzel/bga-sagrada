@@ -3,6 +3,7 @@
 namespace Sag\States;
 
 use Sag\DraftPool;
+use Sag\GameState;
 use Sagrada;
 
 trait NextRoundTrait {
@@ -12,14 +13,20 @@ trait NextRoundTrait {
 
         $nextPlayerTable = Sagrada::get()->getNextPlayerTable();
 
-        $roundPlayerTable = [];
+        $roundPlayerTurns = [];
         $tmpPlayerId = $nextPlayerTable[0];
+        unset($nextPlayerTable[0]);
         $count = count($nextPlayerTable);
         for($i = 0; $i < $count; $i++) {
-            $roundPlayerTable[] = $tmpPlayerId;
+            $roundPlayerTurns[] = $tmpPlayerId;
             $tmpPlayerId = $nextPlayerTable[$tmpPlayerId];
         }
-        $roundPlayerTable = array_merge($nextPlayerTable, array_reverse($nextPlayerTable));
+        $roundPlayerTurns = array_merge($nextPlayerTable, array_reverse($nextPlayerTable));
+        GameState::get()->roundPlayerTurns = $roundPlayerTurns;
+
+        GameState::get()->nextStartPlayer = $roundPlayerTurns[1];
+
+        GameState::get()->save();
 
         $this->gamestate->nextState();
     }

@@ -272,5 +272,7 @@ CREATE TABLE `sag_game_state` (
                                   `dice_bag_B` int(11) DEFAULT NULL,
                                   `dice_bag_Y` int(11) DEFAULT NULL,
                                   `dice_bag_P` int(11) DEFAULT NULL,
-                                  `public_objectives` varchar(20) DEFAULT NULL
+                                  `public_objectives` varchar(20) DEFAULT NULL,
+                                  `round_player_turns` varchar(255) DEFAULT NULL,
+                                  `next_start_player` varchar(20) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;

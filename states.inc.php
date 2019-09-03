@@ -95,7 +95,16 @@ $machinestates = array(
         "type" => "game",
         "action" => "stNextRound",
         "updateGameProgression" => true,
-        "transitions" => array("" => Sagrada::STATE_PLAYER_TURN )
+        "transitions" => array("" => Sagrada::STATE_NEXT_PLAYER )
+    ),
+
+    Sagrada::STATE_NEXT_PLAYER => array(
+        "name" => "nextPlayer",
+        "description" => '',
+        "type" => "game",
+        "action" => "stNextPlayer",
+        "updateGameProgression" => true,
+        "transitions" => array( "endGame" => 99, "playerTurn" => Sagrada::STATE_PLAYER_TURN, "nextRound" => Sagrada::STATE_NEXT_ROUND)
     ),
 
     // 10
@@ -106,7 +115,7 @@ $machinestates = array(
         "type" => "activeplayer",
         "action" => "stPlayerTurn",
         "possibleactions" => array( "actionDraftDie", "actionUseTool", "actionPass" ),
-        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50, "nextPlayer" => 50 )
+        "transitions" => array( "draftDie" => 20,  "useTool" => 30, "pass" => 50, "nextPlayer" => Sagrada::STATE_NEXT_PLAYER )
     ),
 
     20 => array(
@@ -115,7 +124,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must draft a die'),
         "type" => "activeplayer",
         "possibleactions" => array( "draftDie", "back" ),
-        "transitions" => array( "nextPlayer" => 50, "back" => 10 )
+        "transitions" => array( "nextPlayer" => Sagrada::STATE_NEXT_PLAYER, "back" => Sagrada::STATE_PLAYER_TURN )
     ),
 
     21 => array(
@@ -124,7 +133,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must place the die'),
         "type" => "activeplayer",
         "possibleactions" => array( "playerTurn", "back" ),
-        "transitions" => array( "playerTurn" => 10, "back" => 10 )
+        "transitions" => array( "playerTurn" => Sagrada::STATE_PLAYER_TURN, "back" => 10 )
     ),
 
     30 => array(
@@ -133,7 +142,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must select a tool'),
         "type" => "activeplayer",
         "possibleactions" => array( "selectTool", "back" ),
-        "transitions" => array("selectTool" => 12, "back" => 10 )
+        "transitions" => array("selectTool" => 12, "back" => Sagrada::STATE_PLAYER_TURN )
     ),
 
     31 => array(
@@ -142,16 +151,7 @@ $machinestates = array(
         "descriptionmyturn" => clienttranslate('${you} must select a die from the draft pool to pay for the tool'),
         "type" => "activeplayer",
         "possibleactions" => array( "soloPayTool", "back" ),
-        "transitions" => array( "useTool" => 12, "back" => 10 )
-    ),
-
-    50 => array(
-        "name" => "nextPlayer",
-        "description" => '',
-        "type" => "game",
-        "action" => "stNextPlayer",
-        "updateGameProgression" => true,
-        "transitions" => array( "endGame" => 99, "playerTurn" => 10 )
+        "transitions" => array( "useTool" => 12, "back" => Sagrada::STATE_PLAYER_TURN )
     ),
     
 /*
