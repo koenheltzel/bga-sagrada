@@ -17,6 +17,7 @@
  */
 
 use Sag\Boards;
+use Sag\GameState;
 
 $sagradaNamespaceAutoload = function ($class) {
     $classParts = explode('\\', $class);
@@ -109,6 +110,11 @@ class Sagrada extends Table {
         self::DbQuery($sql);
         self::reattributeColorsBasedOnPreferences($players, $gameinfos['player_colors']);
         self::reloadPlayersBasicInfos();
+
+        // Set nextStartPlayer for first round, so NextRoundTrait can work as it would between rounds.
+        $nextPlayerTable = Sagrada::get()->getNextPlayerTable();
+        GameState::get()->nextStartPlayer = $nextPlayerTable[0];
+        GameState::get()->save();
 
         /************ Start the game initialization *****/
 

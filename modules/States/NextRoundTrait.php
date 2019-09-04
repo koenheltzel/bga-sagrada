@@ -14,7 +14,7 @@ trait NextRoundTrait {
         $nextPlayerTable = Sagrada::get()->getNextPlayerTable();
 
         $roundPlayerTurns = [];
-        $tmpPlayerId = $nextPlayerTable[0];
+        $tmpPlayerId = GameState::get()->nextStartPlayer;
         unset($nextPlayerTable[0]);
         $count = count($nextPlayerTable);
         for($i = 0; $i < $count; $i++) {
