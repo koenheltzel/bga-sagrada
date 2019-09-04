@@ -4,6 +4,7 @@ namespace Sag\States;
 
 use Sag\Colors;
 use Sag\GameState;
+use Sagrada;
 
 trait GameSetupTrait {
 
@@ -33,6 +34,10 @@ trait GameSetupTrait {
 
         $i = 0;
         foreach ($players AS $id => $player) {
+            if ($i == 0) {
+                GameState::get()->nextStartPlayer = $id;
+                GameState::get()->save();
+            }
             // Assign 2 random pattern pairs (= 4 patterns) to the player.
             $patternIds = array_map(function($pattern) { return $pattern['id'] ;}, array_slice($patterns, $i * self::PATTERNS_PER_PLAYER, self::PATTERNS_PER_PLAYER) );
             $patternIdsString = implode(',', $patternIds);
@@ -52,8 +57,6 @@ trait GameSetupTrait {
             $i++;
         }
 
-        // Activate first player (which is in general a good idea :) )
-        self::activeNextPlayer();
         $this->gamestate->setAllPlayersMultiactive();
     }
 }
