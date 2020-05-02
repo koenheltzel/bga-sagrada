@@ -65,13 +65,17 @@
 }
 
 #publicobjectives-container {
-    overflow: hidden;
     padding-bottom: 0px;
+    display: inline-block;
 }
 
 #privateobjectives-container {
-    overflow: hidden;
     padding-bottom: 0px;
+    display: inline-block;
+}
+
+#roundtrack-container {
+    display: inline-block;
 }
 
 #roundtrack {
@@ -115,6 +119,7 @@
     height: 567px;
     position: absolute;
     z-index: 2;
+    display: inline-block;
 }
 
 .board-R {
@@ -301,10 +306,16 @@
         background-repeat: none;
     }
 */
- 
+
+#draftpool {
+    width: 477px;
+    height: 147px;
+}
+
 #draftpool-container {
-    height: 60px;
-    display: none;
+    /*height: 60px;*/
+    /*display: none;*/
+    position: relative; /* Needed to make this a positioned ancestor, so dice which are positioned absolute will be correct when draftpool is not all the way left on the screen. */
 }
 
 .draftpool-die {

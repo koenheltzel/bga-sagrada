@@ -222,7 +222,7 @@ define([
                         jsValue: die.value,
                     }), 'draftpool');
                 }
-                dojo.style('draftpool-container', 'display', draftPool.length > 0 ? 'block' : 'none');
+                dojo.style('draftpool-container', 'display', draftPool.length > 0 ? 'inline-block' : 'none');
             },
 
             updateBoards: function (boards) {
