@@ -9,7 +9,7 @@ use Sagrada;
 trait NextRoundTrait {
 
     public function stNextRound() {
-        DraftPool::get()->fill($this->getPlayersNumber() * 3 + 1);
+        DraftPool::get()->fill($this->getPlayersNumber() * 2 + 1);
 
         $nextPlayerTable = Sagrada::get()->getNextPlayerTable();
 
