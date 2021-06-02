@@ -60,7 +60,7 @@ define([
                     dojo.connect(patterns[i], 'onclick', this, this.onSelectPatternClick);
                 }
 
-                on(dojo.query('#draftpool'), ".draftpool-die:click", lang.hitch(this, "onDraftPoolDieClick"));
+                dojo.query('#draftpool').on(".draftpool-die:click", lang.hitch(this, "onDraftPoolDieClick"));
 
                 this.selectPatternSetup(gamedatas);
                 // TODO: Set up your game interface here, according to "gamedatas"
@@ -378,7 +378,7 @@ define([
                 // Deselect previous selection.
                 dojo.query("#draftpool .active_die").removeClass("active_die");
 
-                // Remove previous click handlers and legalPositon borders.
+                // Remove previous click handlers and legalPosition borders.
                 dojo.query('#' + this.getCurrentBoardId() + ' .square').removeClass('legalPosition');
                 dojo.query('#' + this.getCurrentBoardId() + ' .square').style('border-color', 'none');
                 dojo.query('#' + this.getCurrentBoardId() + ' .square').forEach(function (node) {
